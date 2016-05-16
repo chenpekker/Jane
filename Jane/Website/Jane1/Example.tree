@@ -1,0 +1,531 @@
+HOSTTREE
+0	1	2
+1	6	7
+6	8	9
+8	10	11
+10	12	13
+12	14	15
+14	16	17
+16	null	null
+17	88	89
+88	90	91
+90	92	93
+92	null	null
+93	null	null
+91	94	95
+94	null	null
+95	96	97
+96	null	null
+97	98	99
+98	null	null
+99	null	null
+89	null	null
+15	null	null
+13	null	null
+11	38	39
+38	null	null
+39	40	41
+40	null	null
+41	null	null
+9	42	43
+42	44	45
+44	null	null
+45	46	47
+46	null	null
+47	null	null
+43	null	null
+7	48	49
+48	50	51
+50	null	null
+51	52	53
+52	null	null
+53	54	55
+54	null	null
+55	null	null
+49	56	57
+56	null	null
+57	58	59
+58	60	61
+60	62	63
+62	null	null
+63	null	null
+61	64	65
+64	null	null
+65	66	67
+66	null	null
+67	null	null
+59	null	null
+2	68	69
+68	70	71
+70	72	73
+72	null	null
+73	74	75
+74	null	null
+75	null	null
+71	76	77
+76	null	null
+77	null	null
+69	78	79
+78	null	null
+79	80	81
+80	null	null
+81	null	null
+
+HOSTNAMES
+0	0
+1	1
+6	6
+8	8
+10	10
+12	12
+14	14
+16	T. microphylla
+17	17
+88	88
+90	90
+92	T. monospessulana
+93	T. paivae
+91	91
+94	T. maderensis
+95	95
+96	T. stenSPPmic
+97	97
+98	T. stenSPPsten
+99	T. stenSPPser
+89	T.canarensis
+15	T. stenSPSPSPpauc
+13	G. cinerea
+11	11
+38	G. segonnei
+39	39
+40	T.splendens
+41	T. rosmarinifolia
+9	9
+42	42
+44	G. tinctoria
+45	45
+46	G. benehoavensis
+47	G. tenera
+43	G. florida
+7	7
+48	48
+50	Chamaesp trident
+51	51
+52	Retama shaeroc
+53	53
+54	Retama retamae
+55	Retama monosp
+49	49
+56	Laburnum anag
+57	57
+58	58
+60	60
+62	Cytisus albidus
+63	Calicotome vil
+61	61
+64	Ch. proliferus
+65	65
+66	Cytisus scoparius
+67	Cytisus aboreus
+59	Sparto supra
+2	2
+68	68
+70	70
+72	A. nainii
+73	73
+74	A. telonensis
+75	A. boudyi
+71	71
+76	A. mannii
+77	A. complicatus
+69	69
+78	A.decorticans
+79	79
+80	A. anagyrifolius
+81	A. bacquei
+
+PARASITETREE
+3	170	171
+170	172	173
+172	174	175
+174	176	177
+176	178	179
+178	180	181
+180	null	null
+181	null	null
+179	182	183
+182	184	185
+184	186	187
+186	188	189
+188	202	203
+202	204	205
+204	206	207
+206	null	null
+207	null	null
+205	208	209
+208	null	null
+209	null	null
+203	210	211
+210	214	215
+214	216	217
+216	null	null
+217	null	null
+215	null	null
+211	212	213
+212	null	null
+213	null	null
+189	null	null
+187	190	191
+190	194	195
+194	196	197
+196	null	null
+197	null	null
+195	198	199
+198	200	201
+200	null	null
+201	null	null
+199	null	null
+191	192	193
+192	null	null
+193	null	null
+185	null	null
+183	null	null
+177	220	221
+220	222	223
+222	226	227
+226	230	231
+230	null	null
+231	null	null
+227	228	229
+228	null	null
+229	null	null
+223	224	225
+224	null	null
+225	null	null
+221	232	233
+232	null	null
+233	234	235
+234	236	237
+236	null	null
+237	null	null
+235	null	null
+175	null	null
+173	238	239
+238	null	null
+239	240	241
+240	244	245
+244	null	null
+245	246	247
+246	null	null
+247	null	null
+241	242	243
+242	null	null
+243	null	null
+171	248	249
+248	null	null
+249	250	251
+250	null	null
+251	252	253
+252	254	255
+254	null	null
+255	null	null
+253	256	257
+256	null	null
+257	null	null
+
+PARASITENAMES
+3	3
+170	170
+172	172
+174	174
+176	176
+178	178
+180	A. diluta
+181	A. prognata
+179	179
+182	182
+184	184
+186	186
+188	188
+202	202
+204	204
+206	A. equitans
+207	A. sp. 7
+205	205
+208	A. sp. 10
+209	A. sp. 11
+203	203
+210	210
+214	214
+216	A. hakani
+217	A. incuba
+215	A. umbonata
+211	211
+212	A. sp. 13
+213	A. cognata
+189	A. pileolata
+187	187
+190	190
+194	194
+196	A. sp. 8
+197	A. sp. 9
+195	195
+198	198
+200	A. modica
+201	A. sp. 12
+199	A. dividens
+191	191
+192	A. nigralineata
+193	A. proboscidea
+185	A. sp. 6
+183	A. sp. 5
+177	177
+220	220
+222	222
+226	226
+230	L. maura
+231	L. blandula
+227	227
+228	L. adusta
+229	L. variegata
+223	223
+224	L. retamae
+225	L. monospermae
+221	221
+232	L. sp. 17
+233	233
+234	234
+236	L. sp. 16
+237	L. ima
+235	L. sp. 15
+175	A. sp. 4
+173	173
+238	A. sp. 2
+239	239
+240	240
+244	A. spartiophila
+245	245
+246	A. delarbrei
+247	A. sp. 1
+241	241
+242	A. cytisi
+243	A. sp. 3
+171	171
+248	A. sulci
+249	249
+250	Ar. genistae
+251	251
+252	252
+254	Ar. sp. 14
+255	Ar. nubivaga
+253	253
+256	Ar. devia
+257	Ar. adenocarpi
+
+PHI
+75	257
+78	175
+77	193
+77	232
+64	199
+74	243
+93	217
+95	208
+16	206
+47	215
+59	255
+16	181
+59	247
+67	246
+38	212
+62	231
+89	189
+13	228
+77	192
+51	224
+62	238
+55	225
+56	229
+66	244
+92	216
+59	254
+81	235
+41	183
+40	185
+95	200
+64	256
+63	242
+43	213
+80	237
+66	250
+89	196
+15	209
+54	248
+89	197
+16	180
+15	201
+50	230
+78	236
+89	207
+
+HOSTRANKS
+0	1
+1	1
+6	1
+8	1
+10	1
+12	1
+14	1
+16	1
+17	1
+88	1
+90	1
+92	1
+93	1
+91	1
+94	1
+95	1
+96	1
+97	1
+98	1
+99	1
+89	1
+15	1
+13	1
+11	1
+38	1
+39	1
+40	1
+41	1
+9	1
+42	1
+44	1
+45	1
+46	1
+47	1
+43	1
+7	1
+48	1
+50	1
+51	1
+52	1
+53	1
+54	1
+55	1
+49	1
+56	1
+57	1
+58	1
+60	1
+62	1
+63	1
+61	1
+64	1
+65	1
+66	1
+67	1
+59	1
+2	1
+68	1
+70	1
+72	1
+73	1
+74	1
+75	1
+71	1
+76	1
+77	1
+69	1
+78	1
+79	1
+80	1
+81	1
+
+PARASITERANKS
+3	1
+170	1
+172	1
+174	1
+176	1
+178	1
+180	1
+181	1
+179	1
+182	1
+184	1
+186	1
+188	1
+202	1
+204	1
+206	1
+207	1
+205	1
+208	1
+209	1
+203	1
+210	1
+214	1
+216	1
+217	1
+215	1
+211	1
+212	1
+213	1
+189	1
+187	1
+190	1
+194	1
+196	1
+197	1
+195	1
+198	1
+200	1
+201	1
+199	1
+191	1
+192	1
+193	1
+185	1
+183	1
+177	1
+220	1
+222	1
+226	1
+230	1
+231	1
+227	1
+228	1
+229	1
+223	1
+224	1
+225	1
+221	1
+232	1
+233	1
+234	1
+236	1
+237	1
+235	1
+175	1
+173	1
+238	1
+239	1
+240	1
+244	1
+245	1
+246	1
+247	1
+241	1
+242	1
+243	1
+171	1
+248	1
+249	1
+250	1
+251	1
+252	1
+254	1
+255	1
+253	1
+256	1
+257	1

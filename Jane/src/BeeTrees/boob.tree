@@ -1,0 +1,43 @@
+HOSTTREE
+1       2       3
+2
+3       4
+4       5
+5
+
+
+HOSTNAMES
+1       
+2       genius
+3       
+4       
+5       dood
+
+
+PARASITETREE
+6       7       8
+7
+8
+
+
+PARASITENAMES
+6       
+7       bob
+8       
+
+
+PHI
+2       8
+5       7
+
+HOSTRANKS
+1       1
+2       1
+3       1
+4       1
+5       1
+
+PARASITERANKS
+6       1
+7       1
+8       1

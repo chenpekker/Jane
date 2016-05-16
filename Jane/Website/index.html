@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Jane 4</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+    </head>
+    <body>
+        <div id="outer-container">
+
+        <a id="top" href="index.html" ><img src="JaneTransLogo-thin.png" alt="Jane"/></a>
+
+        <div id="inner-container" class="contents-pattern">
+        <h1>Who is Jane?</h1>
+
+        <p>
+        Jane is a software tool for the <strong>cophylogeny reconstruction problem.</strong>
+        The input to Jane is a file containing a "host" tree, a "parasite" tree, and a mapping of the tips of the
+        parasite tree to tips of the host tree.   The user may
+        specify the costs of each of five types of events:
+        cospeciations, duplications, host switches, losses, and failure to diverge.
+        Jane then endeavors to find least cost mappings of the
+        parasite tree onto the host tree subject to the given tip
+        mapping.  Note that while this documentation refers to the trees as "host" and "parasite", Jane is also used to reconcile other pairs of trees such as species trees and gene trees.
+	
+    </p>
+    
+        
+        <h2>Jane <font color="gold">4</font></h2>
+        <p>
+        Jane 4 supports the following features and capabilities. For more information on how to use
+        Jane, view the <a href="tutorial.html">tutorial</a>. 
+        </p>
+        
+        <p>
+        <ul class="standard">
+            <li> Functionality:
+                <ul>
+		    <li> Has a graphical tree editor for constructing host/parasite trees, their tip associations, and other annotations.  (New to Jane 4)
+                    <li> Reads both <code>.tree</code> and <code>.nex</code> file formats.  (New to Jane 4)
+		    <li> Supports automatic resolution of polytomies.  (New to Jane 4)
+		    <li> Provides support values on events.  (New to Jane 4)
+                    <li> Recognizes two different cost models: edge-based and node-based.
+                    <li> Allows five different event types including failure to diverge.
+                    <li> Supports preferential host switching through limited host switch
+                         distance and/or variable switching costs. 
+                    <li> Uses time zone information to order events. 
+                    <li> Provides both a graphical user interface and a command line interface. 
+                    <li> Has an interactive solution viewer that allows the user to modify 
+                         solutions and see the impact on cost.
+                    <li> Can statistically analyze solutions by comparisons with random samples. (New features added in Jane 4)
+                </ul>
+            </li>
+            <li> Performance:
+                <ul>
+                    <li> Uses a heuristic approach, running a
+                         <a href="http://en.wikipedia.org/wiki/Genetic_algorithm">genetic algorithm</a>
+                         with an internal <a href="http://en.wikipedia.org/wiki/Fitness_function">fitness function</a>
+                         that is evaluated using a  
+                         <a href="http://en.wikipedia.org/wiki/Dynamic_programming">dynamic programming</a> algorithm.
+                         Jane is able to provide solutions that are always correct and often optimal (though 
+                         optimal solutions are not guaranteed and it is believed that optimal solutions cannot 
+                         be found in polynomial time since the cophylogeny reconstruction problems is known 
+                         to be <a href = "http://en.wikipedia.org/wiki/NP-complete">NP-complete</a>).
+                    <li> Permits adjusting many parameters of the genetic algorithm.
+                    <li> Is multi-threaded and can thus exploit multi-core architectures.
+                    <li> Has been successfully used to analyze pairs of trees with over 200 tips per tree. 
+                </ul>
+            </li>
+        </ul>
+        </p>
+        
+        <p>
+           For more information on the underlying algorithms used in Jane, please refer to the paper
+           <a href="http://www.almob.org/content/5/1/16">Jane: A New Tool for the Cophylogeny Reconstruction Problem</a>, <i>Algorithms for Molecular Biology</i> 2010, <b>5</b>:16.
+        </p>
+
+        <p>
+            For more information about other cophylogeny software packages, see
+            the <a href="software.html">Software Comparison</a> page.
+        </p>
+        
+        
+        <h2 id="get">Get Jane 4! </h2>
+            <p>Jane 4 is the latest version of Jane and it is freely available for research and 
+                    educational purposes. It is open-source and distributed under a combination 
+                    of the FreeBSD and Apache Software Foundation 2.0 licenses. (Some 
+                    components are under the former, and some are under the latter.)
+            </p>
+            <p>Jane is implemented in Java and runs on all platforms supporting Java
+                    1.5 or higher.  Jane can be downloaded as a platform specific application
+                    or a platform independent "JAR."
+            </p>
+
+            <a style="display:block; text-align:center; margin-bottom:2em;"
+            href="form.html">DOWNLOAD Jane 4</a>
+
+        <h2>Documentation</h2>
+        <ul>
+            <li><a href="FAQ.html"> Frequently Asked Questions </a></li>
+            <li><a href="tutorial.html">Tutorial</a></li>
+            <li><a href="fileformats.html">Information on file formats read by Jane</a></li>
+            <li><a href="parameters.html">Choosing parameter values for Jane</a></li>
+            <li><a href="CostEvents.html"> Explanation of Jane's cost models and events</a></li>
+            <li><a href="Polytomy.html"> Polytomy Resolution in Jane</a></li>
+        </ul>
+
+        <br/>
+        <h2>Example Trees</h2>
+
+        <p>Several example trees from the literature are available for download
+        <a href="SampleTrees.html">here</a>.</p>
+
+        <h2>Older Versions</h2>
+
+        <p>
+        Versions 4, 3, and 2 are available at the <a href="form.html">download page</a>. 
+        Jane 1 can be found at the <a href="Jane1/index.html">Jane 1 website</a>.
+        </p>
+
+
+        <h2>Contact</h2>
+        <p>Please contact Dr. Ran "RON" Libeskind-Hadas (<a href="http://www.google.com/recaptcha/mailhide/d?k=01Ugh9xUdmAj9IlreGfJNziA==&amp;c=P3fMwhHp-ipXY4Gh8JByTg==" onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501Ugh9xUdmAj9IlreGfJNziA\75\75\46c\75P3fMwhHp-ipXY4Gh8JByTg\75\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">click here to show e-mail address</a>)
+            with questions or comments regarding Jane.</p>
+
+
+    <h2>Credits and Acknowledgements</h2>
+    <p>
+    Jane was developed in the research group of <a href="http://www.cs.hmc.edu/~hadas">Prof. Ran "RON"
+    Libeskind-Hadas</a> at <a href="http://www.hmc.edu">Harvey Mudd College</a> with support from the U.S. National Science Foundation under grant 0753306 and from the Howard Hughes Medical Institute under grant 52006301.
+    </p>
+
+    <p>Many research students have contributed to the design and implementation of Jane.  The Jane 1 team was Chris Conow, Daniel Fielder, and Yaniv Ovadia.  The Jane 2 team was Benjamin Cousins, John Peebles, Tselil Schramm, and Anak Yodpinyanee. Jane 3 is due to Kevin Black.  The Jane 4 team was Jordan Ezzell, David Lingenbrink, Andrew Michaud, Ki Wan Gkoo, Rebecca Thomas, and Nicole Yu.  Bea Metitiri, Lisa Gai, and Jason Yu also contributed to the project.
+    </p>
+
+    <p>Ran Libeskind-Hadas gratefully acknowledges the ongoing
+    valuable research collaboration with <a href="http://www.it.usyd.edu.au/~mcharles/">Dr. Michael Charleston</a> at
+    the School of Information Technologies at the University of
+    Sydney, Australia.
+    </p>
+
+        <img src="nsf.png" />
+        <img src="hhmi.png" style="float:right;"/>
+        </div>
+        </div>
+        </body>
+</html>

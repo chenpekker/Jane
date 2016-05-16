@@ -1,0 +1,72 @@
+<html>
+<head>
+	<title>Jane - choosing parameters</title>
+    <style type="text/css">
+    img.graph {width:670}
+    </style>
+</head>
+<body bgcolor = "#EFFFEF">
+<img src="JaneLogo.jpg" width=175>
+
+<h1>Choosing Parameters for Jane</h1>
+<p>
+The parameters that have the most significant impact on the quality of the solution
+are <b>Population Size</b> and <b>Number of Iterations.</b>
+</P>
+
+<P>
+In order to explore the effects of these parameters, we ran experiments on randomly generated trees of sizes 40, 60, 80, and 100, where problem size is defined as the <em>sum</em> of the number of tips in the host tree and the number of tips in the parasite tree.
+For each problem size, 90 random pairs of trees of that total size were generated 
+using the <a href="http://taxonomy.zoology.gla.ac.uk/rod/cpw.html">COMPONENT</a> package.
+and the trees were solved by Jane for a range of values on <b>Population Size</b> and
+<b>Number of Iterations</b>. 
+<P>
+
+<p>
+The quality of a solution is measured by "cost ratio" where the cost
+ratio of a run is 
+defined as the cost of the best solution found on that run divided by the best cost known for that tree after all runs.
+Error bars depict the standard error over all trees run with the given
+parameter set.
+</P>
+
+<p>
+Note that these results may not be representative of Jane's behavior on real phylogenetic trees since the problem instances were generated randomly.
+</p>
+
+<h2>Number of Solves</h2>
+<p>
+The number of "solves" (invocations of the dynamic programming solver) computed by Jane is the product of <b>Population Size</b> and the <b>Number of Iterations.</b>
+Jane's runtime grows linearly with the number of solves, but solution quality is also expected to grow as well.
+
+<h2>Population Size vs Number of Iterations</h2>
+<p>
+Once an acceptable number of solves is determined, one must choose how to distribute them between population size and number of iterations.
+A very large population does not allow time for iterative improvement and behaves as a shotgun method while excessively small populations may homogenize and fail to discover improvements.
+
+</p>
+
+<h3>40 Total Tips</h3>
+<img src="exp03-01-40tips.jpg">
+
+<h3>60 Total Tips</h3>
+<img src="exp03-01-60tips.jpg">
+
+<h3>80 Total Tips</h3>
+<img src="exp03-01-80tips.jpg">
+
+<h3>100 Total Tips</h3>
+<img src="exp03-01-100tips.jpg">
+
+
+<h1>Additional Parameters</h1>
+The genetic algorithm also uses parameters for selection strength and mutation rate.
+Experimental results demonstrate that these values have little effect on solution quality, so we only make them accessible to the user via the command line tool.
+The selection strength parameter defines how strictly the algorithm favors merging high quality solutions. 
+The mutation rate parameter defines the probability that a population member will undergo a random mutation.
+Since the mutation procedure defined in Jane has relatively low influence on the solution, it is generally not a useful parameter.
+<br><br>
+
+<a href="index.html">Back to Jane homepage</a> 
+</body>
+</html>

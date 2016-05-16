@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Jane &mdash; F.A.Q.</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+    </head>
+    <body>
+        <div id="outer-container">
+
+        <a id="top" href="index.html" ><img src="JaneTransLogo-thin.png" alt="Jane"/></a>
+
+        <div id="inner-container" class="contents-pattern">
+            <h1>F.A.Q</h1>
+
+            <p>If you don&apos;t find the answer to your question here, don&apos;t hesitate
+               to <a href="http://www.google.com/recaptcha/mailhide/d?k=01Ugh9xUdmAj9IlreGfJNziA==&amp;c=P3fMwhHp-ipXY4Gh8JByTg==" onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501Ugh9xUdmAj9IlreGfJNziA\75\75\46c\75P3fMwhHp-ipXY4Gh8JByTg\75\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">email us</a>.</p>
+
+            <h2 class="contents-heading">Questions</h2>
+
+            <ol class="tbl-contents">
+                <li><a href="#bigtrees">When I try to run large trees, Jane crashes.</a></li>
+                <li><a href="#wontstart">Jane won&apos;t even start.</a></li>
+                <li><a href="#faster">How do I make Jane run faster?</a></li>
+                <li><a href="#corruption">I saved the results of my statistics run as a CSV file, but when I try 
+                to save it, Excel warns me that I might lose some of my data.</a></li>
+                <li><a href="#blackbg">I saved a solution or histogram as an image, but when I view it the background is black. Wasn&apos;t it white earlier?</a></li>
+                <li><a href="#oldversion">Can I still get earlier versions of Jane?</a></li>
+                <li><a href="#ask">How do I contact you?</a></li>
+            </ol>
+
+            <dl>
+                <dt class="section-heading" id="bigtrees">When I try to run large trees, Jane crashes.</dt>
+                <dd class="section-body">
+                    This is almost certainly because Java ran out of memory. The
+                    default setting for the Windows, Macintosh, and Linux distributions
+                    is 512 megabytes of memory. If you need to use more, try downloading
+                    the platform independent jar file from the
+                    downloads page and then run
+                    <code>java -Xmx1g -cp Jane.jar edu.hmc.jane.gui.Design</code> from the
+                    command line.
+                    <a href="#top">Back to Top</a>
+                </dd>
+
+                <dt class="section-heading" id="wontstart">Jane won&apos;t even start.</dt>
+                <dd class="section-body">
+                    Try downloading the platform independent jar from the downloads page,
+                    and then run
+
+                    <code class="block">
+                        java -cp Jane.jar edu.hmc.jane.gui.Design
+                    </code>
+
+                    from within the folder that you put the JAR in.
+                    <a href="#top">Back to Top</a>
+                </dd>
+
+                <dt class="section-heading" id="faster">How do I make Jane run faster?</dt>
+                <dd class="section-body">
+                    <p>
+                    There are a few things. Jane is designed to take advantage of multi-core processors, so if
+                    you upgrade to more cores, you&apos;ll get an almost linear performance improvement. (Eg.
+                    if you go from a single core processor to a dual core processor, Jane&apos; speed will
+                    approximately double.)
+                    </p>
+
+                    <p>
+                    If you are currently running a 32-bit JVM, you can get an approximately 2.5-fold performance
+                    increase by switching to a 64-bit JVM. (If your computer is old, this may require buying a new
+                    one, as the 64-Bit JVM will not run on some older computers.) Here is how to do that on Windows.
+                    </p>
+
+                    <p>
+                    First, check to see which version you are running. You can do this by simply running Jane&apos; GUI
+                    or command line interface. If you don't get a warning, you are already using a 64-Bit JVM and
+                    don&apos;t need to do anything. Otherwise, continue with these instructions.
+                    </p>
+
+                    <p>
+                    Download the 64-bit JVM from
+                    <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">here</a>. Specifically,
+                    choose to download the JDK and not the JRE. Then agree to the license agreement and select
+                    Windows x64 from the options given. Once you have downloaded the file, install it.
+                    </p>
+
+                    <p>
+                    After the install finishes, try running Jane again and check to make sure that the warning 
+                    is gone. If the warning is still there, ask for help from your IT department. One 
+                    troubleshooting step you might try is to make sure you do not have a 32 bit JDK 
+                    installed (the 32 bit JRE is fine). You can check whether it is installed using the 
+                    add or remove programs control panel feature and looking for programs beginning with
+                    &quot;Java&quot;.
+                    </p>
+                    <a href="#top">Back to Top</a>
+                </dd>
+
+                <dt class="section-heading" id="corruption">I saved the results of my statistics run as a CSV file, but when I try to save it,
+                Excel warns me that I might lose some of my data.</dt>
+                <dd class="section-body">
+                    Don't worry. What Excel is saying is that if you choose to
+                    re-save the file in the CSV format, rather than the Excel format,
+                    some minor things like font, formatting (bold, italics, etc.) might be lost.
+                    <strong>Your actual data will be fine.</strong> If you wish to ensure you retain
+                    the formatting as well, you should use the save as feature in Excel to save it as
+                    a <code>.xls</code> or <code>.xlsx</code> file.
+                    <a href="#top">Back to Top</a>
+                </dd>
+
+                <dt class="section-heading" id="blackbg">
+                    I saved a solution or histogram as an image, but when I view
+                    it the background is black. Wasn&apos;t it white earlier?
+                </dt>
+                <dd class="section-body">
+                    When you save the solution, it is saved with a transparent background.
+                    Some programs interpret the transparency as the equivalent of black.
+                    Try opening the solution in Firefox or Photoshop, and you will see that the
+                    background is still clear.
+                     <a href="#top">Back to Top</a>
+                </dd>
+
+                <dt class="section-heading" id="oldversion">
+                    Can I still get earlier versions of Jane?
+                </dt>
+                <dd class="section-body">
+                    <p>
+                    Jane 3 contains a number of features not present in Jane 2
+                    such as failure to diverge events and time zone support. In 
+                    addition, the randomization method used in statistics mode did
+                    not work correctly in Jane 2 and has been fixed in Jane 3. 
+                    Jane 3 also tends to be faster on larger trees (50 tips or more)
+                    while Jane 2 is faster for smaller trees.
+                     
+                    Both Jane 3 and Jane 2 are available at the 
+                    <a href="form.html">download page</a>. 
+                    </p>
+                    
+                    <p>
+                    While both Jane 3 and Jane 2 demonstrate significant speed improvements 
+                    over Jane 1, contain multiple bug fixes, and produce the
+                    same (and sometimes better) quality solutions, you are free
+                    to download and use the original version of Jane from the
+                    <a href="Jane1/index.html">Jane 1 website</a>.
+                    </p>
+                    <a href="#top">Back to Top</a>
+                </dd>
+
+                <dt class="section-heading" id="ask">How do I contact you?</dt>
+                <dd class="section-body">
+                    You can get our email address by clicking <a href="http://www.google.com/recaptcha/mailhide/d?k=01Ugh9xUdmAj9IlreGfJNziA==&amp;c=P3fMwhHp-ipXY4Gh8JByTg==" onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501Ugh9xUdmAj9IlreGfJNziA\75\75\46c\75P3fMwhHp-ipXY4Gh8JByTg\75\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">here</a>.
+                    <a href="#top">Back to Top</a>
+        <br/>
+        <a href="index.html">Back to Jane Homepage</a>
+
+                </dd>
+            </dl>
+
+</div>
+</div>
+
+</body>
+</html>

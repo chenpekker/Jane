@@ -1,0 +1,14 @@
+#nexus
+begin host;
+tree host =((Host a,Host b),(Host c, (Host d, Host e)));
+endblock;
+begin parasite;
+tree parasite = (Parasite 1,((Parasite 2,Parasite 3),Parasite 4));
+endblock;
+begin distribution;
+Range
+	Parasite 1 : Host a,
+	Parasite 2 : Host b,
+	Parasite 3 : Host c,
+	Parasite 4 : Host e;
+endblock;

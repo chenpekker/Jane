@@ -1,0 +1,74 @@
+<html>
+<title> Jane </title>
+<body bgcolor = "#EFFFEF">
+
+<img src="JaneLogo.jpg" width=175> 
+<br>
+<h2>Who is Jane?</h2>
+<p>
+Jane is a software tool for the cophylogeny reconstruction problem.
+It uses a novel approach coupling
+dynamic programming with a genetic algorithm.
+</P>
+
+<P>
+Jane complements existing tools such
+as <a href="http://www.cs.usyd.edu.au/~mcharles/">TreeMap</a> (using
+the Jungles method) and 
+<a href =
+   "http://pacosy.informatik.uni-leipzig.de/pv/Software/Tarzan/PV-Tarzan.engl.html">Tarzan</a>.
+</P>
+
+<P>
+While TreeMap finds optimal solutions, its algorithm has exponential running time in the
+worst case.  Therefore, TreeMap is primarily useful for relatively
+small trees.
+Tarzan uses a heuristic approach that is very fast and often finds
+excellent solutions, but can fail to find solutions when they exist
+and sometimes reports incorrect solutions (see
+<a href="TarzanErrors.html">Documentation of Timing
+  Incompatibilities in Tarzan</a>).
+</P>
+
+<P>Jane's algorithm is slower than Tarzan's but fast enough to find
+  solutions to relatively large problems in seconds to hours.  Jane is
+  multi-threaded and can exploit multi-core architectures.  Moreover,
+  Jane provides some functionality that is not found in other tools
+  including the ability to:
+<UL>
+  <LI> Set time zone ranges on <em>both</em> the host
+  and parasite trees.
+   <LI> Limit host switch distance.
+   <LI> Define "regions" in the host tree and specify different host
+   switch costs between each pair of regions.
+   <LI> Browse and modify solutions interactively.
+</UL>
+
+<h2>Get Jane</h2>
+<p>
+Jane is freely available for research and educational purposes.
+It is open-source and distributed under the FreeBSD software license.  
+</P>
+
+<p>
+Jane is implemented in Java and runs on all platforms supporting Java
+1.5 or higher.  Jane comes in a "jar" file and thus installing Jane
+is effortless.  <br><br>
+<a href="form.html">Click here to register and download</a>
+</p>
+
+<h2>Example Trees</h2>
+
+Several example trees from the literature are available for download
+<a href="SampleTrees.html">here</a>.
+
+<h2>Documentation</h2>
+<a href="JaneInstructions.html">Tutorial</a><br>
+<a href="fileformats.html">Information on file formats for Jane</a><br>
+<a href="parameters.html">Choosing parameter values for Jane</a><br>
+</body>
+</html>
+
+<h2>Contact</h2>
+Please contact Ran "RON" Libeskind-Hadas (ran AT cs DOT hmc DOT edu)
+with questions or comments regarding Jane.

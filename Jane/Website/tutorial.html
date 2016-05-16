@@ -1,0 +1,916 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Jane &mdash; Tutorial</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+    </head>
+    <body>
+        <div id="outer-container">
+
+        <a id="top" href="index.html" ><img src="JaneTransLogo-thin.png" alt="Jane"/></a>
+
+        <div id="inner-container" class="contents-pattern">
+        <h1>How to Use Jane <font color="gold">4</font></h1>
+
+        <p>
+            To use Jane, begin by downloading the .zip file available from the <a href="index.html#get">main page</a>.
+            Once you have unzipped it, there will be a jar file in the Jane folder. To
+            run Jane, use the command <code>java -jar Jane.jar</code>. On some machines, you can
+            simply click or double-click on the Jane.jar icon.
+        </p>
+        <p>
+            There is also a <strong><a href="#CLI">command-line</a></strong> version of Jane included in the download.
+             This version of Jane is particularly
+            useful for conducting large-scale experiments controlled by scripts.
+            More details on this option are given at <a href="#CLI">the end of this tutorial</a> in the CLI section.
+        </p>
+
+        <p>
+            <strong style="color:red">If Jane crashes on your computer</strong>, see the <a href="FAQ.html">F.A.Q.</a> for help.
+        </p>
+
+        <h2 class="contents-heading">Contents</h2>
+
+        <ol class="tbl-contents">
+            <li><a href="#interface">The Jane Interface</a></li>
+
+	    <li><a href="#editor">Tree Builder Tutorial</a>
+		<ol>
+		    <li><a href="#builder-gettingStarted">Getting Started Building</a></li>
+		    <li><a href="#builder-addChild">Add Child Mode</a></li>
+		    <li><a href="#builder-labelMode">Label Mode</a></li>
+	        <li><a href="#builder-links">Link Mode</a></li>
+		    <li><a href="#builder-move">Move Mode</a></li>
+			<li><a href="#builder-timezone">Time Zones Mode</a></li>
+			<li><a href="#builder-regions">Regions Mode</a></li>
+			<li><a href="#builder-erase">Erase Mode</a></li>
+			<li><a href="#builder-clear">Clear Mode</a></li>
+			<li><a href="#builder-solver">Load to Solver</a></li>
+		</ol>
+		</li>
+				
+	    <li><a href="#settings">The Settings Menu</a>
+		<ol>
+		    <li><a href="#settings-costs">Set Costs</a></li>
+		    <li><a href="#settings-hs">Set Host Switch Parameters</a></li>
+		    <li><a href="#settings-polytomy">Set Polytomy Parameters</a></li>
+	            <li><a href="#settings-genetic">Set Advanced GA Parameters</a></li>
+		</ol>
+	    </li>
+
+	    <li><a href="#solve">Solve Mode Tutorial</a>
+                <ol>
+                    <li><a href="#configure">Getting Started Solving</a></li>
+                    <li><a href="#table">The Solution Table</a></li>
+		</ol>
+            </li>
+
+            <li><a href="#viewer"> Solution Viewer Tutorial</a>
+                <ol>
+                    <li><a href="#sv-viewingbasics">Viewer Basics</a></li>
+		    		<li><a href="#sv-support">Support Values</a></li>
+                    <li><a href="#sv-polytomies">Viewing Polytomies</a></li>
+                    <li><a href="#sv-walkthru">Modifying Solutions</a></li>
+                    <li><a href="#save-timing">Saving Solutions</a></li>
+                </ol>
+            </li>
+
+            <li><a href="#stats">Stats Mode Tutorial</a>
+                <ol>
+                    <li><a href="#stats-config">Configuring Randomization Tests</a></li>
+                    <li><a href="#stat-results">Viewing Randomization Results</a></li>
+		    		<li><a href="#stat-pvalues">Viewing p-value Histograms</a></li>
+                </ol>
+            </li>
+
+            <li><a href="#CLI">Command Line Tutorial</a></li>
+        </ol>
+
+        <h2 class="section-heading" id="interface">The Jane Interface</h2>
+
+        <p>When the graphical version of Jane is opened, the <strong>Main Window</strong> is displayed.</p>
+
+        <img class="block" src="MainWindowColors.png" width="600" alt="Main Window"/>
+
+        <p>The <strong>Main Window</strong> consists of the parts listed below.</p>
+        <ul>
+            <li><strong style="color:red">Problem Information Panel : </strong> contains basic information about the problem instance
+                to be solved, listing the name of the tree file and the number of tips on the host
+                and parasite trees.
+            </li>
+
+            <li><strong style="color:blue">Actions Panel :</strong> contains the estimated time for a Solve or a Stats run, and the current
+                status of Jane. The functionality of Jane is also governed from here, using a pair of
+                buttons:
+                <ul>
+                    <li><strong style="color:#00B7EF">Estimate Time Button :</strong> when the user clicks the <strong>Estimate Time</strong> button, Jane will perform
+                        some sample runs to determine the approximated running time. Note that
+                        estimating running time can also take some time.
+                    </li>
+
+                    <li><strong style="color:#22B14C">Go Button :</strong> clicking <strong>Go</strong> will perform the computation, solving for the best
+                        embedding in Solve Mode or the statistics in <a href="#stats">Stats Mode</a>. When estimating time
+                        or performing a Solve or Stat run, the user is not permitted to configure options
+                        or perform other runs.
+                    </li>
+                </ul>
+            </li>
+            <li><strong style="color:#FF8000">Solve Mode and Stats Mode Tabs :</strong> the tabs allow the user to switch between the two
+                modes. The configuration of each mode will be described later. Jane is set to
+                <strong><a href="#solve">Solve Mode</a></strong> by default.
+            </li>
+
+            <li><strong style="color:#FA00FA" >Menu Bar :</strong> the menu bar allows the user to modify other settings and take other
+                actions.
+                <ul>
+                    <li><strong>File Menu</strong> allows the user to load trees used to solve the problem instance or perform
+                        statistical tests, and to quit the program.
+                    </li>
+                    <li>
+                        <strong>Settings Menu </strong> allows the user to set <a href="#configure">advanced parameters</a>.
+                    </li>
+                    <li><strong>Solve Mode Options Menu</strong> allows the user load a timing file and to add the solution to
+                        that timing to the <strong>Solution Table</strong>, clear the <strong>Solution Table</strong>, and set 
+                        the number of optimal solutions kept and displayed per solve.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <a href="#top">Back to Top</a>
+
+		<h2 class="section-heading" id="editor">Tree Builder Tutorial</h2>
+		<p>
+        </p>
+			<img src="treeEditorButtons.png"/>
+		<h3 id="builder-gettingStarted" class="subsection-heading">Getting Started with the Tree Builder</h3>
+        <p>When getting started, the user can either build a tree from scratch or load in a tree in .tree or .nex format. The tree builder has the ability to load in both complete and partial trees. To load a tree the user can either select "Open..." from the <strong>File</strong> menu or click the open button in the top left corner and then navigate to the desired tree. When saving the tree, the user has the option of saving in either .tree or .nex formats.  However, the .nex format does not support multi-host parasites or region information.  
+		</p>
+		<h3 id="builder-addChild" class="subsection-heading">Add Child Mode</h3>
+        <p>To add nodes to the tree the user can select the "Add Child" button to switch to Add Child Mode.  Once in Add Child Mode the user can click on any node to add a child. If the node is currently a tip this will add two children to the node.  If the node is an internal node, it will add one additional child with each click to create a polytomy.
+		</p>
+		<h3 id="builder-labelMode" class="subsection-heading">Label Mode</h3>
+        <p>To assign names to the nodes the user can switch to Label Mode by selecting the "Labels" button. Once in Label Mode simply click the node you would like to name and type the name in the box that appears.  Jane does not support the naming of internal nodes.  Additionally, integer names are not permitted.
+		</p>
+		<h3 id="builder-links" class="subsection-heading">Link Mode</h3>
+        <p>To create a tip mapping between the host and parasite trees the user can switch to Link Mode by selecting the "Add Link" button.  To add a link the click one of the nodes and drag to the node in the other tree or click one node and then the next. When clicking on a tip node in Link Mode only that node's links will appear in blue and all other links will appear greyed out.  Jane supports both failure to diverge events and multi-host parasites so parasite and host nodes can have multiple links. <br><strong>Note:</strong> Multi-host parasites are only supported in .tree files.
+		</p>
+		<h3 id="builder-move" class="subsection-heading">Move Mode</h3>
+        <p>Move Mode can be used to clear up trees that contain a lot of crossing or cluttered links.  Once in Move mode the user can swap nodes vertically by selecting an edge and dragging up or down to uncross links.  If the host and parasite tips are too close together to clearly distinguish the links the tips can be moved apart by placing the cursor in line with the tips and dragging left or right until the desired spacing is reached.
+		</p>
+		<h3 id="builder-timezone" class="subsection-heading">Time Zones Mode</h3>
+		<img src="timezones.png"/>
+        <p>To add time zones simply select the "Time Zones" button and enter the desired number of time zones.  If after adding time zones you want to change the number of time zones click the "Change Number of Time Zones" button in the upper left corner and enter the new number of time zones. After entering the number of time zones, the time zones will be separated by dashed red lines.  To set the time zone for a node, drag the node into the desired time zone.  Tips must occur in the last time zone.  Each node will have a red arrow on either side, drag these arrows into another time zone to set a region of time zones for the node. <br> <strong>Note:</strong> All time zones must be used in the host tree.
+		</p>
+		<h3 id="builder-regions" class="subsection-heading">Regions Mode</h3>
+		<img src="regions.png"/>
+        <p>To add regions switch to Regions Mode by clicking the "Regions" button.  Once in Regions Mode, drag to select a set of nodes and enter a number for the region.  When a node is assigned a region, the region will appear in a key above the trees and the node will change to the corresponding color.  Once regions have been assigned, region switching costs can be set by selecting the "Edit Region Switching Costs" button and enter the desired cost.  Any switch for this region will be the sum of the host switch and duplication cost already set in Jane and this cost.  A cost of i can be used to prevent all host switching between these regions.  Region switching cost will be displayed next to the region key.  <br><strong>Note: </strong>All nodes default to Region 0 and when assigning regions they must all be in Region 0 or a region greater than 0.<br><strong>Note: </strong> Regions are not supported by the .nex format.  
+		</p>
+		<h3 id="builder-erase" class="subsection-heading">Erase Mode</h3>
+        <p>Erase Mode can be used to remove and node or link.  Simply switch to Erase Mode using the "Erase" button and click the node or link you would like to remove. Removing an internal node will cause its descendants and links they have to be removed.  If one child of a node with two children is removed the node will also be removed.  
+		</p>
+		<h3 id="builder-clear" class="subsection-heading">Clear Mode</h3>
+        <p>Clear Mode can be used to remove an entire tree.  Simply click either the parasite or host tree to clear that tree. If both trees are cleared, timezone and region information will be cleared as well.
+		</p>
+		<h3 id="builder-solver" class="subsection-heading">Load to Solver</h3>
+        <p>Once the trees have been completed, the "Load to Solver" button can be used to save the file and open it in the main Jane interface.  If you have not yet saved the file you will be prompted to do so and then the file will open in the main interface where it can be run in <strong><a href="#solve">Solve Mode</a></strong> or <strong><a href="#stats">Stats Mode</a></strong>.
+		</p>
+		
+		<a href="#top">Back to Top</a>
+		
+        <h2 class="section-heading" id="settings">Settings</h2>
+        <p>
+        </p>
+       
+        
+        <h3 id="settings-costs" class="subsection-heading">Set Costs</h3>
+        <p>
+            To change the costs of events, select the "Set Costs Option in the Jane Settings menu.
+            As seen in the image below, the menu has the events listed with a box next to each.
+            To change the cost of an event, simply enter the desired cost into the box next to the
+            event name, or use the arrows next to the box.
+        </p>
+        <img src="SetCostsMenu.png" />
+        <p>
+            Jane also supports solving for ranges of costs.  To utilize this function, select the
+            "Range Costs" tab as seen in the image below.  This tab allows the user to select the
+            range of costs Jane should find solutions for.  Note that Jane's running time will 
+            increase based on the number of possible combinations of costs that can be made from the 
+            ranges given.
+        </p>
+        
+        <img src="RangeCostsMenu.png" />
+        
+        <p>
+            The "Region Costs" section at the bottom of the "Set Costs" dialog allows the user
+            to change the cost of Host Switch events between regions if the tree being solved
+            has region information.
+        </p>
+        
+        <img src="RegionCosts.png" />
+        
+        <h3 id="settings-hs" class="subsection-heading">Set Host Switch Parameters</h3>
+        <p>
+            The "Set Host Switch Parameters" option of the Settings menu allows the user
+            to set a maximum distance on host switches.  Jane will not allow a host switch
+            to occur if the distance between two nodes along the edges of the tree
+            is greater than the given value.
+        </p>
+        
+        <h3 id="settings-polytomy" class="subsection-heading">Set Polytomy Parameters</h3>
+        <p>
+            <i> Detailed in <a href="Polytomy.html#polytomy-params">Polytomy Parameters</a> </i>.
+        </p>
+        
+    <h3 id="settings-genetic" class="subsection-heading">Set Advanced Genetic Parameters</h3>
+            <p>
+            <ul>
+                    <li> <strong>Selection Strength</strong> This parameter determines 
+                    how much we trust the <a href="http://en.wikipedia.org/wiki/Fitness_function">fitness function</a>.
+                    A value of 1 indicates that we should build successive generations
+                    with only the <i>best</i> individuals from previous generations, 
+                    a value of 0 means we choose randomly from prior generations without 
+                    consulting the fitness function, and 
+                    a value in between means we randomly select from prior generations
+                    but favor the best solutions.
+                    <li> <strong>Mutation Rate</strong> This parameter determines 
+                    how often we <a href="http://en.wikipedia.org/wiki/Mutation_(genetic_algorithm)">mutate</a>
+                    timings in our genetic algorithm.  A value of 1 means we mutate after 
+                    every <a href="http://en.wikipedia.org/wiki/Crossover_(genetic_algorithm)">reproduction</a>,
+                    a value of 0 means we never mutate, and a value between gives the rate
+                    of mutation.
+            </ul>
+            </p>
+
+
+
+        <h2 class="section-heading" id="solve">Solve Mode</h2>
+        <p>
+            In <strong><a href="#solve">Solve Mode</a></strong>, the user can use Jane to find a good embedding of the parasite tree
+            onto the host tree. When Jane is run, <strong><a href="#solve">Solve Mode</a></strong> is selected by default. <strong><a href="#solve">Solve Mode</a></strong>
+            may be reached from <strong><a href="#stats">Stats Mode</a></strong> by simply clicking <strong><a href="#solve">Solve Mode</a></strong> tab on main window.
+            Click the <strong>Go</strong> button in the <strong>Actions</strong> box to run the genetic algorithm and search
+            for a good embedding. For a large tree file, population, and/or number of generations,
+            it is advisable to approximate the running time by clicking <strong>Estimate Time</strong>.
+        </p>
+
+
+
+
+        <h3 id="configure" class="subsection-heading">Getting Started Solving</h3>
+        <p>
+            The <strong>Problem Information</strong> box on the upper left of the screen contains information
+            about the trees to be solved, including the file name and the number of tips on
+            each tree. Other parameters can be viewed and modified via <strong>Settings</strong> button on the
+            top bar.
+        </p>
+        <img src="problemInfo.png"/>
+        <p>
+            To choose a tree file to be solved, go to <strong>File &gt; Load Trees</strong> and choose the desired
+            file. Jane supports two formats: <code>.nex</code> files and <code>.tree</code> files. A more exact
+            specification of file formats used by Jane is described in detail on the
+            <a href="fileformats.html">File Formats</a> page.
+        </p>
+        
+        <p>
+            
+            In order to change the problem parameters, solutions from previous runs must be removed from the table. Jane 
+            will prompt you to clear the table before you can change the problem parameters. To see the current problem
+            parameters without clearing the table, choose <strong>No</strong> at this prompt and you will be presented
+            with a read-only view of the current parameters. You can also clear the table manually by going 
+            to <strong>Solve Mode Options &gt; Clear Table.</strong>
+        </p>
+        
+        <table class="walkthru">
+            <tr>
+                <td>
+                    <p>
+                        To set the costs for the cospeciation, duplication, host switch, loss, and failure to diverge events,
+                        go to <strong>Settings &gt; Set Costs</strong> then input the costs of each of the events (the costs
+                        must be integers). Jane uses an edge-based cost model as the default cost 
+                        evaluation scheme. Check the <strong>Use Node-Based Cost Model</strong> box to make Jane 
+                        evaluate costs based upon a node-based cost model.
+                        For more information about the event types, event 
+costs, and Jane's cost models, view the 
+                        <a href="CostEvents.html">Cost Model and Event</a> page.
+                    </p> </td>
+                <td>
+                    <img src="setCosts.png"/>             </td>
+            </tr>
+            <tr>
+                <td >
+                    <p>
+                         
+Jane supports "preferential host switching" in two
+different ways.   One way is to annotate the input file with HOSTREGIONS  
+and REGIONCOSTS information (see the <A HREF="fileformats.html">file
+formats page</A> for details).  This method allows the user to 
+group the host nodes into any number of "regions" (a region may be a 
+geographical region, but "region" here is used metaphorically as simply a 
+group) and then specify    
+different host switch costs between each pair of regions.  
+For example, the user may wish to have a 
+relatively    
+high cost for switching between distantly related species and a lower one for 
+more closely related species.  Any number of different host switch costs can 
+be specified this way.  </P>
+
+<P>
+A second simpler mechanism is to prohibit host switches 
+from a take-off site to a landing site that exceed some specified distance.
+The <b>distance</b> from one edge of the host tree to
+            another edge of the host tree is defined to be the number of nodes on the unique path between those edges. Thus, for example, two edges with distance 1 are sibling
+            edges. Limiting host switch distance inhibits "long" host switches between very distantly related species.
+            If this value is set to -1 then host switch distance is 
+unlimited.  The maximum host switch distance can be set by going to 
+<strong>Settings &gt; Set Host Switch Distance Limit</strong>.  
+                        Note that adding a limit to host switch distance makes Jane
+                        switch to a somewhat slower algorithm.
+                    </p> </td>
+                <td>
+                    <img src="maxHS.png"/>
+                </td>
+            </tr>
+        </table>
+        
+
+
+
+        <h3 id="genetic" class="subsection-heading">Configuring Genetic Algorithm Parameters</h3>
+        <p>
+            Jane finds low-cost associations between the host tree and the parasite tree by
+            generating many random relative timings of the internal nodes of host tree and
+            solving for the optimal association, then applying a
+            <a href="http://en.wikipedia.org/wiki/Genetic_algorithm">genetic algorithm</a> to modify
+            timings and generating new host timing candidates.
+        </p>
+
+
+
+        <p>
+            In a <a href="http://en.wikipedia.org/wiki/Genetic_algorithm">genetic algorithm</a>, there are two main control parameters called "population 
+size" and "number of generations".  <em>These are parameters related to 
+the 
+inner workings of the algorithm and have nothing to do with the populations being 
+studied in the host/parasite system.</em>  In a nutshell, the "population 
+size" is the number of different solutions being considered at each iteration of the 
+algorithm and the "number of generations" is the number of iterations performed by the algorithm as it seeks a good reconstruction of the parasite tree onto 
+the host three.
+	</P>
+
+	<P>
+            Choosing larger values for these two parameters generally leads to better solutions, up to some point where increasing the values further makes no 
+difference. However, increasing these parameters 
+            will cause computation to take more time.  While some experimentation with these parameters will be required of the user, see the <a 
+href="parameters.html">parameters page</a>
+            for more information and advice about selecting appropriate values. 
+	</P>
+
+	<P>
+The population size
+            and number of generations can be set by using the slide bars or inputting the
+            number manually in the <strong>Genetic Algorithm Parameters</strong> box under the 
+            <strong><a href="#solve">Solve Mode</a></strong> or <strong><a href="#stats">Stats Mode</a></strong>
+            tab. Note that these parameters are separate for each mode, so changing the
+            parameter in one mode will not affect the parameters in the other mode.
+        </p>
+        <img src="geneticParamsBox.png"/>
+
+        <table class="walkthru">
+            <tr>
+                <td >
+                    <p>
+                        The <strong>Settings &gt; Set Advanced Genetic Parameters</strong> can be used to set the
+                        mutation rate and the selection strength used in the genetic algorithm. The
+                        mutation rate is a value between 0 and 1, with 0 being never mutate and 1 being
+                        always mutate. The selection strength has minimum value 0, which corresponds to
+                        a randomly selected population, and there is no upper bound for this parameter.
+            <em>Most users find that the default parameters work well and choose not to adjust the values of these parameters.</em>
+                    </p>
+                </td>
+                <td>
+                    <img src="geneticParams.png"/>
+                </td>
+            </tr>
+        </table>
+
+
+
+        <h3 id="table" class="subsection-heading">The Solution Table</h3>
+        <p>
+            The Solution Table displays the list of information about each solution found in
+            <strong><a href="#solve">Solve Mode</a></strong>, including the number of occurrences of each event and the total cost.
+        </p>
+
+            <img src="solnTable.png", width = 800/>
+
+        <p>
+            After clicking <strong>Go</strong> in <a href="#solve"><strong>Solve Mode</strong></a>, Jane finds new solutions. The best
+            solutions found will be added to the <strong>Solution Table</strong>.
+        </p>
+        <table class="walkthru">
+            <tr>
+                <td >
+                    <p>
+                        Because a large number of different best
+                        solutions may be found in every run, the user can specify the number of solutions saved by
+                        going  to <strong>Solve Mode > Adjust Number of Solutions</strong> and entering the maximum number of host
+                        timings to be kept for each run.
+                    </p>
+                </td>
+                <td>
+                    <img src="setNum.png"/>
+                </td>
+            </tr>
+        </table>
+
+        <p>
+            To add a solution from an existing host timing file, go to
+            <strong>Solve Mode Options &gt; Add Host Timing to Table</strong> and Jane will find the optimal
+            association with the given timing information and add this solution to the table.
+        </p>
+
+        <p>
+            To view a solution, simply double click at a solution in the table. A new
+            <a href="#viewer"><strong>Solution Viewer</strong></a> window will pop up. 
+            The usage of <a href="#viewer"><strong>Solution Viewer</strong></a> is 
+            described below. To clear the table, go to 
+            <strong>Solve Mode Options &gt; Clear Table</strong> to erase all information in
+            the table.
+        </p>
+    <a href="#top">Back to Top</a>
+
+
+
+
+    <h2 id="viewer" class="section-heading">Solution Viewer</h2>
+    <p>
+        To open a <a href="#viewer"><strong>Solution Viewer</strong></a>, simply double-click on one of the solutions to bring
+        up a <a href="#viewer"><strong>Solution Viewer</strong></a>, like the one shown below.
+    </p>
+    
+
+        <img src="exampleSV.png"/>
+        
+        <h3 id="sv-viewingbasics" class="subsection-heading"> Viewer Basics </h3>
+        <p>
+        In the <a href="#viewer"><strong>Solution Viewer</strong></a>, the host tree is drawn in black and the parasite tree is drawn
+        in blue. There are five types of events: cospeciation, duplication, host switch, loss, and failure to diverge.
+        For more information about Jane's cost models, see the <a href="CostEvents.html">Cost Model and Event</a> page.
+        </p>
+    The Solution Viewer will render each event as follows:
+    <table class="walkthru">
+        <tr>
+            <td align="right">
+                <strong>Cospeciation:</strong>
+            </td>
+            <td>
+                <img src="cospeciation.png"/>
+            </td>
+            <td>
+                A Cospeciation is marked by a hollow colored circle.
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <strong>Duplication:</strong>
+            </td>
+            <td>
+                <img src="duplication.png"/>
+            </td>
+            <td>
+                A Duplication is marked by a solid colored circle.
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <strong>Host Switch:</strong>
+            </td>
+            <td >
+                <img src="hostswitch.png"/>
+            </td>
+            <td>
+                A Host Switch is marked by a duplication, with an arrow following the trajectory of the switching species.
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <strong>Loss:</strong>
+            </td>
+            <td>
+                <img src="loss.png"/>
+            </td>
+            <td>
+                A Loss is marked by a dashed line.
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <strong>Failure To Diverge:</strong>
+            </td>
+            <td>
+                <img src="failuretodiverge.png"/>
+            </td>
+            <td>
+                A Failure to Diverge is marked by a jagged line.
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <img src="showEventOnHover.png"/>
+            </td>
+            <td>
+                Additionally, if the mouse cursor is hovered over a parasite node, the event type will appear.
+            </td>
+        </tr>
+    </table>
+    <p>
+        Notice that each node in the parasite tree is marked with a colored circle.
+        The colors indicate the existence of other possible locations for the association.
+        A green node means there is a location of lower cost where the parasite node
+        and its descendants may be mapped. A yellow node indicates that there is another
+        location of equal cost, and a red node means that all other locations it may be
+        mapped to are of higher cost. To view this information from within Jane, go to 
+        <strong>Options &gt; Show Key</strong> while in the Solution Viewer.
+        
+    </p>
+    <p>
+        Each parasite node can be dragged to a new position, as long as that position
+        leads to a possible embedding of the parasite tree on the host tree without
+        requiring changes outside of the sub-tree rooted at the dragged node. When
+        dragging a parasite node, segments of the host tree will highlight in the colors
+        corresponding to the change in cost when the parasite node is moved to that location
+        on the host tree (see the image below). Grey segments indicate that the parasite node cannot currently be
+        moved to that position. Dragging that node to its current location will also move its descendants
+        to their respective optimal locations.
+    </p>
+    <p>
+        In some situations there may be many lower cost locations on the host tree to move a specific parasite node and
+        it may be useful to know the location that will result in the overall lowest cost. Simply double-clicking on a parasite
+        node will simulate a "drag and drop" of that node to the location of lowest cost.
+    </p>
+    <img src="exampleMovingPTree.png"/>
+    <p>
+
+        As a node is dropped on a location, nodes that are descendants of that parasite
+        node will be placed in their optimal positions automatically. If you wish to extensively modify a particular embedding,
+        it is advisable to work your way "down" the tree, starting at the
+        parasite root node. Otherwise, modifications done near the bottom of the parasite tree will be undone when an
+        ancestor of that node is moved. The cost at the top of the window will change according to the
+        modifications.
+    </p>
+
+    
+    <h3 id="sv-support" class="subsection-heading"> Support Values </h3>
+        <p>
+            Jane 4 is capable of providing Support Values in the solution viewer.  Support values 
+            give the percentage of solutions in which a specific event of the parasite tree is mapped to a given location
+            on the host tree.
+          
+            Below is a small example of this functionality.  
+            In this example, 8 percent of solutions have a host switch from the bottom host edge to
+            the top host edge, and 22 percent have a host switch from the top host edge to the middle one.
+        </p>
+    
+        <img src="SupportValueExample.png" />
+        <p> 
+            To view support values, select the menu option "Show Support Values" as seen in the image below.  Note that the time it takes
+            to calculate support values will vary based on the size of the trees.  
+            Additionally, support values may vary slightly from run
+            to run due to the method of calculation.
+        </p>  
+            <img src="SupportValueSelection.png" />
+        <p>
+            Jane is currently limited to providing support values for unmodified solutions.
+        </p>
+    
+    <h3 id="sv-polytomies" class="subsection-heading"> Viewing Polytomies </h3>
+        <p>
+            Jane 4 has the ability to find solutions for polytomic trees by 
+            automatically resolving them.  Jane's algorithm attempts to find the
+            best solution from among all possible resolutions.
+        </p>
+    
+        <p>
+           Host polytomies in Jane are displayed with edges in purple as shown below:       
+        </p>
+            <img src="hostPolyEx.png" />
+        <p>
+            Parasite polytomies are displayed with edges in pink, as below:
+        </p>
+            <img src="paraPolyEx.png" />
+            
+        <p>
+            There are a few options that govern Jane's handling of polytomies that are covered in detail 
+            on the page 
+            <a href="Polytomy.html#polytomy-params">Polytomy Parameters</a>.
+        </p>
+    <h3 id="sv-walkthru" class="subsection-heading"> Step-By-Step Guide to Modifying Solutions</h3>
+    <table class="walkthru">
+        <tr>
+            <td >
+                We now examine a step-by-step example of interacting with the Solution Viewer. We start with the optimal embedding of the two trees (i.e. the initial state upon opening the viewer).
+            </td>
+            <td>
+                <img src ="SVTutorial_Step0.png"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Step 1:</strong> The parasite root node is being moved to a new location. The entire subtree of the moved node will now be optimally embedded onto the host tree. Since the moving node happens to be the root, the entire parasite tree will be adjusted.
+            </td>
+            <td>
+                <img src ="SVTutorial_Step1.png"/>
+            </td>
+        </tr>
+                <tr>
+            <td>
+                        <strong>Step 2:</strong> A different parasite node is now dragged to a new location. Notice that only the subtree of the moved node is rearranged, and all of the other parasite nodes
+        stay at the same location.
+            </td>
+            <td>
+<img src ="SVTutorial_Step2.png"/>
+            </td>
+        </tr>
+                <tr>
+            <td>
+                        <strong>Step 3:</strong> The root of the parasite tree is moved once again. Note that this step undoes the changes made in "Step 2".
+            </td>
+            <td>
+<img src ="SVTutorial_Step3.png"/>
+            </td>
+        </tr>
+                        <tr>
+            <td>
+                        <strong>Step 4:</strong> If a node is double-clicked, it will move to its optimal position (by only changing the location of itself and its subtree). In this step, the root of the parasite node is double-clicked, which returns the tree to its optimal embedding onto the host tree (see first picture).
+
+            </td>
+            <td>
+<img src ="SVTutorial_Step4.png"/>
+            </td>
+        </tr>
+
+
+    </table>
+
+
+
+    <h3 id="save-timing" class="subsection-heading">Saving Solutions</h3>
+    <p>
+        Jane allows the user to save solutions to a file for later use. Jane works by considering "timings" of the nodes in the host tree where a timing
+    is simply an ordering of the speciation events (nodes) of the tree. From a given timing, Jane can very quickly find an optimal solution for that timing.
+    Each solution that Jane presents in the <strong>Solution Viewer</strong> window is a different timing among the best solutions
+    that Jane can find.
+    </p>
+    <p>
+        If a solution is of interest, its corresponding timing can be saved (without the manual changes made to the
+        parasite tree within that timing) by going to <strong>File &gt; Save Timing</strong> inside the
+        <a href="#viewer"><strong>Solution Viewer</strong></a> window. When the corresponding problem instance is loaded
+        in the main window, the timing can be reloaded and Jane can reconstruct the corresponding solution. To do
+        this, go to 
+        <strong>Solve Mode Options &gt; Add Host Timing to Table</strong>, open the timing, and it will be added
+        back into the list of solutions at the bottom of the <strong><a href="#solve">Solve Mode</a></strong> tab. Command-line
+        users can save the best timing found by using the -o switch with the name of a file
+        in which to store the timing. It should be noted that the timing files are written
+        in a human-readable format so that they can be modified manually if desired.
+    </p>
+
+    <a href="#top">Back to Top</a>
+
+
+    <h2 class="section-heading"id="stats">Stats Mode</h2>
+
+    <p>
+        In <strong><a href="#stats">Stats Mode</a></strong>, Jane generates samples of random 
+        parasite trees or tip mappings and then solves these samples to obtain their cost. 
+        These costs are used to perform statistical analyses.
+        To use the statistics mode, simply select <strong><a href="#stats">Stats Mode</a></strong> tab in the  main window.
+    </p>
+    <img src="statMode.png" width ="730"/>
+    <p>
+        The problem instance and genetic algorithm parameters can be configured in the
+        same fashion as in <strong><a href="#solve">Solve Mode</a></strong>. Note that the number of generations
+        and population size for the genetic algorithm are independent between <strong><a href="#solve">Solve Mode</a></strong> and
+        <strong><a href="#stats">Stats Mode</a></strong>; the values used in <strong>Solve Mode</strong> are not carried over to <strong>Stats mode</strong>
+    and vice versa.
+    </p>
+
+    <h3 id="stats-config" class="subsection-heading">Configuring Randomization Tests</h3>
+
+    <table class="walkthru">
+        <tr>
+            <td >
+                <p>
+                    In the <strong>Statistical Parameters</strong> box, the <strong>Sample Size</strong> (the number of random
+                    problem instances to be generated and solved) can be set.
+                    To include the original problem instance in the sample,
+                    check the <strong>Include Original Problem Instance</strong> box.
+                </p>
+                <p>
+                    Since the computation required to perform the randomization tests can be substantial
+            for large trees, it may be desirable
+                    to distribute the work over multiple computers by running a small number of samples
+                    on each machine. Jane is multithreaded and will use all of the cores available on each machine.
+                </p>
+                <p>
+                    Checking the "include original problem instance" box will solve the original problem instance
+                    in addition to the random ones and generate comparison data. This option is included in the event
+            that the user wishes to split the randomization tests over multiple computers. On one computer, the original problem
+            instance will be evaluated in addition to some randomized instances. On the other computers, only randomized instances
+            need to be solved. Note that if you choose to save the sample costs, the original problem instance cost will not be included
+            in these. Thus, make sure you write it down if you need it later!
+                </p>
+            </td>
+            <td>
+                <img src="statParamB.png"/>
+            </td>
+        </tr>
+    </table>
+
+    The preferred <strong>Randomization Method</strong> can be specified in the following way:
+    <ul>
+        <li><p> <strong>Random Tip Mapping</strong>: 
+            
+            In this method, the tip mappings are permuted randomly.
+            Each host tip will have the same degree (number of associated parasite tips) as the original problem instance.
+            For example, if in the original problem instance there are two host tips each with degree two, the 
+            randomized problem instance will maintain this characteristic after randomization. If all parasite tips 
+            have a degree of one (that is, each parasite is associated to exactly one host) then the randomized 
+            tip mapping will be selected uniformly from all possible mappings that maintain the host tip degrees. 
+            </p>
+            <p>
+            If any parasites have degrees greater than one then the randomized mapping will 
+            preserve the host degrees and will ensure that each parasite has a degree of at least one. 
+            However, the  mapping will no longer be selected uniformly from all such mappings but 
+            instead the probability  of an edge appearing between a host and a parasite is equal to the 
+            degree of that host divided by the total number of parasites.
+            </p> 
+        </li>
+        <li> <strong>Random Parasite Tree</strong>: In this method, random parasite trees are generated
+            according to the Yule model. The Yule "beta" parameter may be specified to control the
+            balance of the tree.
+            The lower bound on this parameter is -2.0, which generates completely unbalanced trees, and there
+            is no upper bound for this parameter. The default value is set to -1.0. For more information about the Yule model
+      see the <a href="http://www.ncbi.nlm.nih.gov/pubmed/11259805">paper by Steel and McKenzie</a>.
+
+        </li>
+    </ul>
+
+    <h3 id="stat-results" class="subsection-heading">Viewing Randomization Results</h3>
+    <p>
+        After clicking <strong>Go</strong> to perform statistical analyses, the resulting cost
+        distribution is displayed in the histogram on the bottom left of the <strong><a href="#stats">Stats Mode</a></strong> tab,
+        and basic Statistical values are shown on the bottom right of the <strong><a href="#stats">Stats Mode</a></strong> tab.
+    </p>
+
+
+
+    <strong>Histogram:</strong>
+    <p>
+        The Histogram section will show the result of the run in histogram format, where
+        the horizontal axis represents the cost of the sample and the vertical axis
+        represents the number of samples with the corresponding cost. If included, the
+        cost of the solution to the original problem instance will appear as a red dashed line.
+        Click <strong>Save as Picture</strong> to save the histogram as a portable network graphics (.png)
+        file format, or click <strong>Show Histogram in New Window</strong> in order to see the histogram
+        in a larger, separate window.
+        
+    </p>
+
+    <p>
+        <img src="histogram.png"/>
+    </p>
+
+    <strong>Statistics:</strong>
+    <p>
+    The Statistics window contains statistics obtained from the randomization
+    tests, including the mean, standard deviation, and, if the original problem
+    instance is included, the percentile rank of the original compared to the random.
+
+    The results of the runs can be saved as a comma separated values file by clicking
+    <strong>Save Sample Costs</strong>. Excel and most other popular spreadsheet applications can open
+    this type of file. Note that even if you check the include original problem instance check box, the cost
+    for the solve of the original problem instance will NOT be saved! You need to write it down yourself.
+</p>
+<a href="#top">Back to Top</a>
+
+
+
+
+
+<h2 class="section-heading" id="CLI">Command Line Interface</h2>
+
+<p>
+    Jane can be invoked from the command line rather than by launching the graphical
+    user interface as follows. Note that <code>treefile</code> refers
+    to the name of an input file in either .tree or .nex formats. 
+</p>
+
+    <dl>
+        <dt>On Windows:</dt>
+        <dd><code class="block">jane-cli.exe treefile</code></dd>
+
+        <dt>On Macintosh and Linux:</dt>
+        <dd><code class="block">./jane-cli.sh treefile</code></dd>
+
+        <dt>On any platform if you download the platform independent JAR:</dt>
+        <dd><code class="block">java -cp Jane.jar edu.hmc.jane.CLI treefile</code></dd>
+    </dl>
+
+    <p>
+        The -help flag may be used to get more information about the command line options. These options are also summarized below:
+    </p>
+
+    <p>
+        By default, Jane will solve for associations of trees described in <tt>treefile</tt>, then
+        output the best host timing found and the association information for each parasite
+        node. <strong><a href="#stats">Stats Mode</a></strong> can be invoked by using -stats option;  Jane will output the
+        statistics obtained from the generated samples. There are options available for
+        configuring Jane as listed below:
+    </p>
+<table class="standard">
+    <tr>
+        <td style="width:12em;">Option</td><td>Description</td>
+    </tr>
+
+    <tr>
+        <td>-help</td><td>Prints help message</td>
+    </tr>
+    <tr>
+        <td>-V</td><td>Turns on verbose output - Jane will report the minimum cost
+            and number of host timings found at each generation, rather
+            than just at the end.</td>
+    </tr>
+    <tr>
+        <td>-C</td><td>Causes Jane to evaluate costs using a node-based cost model
+            rather than the default edge-based cost model.</td>
+    </tr>
+    <tr>
+        <td>-c&ensp;&lt;<i>cosp dup switch loss ftd</i>&gt;</td> <td>This defines the cost vector to use; 
+            i.e. -c 0 1 2 3 4 would cause cospeciations to cost 0, duplications to cost 1, host switches to
+            cost 2, losses/sorting to cost 3, and failures to diverge to cost 4 (default: 0, 1, 1, 2, 1).</td>
+    </tr>
+    <tr>
+        <td>-m&ensp;&lt;<i>value</i>&gt;</td><td>Sets the mutation rate. Appropriate values fall on the interval [0, 1]
+            with 0 being never mutate and 1 being always mutate (default: 0.6).</td>
+    </tr>
+    <tr>
+        <td>-p&ensp;&lt;<i>value</i>&gt;</td><td>Sets the initial population size (default: 30).</td>
+    </tr>
+    <tr>
+        <td>-i&ensp;&lt;<i>value</i>&gt;</td><td>Sets the number of generations that the genetic algorithm should
+            run (default: 30).</td>
+    </tr>
+    <tr>
+        <td>-s&ensp;&lt;<i>value</i>&gt;</td><td>Sets the selection strength. 0 is completely random and there is
+            no upper bound (default: 0.8).</td>
+    </tr>
+    <tr>
+        <td>-S&ensp;&lt;<i>value</i>&gt;</td><td>Sets the maximum host switch distance allowed. -1 causes the distance
+            to be unlimited (default: -1).</td>
+    </tr>
+    <tr>
+        <td>-stats&ensp;&lt;<i>samplesize</i>&gt;</td><td>Switches Jane to <strong>Stats Mode</strong> and sets 
+            the number of samples to &lt;samplesize&gt;.
+            By default, the tip mapping is randomized.</td>
+    </tr>
+    <tr>
+        <td>-I</td><td>When in stats mode, also does a solve of the original tip
+            mapping/trees and prints data comparing it to the random
+            sample. Note that the sample distribution will NOT include the cost of
+            this solution. 
+            -stats must be invoked first.</td>
+    </tr>
+    <tr>
+        <td>-B&ensp;&lt;<i>value</i>&gt;</td><td>Switches to parasite tree randomization using the Yule model where the <i>value</i> is
+      Yule parameter. -stats must be invoked first.</td>
+    </tr>
+    <tr>
+        <td>-o&ensp;&lt;<i>filename</i>&gt;</td><td>For <strong>Solve Mode</strong>, outputs the best host timing file to a file
+            called &lt;filename&gt;. This file can then be viewed in graphical
+            version of Jane.
+            For <strong>Stats Mode</strong>, outputs the sample costs as a common separated
+            value file (generally .csv or .xls) to a file called &lt;filename&gt;.</td>
+    </tr>
+    <tr>
+        <td>-silent</td><td>This causes Jane to produce absolutely no output to the
+            console (though it will still write any files that are specified). Any operation that would normally print something out
+            will still run, but it won&apos;t print anything out.
+<!--Even errors
+            will not usually be printed, though if java encounters an
+            exception that is not caught, it may print that out, or if you
+            specify invalid command line arguments, an error will be printed
+            out.-->
+</td>
+    </tr>
+</table>
+
+
+<a href="#top">Back to Top</a>
+
+</div>
+</div>
+</body>
+</html>

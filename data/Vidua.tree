@@ -1,0 +1,353 @@
+HOSTTREE
+0	1	4
+1	2	3
+2	null	null
+3	null	null
+4	5	50
+5	6	9
+6	7	8
+7	null	null
+8	null	null
+9	10	15
+10	11	12
+11	null	null
+12	13	14
+13	null	null
+14	null	null
+15	16	39
+16	17	18
+17	null	null
+18	19	32
+19	20	21
+20	null	null
+21	22	23
+22	null	null
+23	24	27
+24	25	26
+25	null	null
+26	null	null
+27	28	29
+28	null	null
+29	30	31
+30	null	null
+31	null	null
+32	33	36
+33	34	35
+34	null	null
+35	null	null
+36	37	38
+37	null	null
+38	null	null
+39	40	43
+40	41	42
+41	null	null
+42	null	null
+43	44	45
+44	null	null
+45	46	47
+46	null	null
+47	48	49
+48	null	null
+49	null	null
+50	51	54
+51	52	53
+52	null	null
+53	null	null
+54	55	64
+55	56	57
+56	null	null
+57	58	59
+58	null	null
+59	60	61
+60	null	null
+61	62	63
+62	null	null
+63	null	null
+64	null	null
+
+HOSTNAMES
+0	0
+1	1
+2	O. atricolis
+3	A. subflava
+4	2
+5	48
+6	64
+7	G. ianthinogaster
+8	G. granatia
+9	65
+10	68
+11	E. dybowskii
+12	71
+13	H. niveoguttatus
+14	H. margaritatus
+15	69
+16	74
+17	C. monteiri
+18	87
+19	88
+20	L. larvata
+21	97
+22	L. rara
+23	99
+24	100
+25	L. r cingica
+26	L. r. rubricata
+27	101
+28	L. virata
+29	105
+30	L. rhodopareia
+31	L. sanguinodorsalis
+32	89
+33	90
+34	L. rufopicta
+35	L. nitidula
+36	91
+37	L. senegala rendalii
+38	L. senegala rhodopsis
+39	75
+40	76
+41	P. melba grotei
+42	P. melba citerior
+43	77
+44	P. afra
+45	81
+46	P. lineata
+47	83
+48	P. phoenicoptera
+49	P. hypogrammica
+50	49
+51	50
+52	C. quartinia
+53	C. melanotis
+54	51
+55	54
+56	E. astrild
+57	57
+58	E. paludicola
+59	59
+60	E. rhodophyga
+61	61
+62	E. troglodytes
+63	E. melpoda
+64	E. erythronotos
+
+PARASITETREE
+65	66	91
+66	67	70
+67	68	69
+68	null	null
+69	null	null
+70	71	90
+71	72	83
+72	73	76
+73	114	115
+114	null	null
+115	null	null
+76	116	117
+116	120	121
+120	122	123
+122	null	null
+123	null	null
+121	null	null
+117	null	null
+83	84	85
+84	null	null
+85	106	107
+106	null	null
+107	108	109
+108	null	null
+109	null	null
+90	null	null
+91	92	105
+92	93	102
+93	94	97
+94	95	96
+95	null	null
+96	null	null
+97	98	99
+98	null	null
+99	100	101
+100	null	null
+101	null	null
+102	103	104
+103	null	null
+104	null	null
+105	null	null
+
+PARASITENAMES
+65	3
+66	4
+67	6
+68	V. fischeri
+69	V. regia
+70	7
+71	10
+72	12
+73	118
+114	V. nigeriae
+115	V. raricola
+76	15
+116	116
+120	120
+122	V. camerunensis
+123	V. maryae
+121	V. larvaticola
+117	V. wilsoni
+83	13
+84	V. funera
+85	21
+106	V. purpurascens
+107	107
+108	V. chalybeata S.
+109	V. codringtoni
+90	V. chalybeata W.
+91	5
+92	26
+93	28
+94	32
+95	V. paradisaea
+96	V. obtusa
+97	33
+98	V. orientalis
+99	37
+100	V. interjecta
+101	V. togoensis
+102	29
+103	V. macroura S
+104	V. macroura W.
+105	V. hypocherina
+
+PHI
+56	103
+31	123
+64	105
+17	121
+44	96
+49	101
+37	108
+13	109
+8	69
+7	68
+34	117
+3	115
+22	122
+30	106
+41	95
+63	104
+2	114
+38	90
+42	98
+48	100
+26	84
+
+HOSTRANKS
+0	1
+1	1
+2	1
+3	1
+4	1
+5	1
+6	1
+7	1
+8	1
+9	1
+10	1
+11	1
+12	1
+13	1
+14	1
+15	1
+16	1
+17	1
+18	1
+19	1
+20	1
+21	1
+22	1
+23	1
+24	1
+25	1
+26	1
+27	1
+28	1
+29	1
+30	1
+31	1
+32	1
+33	1
+34	1
+35	1
+36	1
+37	1
+38	1
+39	1
+40	1
+41	1
+42	1
+43	1
+44	1
+45	1
+46	1
+47	1
+48	1
+49	1
+50	1
+51	1
+52	1
+53	1
+54	1
+55	1
+56	1
+57	1
+58	1
+59	1
+60	1
+61	1
+62	1
+63	1
+64	1
+
+PARASITERANKS
+65	1
+66	1
+67	1
+68	1
+69	1
+70	1
+71	1
+72	1
+73	1
+114	1
+115	1
+76	1
+116	1
+120	1
+122	1
+123	1
+121	1
+117	1
+83	1
+84	1
+85	1
+106	1
+107	1
+108	1
+109	1
+90	1
+91	1
+92	1
+93	1
+94	1
+95	1
+96	1
+97	1
+98	1
+99	1
+100	1
+101	1
+102	1
+103	1
+104	1
+105	1
+

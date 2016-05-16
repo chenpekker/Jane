@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Jane &mdash; File Formats</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+    </head>
+    <body>
+        <div id="outer-container">
+
+        <a id="top" href="index.html" ><img src="JaneTransLogo-thin.png" alt="Jane"/></a>
+
+        <div id="inner-container" class="contents-pattern">
+        <h1>Jane 3 File Formats</h1>
+        <p>
+            This page describes the file formats supported by Jane.  When you click on a file,
+            it will render in your browser without whitespace separation.
+
+            To see the file more clearly, you can either view the page source in your browser
+            or download the contents.  The examples provided here are small synthetic ones
+            intended only to illustrate the format.  If you are interested in trying Jane with
+            some real biological problem instances, you can find them <a href="SampleTrees.html">here</a>.
+        </p>
+
+
+
+        <h3>Format 1: Jane .nex files</h3>
+        <p>
+            A nexus file must begin with the comment #NEXUS, followed by a series of blocks.
+            A block is of the form:
+        </p>
+        <code class="block">
+        begin <i>blockname</i>;<br/>
+        <i>internal data</i><br/>
+        endblock;
+        </code>
+
+        <p>We expect three blocks:</p>
+        <ol style="margin-left:1.3em;">
+            <li>Host Block</li>
+            <li>Parasite Block</li>
+            <li>Distribution block</li>
+        </ol>
+
+        <p>
+        The Host and Parasite should have a single line,
+        <code class="block">tree host = tree;</code>
+        <code class="block">tree parasite = tree; </code>
+        respectively, where <code>tree</code> is defined by the following grammar:
+        <code class="block">
+        T  &rarr;  (T,T) <br/>
+        T  &rarr;  <i>Species Name</i>
+        </code>
+        </p>
+
+        <p>
+        The distribution block should contain a line beginning with Range, followed by a list
+        of pairs of <i>parasite</i>:<i>host</i> (note that the colon is necessary). Each pair of parasite and host
+        must be separated by a comma.
+        </p>
+
+        <p>
+        To indicate time zone information for a node in the tree, add [zone] to indicate
+        a single zone, or [zone_start, zone_end] to indicate starting and ending time zones,
+        after the corresponding T. Time zone intervals are only permitted for nodes in
+        the parasite tree.  If time zone information is included anywhere, it has to 
+        be included everywhere.
+        </p>
+
+        <b> Here are a few synthetic example nexus files: </b>
+        <ul>
+            <li><a href="plain.nex">Plain</a></li>
+            <li><a href="timed.nex">Timed</a></li>
+        </ul>
+
+
+
+        <h3>Format 2: CoRe-PA .nex files </h3>
+        <p>
+            CoRe-PA software allows you to draw the species trees and save as <code>.nex</code> format.
+            Other information such as costs and options for CoRe-PA can be stored in the same
+            file as well. Even though Jane 3 does not support the same options and costs as
+            CoRe-PA, the tree editor feature of CoRe-PA can be useful for drawing trees for Jane.
+        </p>
+        <p>
+            However, since the nexus format for CoRe-PA is not formally defined, we can
+            only offer experimental support for this format in Jane 3. Jane will try
+            to read any <code>.nex</code> file created by CoRe-PA tree editor and the tip associations, but
+            it may not be able to. Furthermore, it will ignore all other information in the
+            file, such as options and costs. Appropriate warning messages 
+            will be given for any problems encountered in reading CoRe-PA format files.
+        </p>
+
+
+
+        <h3>Format 3: Jane .tree files</h3>
+        <p>
+            A tree file must consist of a series of blocks: HOSTTREE, HOSTNAMES, PARASITETREE,
+            PARASITENAMES, PHI, HOSTNAMES, and optionally HOSTRANKS, PARASITERANKS, HOSTREGIONS 
+            and REGIONCOSTS, in that order.
+        </p>
+        <p>
+            HOSTTREE and PARASITETREE should consist of a series of entries, one line
+            for each node of each tree, of the form: <br/>
+            <i>node</i>&#09;<i>child1</i>&#09;<i>child2</i><br/>
+            for internal nodes, or <br/>
+            <i>node</i>&#09;null&#09;null<br/>
+            for tips. Every node here needs to be represented by a number.
+        </p>
+        <p>
+            HOSTNAMES and PARASITENAMES should be a series of lines listing the parasite/host's
+            number, a tab, then a human-readable name for the host/parasite.
+        </p>
+        <p>
+            PHI should be a series of lines listing a host number, a tab, and then a list of
+            parasite tips that infect that particular host. A host may appear at the start
+            of multiple lines. Only the tips of the host and parasite tree should be used 
+            in this section (no internal node numbers should appear).
+        </p>
+        <p>
+            HOSTRANKS and PARASITERANKS should be lines with node number followed by a single
+            number to indicate a single time zone, or two integers <i>zone_start, zone_end</i> to
+            indicate an interval with a starting and ending time zone. Time zone intervals 
+            are only permitted for  nodes in the parasite tree. If any time zone information 
+            is given, it must be given for every host and parasite.
+        </p>
+        <p>
+            HOSTREGIONS should be like HOSTRANKS of PARASITERANKS, but with region numbers instead
+            of time zone numbers. Furthermore, only one region is allowed for any given node.
+            When a host switch happens on a regioned tree, the cost is calculated by taking the
+            original host switch cost and adding it to the region cost specified (see below).
+            Note that by adding region information, you cause Jane to use an algorithm that 
+            can be several times slower.
+        </p>
+        <p>
+            REGIONCOSTS should be a list of triples indicating the region from which a switch
+            occurs, the region to which the switch occurs, and the additional cost of such a switch
+            (in that order).
+            This list may be incomplete, and missing entries will be assumed to be zero. The triple 
+            (<i>host_node_1, host_node_2, cost</i>) defines how much to add to a host switch from edge 1 to edge 2,
+            where edge 1 is the edge that terminates at <i>host_node_1</i> and edge 2 is the
+            edge that terminates at <i>host_node_2</i>.
+        </p>
+            <b>Here are some synthetic example tree files:</b>
+            <ul>
+                <li><a href="plain.tree">Plain</a></li>
+                <li><a href="regioned.tree">Regioned</a></li>
+                <li><a href="timed.tree">Timed</a></li>
+            </ul>
+
+            <br/>
+        <a href="index.html">Back to Jane Homepage</a>
+    </div>
+    </div>
+    </body>
+</html>

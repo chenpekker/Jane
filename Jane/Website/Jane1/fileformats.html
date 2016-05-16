@@ -1,0 +1,58 @@
+<html>
+<head>
+	<title>File Formats Recognized by Jane</title>
+</head>
+<body bgcolor = "#EFFFEF">
+<img src="JaneLogo.jpg" width=175>
+
+<h1>Jane File Formats</h1>
+<p>
+This page describes the file formats supported by Jane.  When you
+click on a file, it will render in your browswer without whitespace
+separation.
+To see the file more clearly, you can either view the page source in
+your browser or download the contents.  The examples provided here are
+small synthetic ones intended only to illustrate the format.  If you
+are interested in trying Jane with some real biological problem
+instances, you can find them <a href="SampleTrees.html">here</a>.
+</P>
+
+<h1>Format 1: .nex files</h1>
+Here are a few synthetic example nexus files:<br>
+<a href="untimed.nex">Un-timed</a><br>
+<a href="timed.nex">Timed</a><br>
+A nexus file must begin with the comment #NEXUS, followed by a series of blocks.
+A block is of the form<br>
+begin <i>blockname</i>;<br>
+<i>internal data</i><br>
+endblock;<br>
+We expect three blocks:
+<h2>Host/Parasite</h2>
+Host and Parasite should have a single line,<br>
+tree host = <i>tree</i>;<br>
+tree parasite = <i>tree</i>;<br>
+respectively, where <i>tree</i> is defined by the following grammar:<br>
+T &rarr; (T,T)<br>
+T &rarr; <i>Species Name</i><br>
+To indicate time zone information for a vertex in the tree, add [<i>time zone</i>] or [<i>time tone</i>,<i>time zone</i>] after the corresponding T. If time zone information is included anywhere, it has to be included everywhere, as you see in the example.
+<h2>Distribution</h2>
+The distribution block should contain a line beginning with Range, followed by a list of pairs of <i>parasite</i>:<i>host</i>.
+<h1>Format 2: .tree files</h1>
+Here are some synthetic example tree files:<br>
+<a href="untimed.tree">Un-timed</a><br>
+<a href="timed.tree">Timed</a><br>
+<a href="regioned.tree">Regioned</a><br>
+A tree file must consist of a series of blocks: HOSTTREE, HOSTNAMES, PARASITETREE, PARASITENAMES, PHI, HOSTNAMES, HOSTRANKS, PARASITERANKS, and optionally HOSTREGIONS and REGIONCOSTS, in that order.<br>
+HOSTTREE and PARASITETREE should consist of a series of entries, one per line, one for each vertex of the tree, of the form<br>
+<i>vertex</i>&#09;<i>child1</i>&#09;<i>child2</i><br> for internal vertices, or <br>
+<i>vertex</i>&#09;null&#09;null<br> for tips.<br>
+Every vertex here needs to be represented by a number<br><br>
+HOSTNAMES and PARASITENAMES should be a series of lines listing the parasite/host's number, a tab, then a human-readable name for the host/parasite.<br><br>
+PHI should be a list of host number followed by parasite number, one for each parasite. This indicates that a parasite infects a particular host.<br><br>
+HOSTRANKS and PARASITERANKS should be lines with <i>vertex</i>&#09;<i>time zone</i>, where both of those are numbers.<br><br>
+HOSTREGIONS should be like HOSTRANKS of PARASITERANKS but, with region numbers instead of time zone numbers.<br><br>
+REGIONCOSTS should be a list of triples indicating the region from which a switch occurs, the region to which the switch occurs, and the additional cost of such a switch. This list may be incomplete, and missing entries will be assumed to be zero.<br><br>
+<a href="index.html">Back to Jane homepage</a> 
+
+</body>
+</html>

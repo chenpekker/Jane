@@ -1,0 +1,16 @@
+#nexus
+begin host;
+tree host = ;
+endblock;
+begin parasite;
+tree parasite = ;
+endblock;
+begin distribution;
+Range
+bob : wayne,
+john : jeff,
+puck : loki,
+san : lisa,
+lloyd : amy,
+judy : stan;
+endblock;

@@ -1,0 +1,196 @@
+/*reset*/
+* {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+img {
+    border: 0;
+    outline: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+ul, ol {
+    list-style-position: inside;
+}
+
+body
+{
+    background-image: url("drawnBG.png");
+    background-repeat: repeat;
+    background-position: -500px top;
+    background-attachment: fixed;
+}
+a {
+    text-decoration: none;
+}
+
+p {
+    margin:0.5em 0 1.5em 0;
+}
+
+li {
+    margin:0.3em;
+}
+
+li ul {
+    list-style: disc;
+}
+
+a:active, a:hover, a:focus {
+    text-decoration: underline;
+}
+
+table.standard {
+    border-collapse: separate;
+    border-spacing: 0.5em;
+}
+
+table.standard > tbody > tr:first-child > td {
+    text-align:center;
+    font-weight:bold;
+}
+
+/*rule duplicated for ua's that don't parse this as xml*/
+table.standard  > tr:first-child > td {
+    text-align:center;
+    font-weight:bold;
+}
+
+#outer-container{
+    padding: 0 15px 15px 15px;
+}
+
+#inner-container{
+    max-width:800px;
+    margin: 0 auto;
+    padding:0.65em 1.5em 1.5em 1em;
+    background-color:#EFFFEF; /*backwards compatibility for browser without alpha*/
+    background-color:rgba(239,255,239,0.95);
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+}
+
+dl.standard > dt {
+    font-weight: bold;
+}
+dl.standard > dd {
+    margin-left:1em;
+}
+
+ul.standard {
+    list-style: disc;
+    list-style-position: inside;
+}
+
+ul.standard ul {
+    margin-left:2em;
+}
+
+ul.cite li {
+    text-indent:-1.5em;
+    padding:1em 0 0 1.5em;
+}
+
+#top {
+    display: block;
+    text-align: center;
+    line-height: 0;
+}
+
+code {
+    font-familty:monospace;
+}
+
+code.block {
+    display:block;
+    margin:1em 0 1em 2em;
+}
+
+image.block {
+    display:block;
+}
+
+
+strong {
+    font-weight:bold;
+}
+
+li ul, li ol {
+    margin:0.4em 0 0.4em 0.7em;
+}
+
+/*styles for table of contents pattern style pages*/
+
+/*numbering table of contents*/
+.contents-pattern ul.tbl-contents, .contents-pattern ol.tbl-contents {
+    margin: 1em 0 1em 1.2em;
+    counter-reset: tbl-sectioncount;
+}
+
+.contents-pattern ul.tbl-contents li, .contents-pattern ol.tbl-contents li {
+    list-style: none;
+}
+
+.contents-pattern ul.tbl-contents > li:before, .contents-pattern ol.tbl-contents > li:before {
+    counter-increment: tbl-sectioncount;
+    counter-reset: tbl-subsectioncount;
+    content: counter(tbl-sectioncount) ". ";
+}
+
+.contents-pattern ul.tbl-contents li li:before, .contents-pattern ol.tbl-contents li li:before {
+    counter-increment: tbl-subsectioncount;
+    content: counter(tbl-sectioncount) "." counter(tbl-subsectioncount) ". ";
+}
+
+/*numbering and formatting sections and subsections*/
+.contents-pattern h2.contents-heading, .contents-pattern h2.section-heading {
+    font-size: 1.4em;
+    margin: 1em 0 0 0;
+}
+
+.contents-pattern{
+    counter-reset: sectioncount;
+}
+
+.contents-pattern .section-heading:before{
+    counter-increment: sectioncount;
+    content:counter(sectioncount) ". ";
+}
+
+.contents-pattern .section-heading {
+    font-weight: bold;
+    counter-reset: subsectioncount;
+    margin-top:1em;
+}
+
+.contents-pattern a[href='#top']{
+    display:block;
+}
+
+.contents-pattern .section-body {
+    margin-bottom: 1em;
+}
+
+.contents-pattern .subsection-heading:before {
+    counter-increment: subsectioncount;
+    content:counter(sectioncount) "." counter(subsectioncount) ". ";
+}
+
+.contents-pattern .subsection-heading {
+    font-weight: bold;
+}
+
+.contents-pattern table.walkthru td {
+    padding:0.5em;
+}
+
+.contents-pattern h3 {
+    margin-top: 1em;
+}

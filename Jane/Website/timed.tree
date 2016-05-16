@@ -1,0 +1,66 @@
+HOSTTREE
+1	2	3
+2	4	5
+3	6	7
+4	null	null
+5	null	null
+6	null	null
+7	8	9
+8	null	null
+9	null	null
+
+HOSTNAMES
+1	1
+2	2
+3	3
+4	Host a
+5	Host b
+6	Host c
+7	7
+8	Host d
+9	Host e
+
+PARASITETREE
+10	11	12
+11	null	null
+12	13	14
+13	15	16
+14	null	null
+15	null	null
+16	null	null
+
+PARASITENAMES
+10	10
+11	Parasite 1
+12	12
+13	13
+14	Parasite 4
+15	Parasite 2
+16	Parasite 3
+
+PHI
+4	11
+5	15
+6	16
+9	14
+
+
+HOSTRANKS
+1	1
+2	2
+3	3
+4	4
+5	4
+6	4
+7	4
+8	4
+9	4
+
+PARASITERANKS
+10	1,3
+11	4
+12	1,3
+13	1,4
+14	1,4
+15	1,4
+16	1,4

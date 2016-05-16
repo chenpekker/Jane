@@ -1,0 +1,162 @@
+<html>
+<head>
+	<title>Instructions for Jane</title>
+</head>
+<body bgcolor = "#EFFFEF">
+<img src="JaneLogo.jpg" width = 175>
+
+<p>To use Jane, begin by downloading the .zip file available from
+  the <a href="index.html">main page</a>. Once you have unzipped it,
+  there will be a jar file in the Jane folder. To run Jane, use the
+  command <tt>java -jar Jane.jar</tt>.  On some machines, you can simply
+  click or double-click on the Jane.jar icon.  (<font color="red">If
+  Jane crashes</font> when you run on a large problem, it is almost certainly because Java ran out of memory.
+  Use the command line option <tt>-Xmx512m</tt> in this case.)
+
+<p>
+There is also a <b>command-line</b> version of jane included in the jar which
+can be invoked
+with <i>java -cp Jane.jar Jane treefile</i>.  This version of Jane is
+particularly useful for conducting large-scale experiments controlled
+by
+scripts.
+More details on this option are given at the end of this tutorial.
+</p>
+
+<h2> The Jane Interface </h2>
+
+When you open the graphical version of Jane, you will see the main window.
+
+<img src="Jane_Load.png" width=600>
+
+<p>Next, open a tree file by going
+  to <b>File &gt; Open Tree</b>. Jane supports two formats: .nex
+  files, formatted in the style used by TreeMap, and .tree files,
+  formatted in the style used by Tarzan. 
+A more exact specification of file formats used by Jane, as well as some example files can be found <a href="fileformats.html">here</a>.
+</p>
+<p> Once you open a tree file, its filename and a count of host and parasite tips will appear at the top of the window.<br>
+	<img src="tree_opened.png">
+</p>
+<p> Jane has several configuration options that determine how well it reconciles the trees, and what criteria to use.
+	<ul>
+		<li><b>Population Size:</b> Jane uses a genetic
+		algorithm and this parameter determines the number of
+		"organisms" or timings used in each iteration or "generation" of the
+		algorithm.  A higher value will on average give better results, but a slower runtime. <br><img src="population_slider.png"> (command line option -p <i>size</i>)</li>
+		<li><b>Number of Iterations:</b>  This is the second
+		  important parameter in our solver.  It determines how many
+		iterations or "generations" of the genetic algorithm are used in
+		Jane's search.  Again, a higher value will on average
+		give better results, but a slower
+		runtime. <br><img src="iterations_slider.png">
+		(command line option -i <i>size</i>)</li>
+		<li> Click <a href="parameters.html">here</a> for
+		guidance on choosing appropriate values for
+		the <b>Population Size</b> and <b>Number of Iterations</b>.
+		<li>  Clicking on the "Test Speed" button will run a
+		fast diagnostic of your computer and will provide an
+		estimate of the amount of time required for Jane to
+		solve the current problem with the selected population
+		size and number of iterations. 
+		<li><b>Costs</b> can be adjusted from <b>Settings &gt; Set Costs</b>. The costs must be integers, but beyond that there are no restrictions. The default cost model is the one used by TreeMap, but there is an option to switch to the cost model used by Tarzan.<br>
+			<img src="costs_editor.png"><br>
+			 (command line option -c <i>Cospeciation Duplication Switch Loss</i>, and -T for tarzan)</li>
+		<li><b>Host Switch Distance</b> can be set from <b>Settings &gt; Set Maximum Host Switch Distance</b> and allows you to restrict host switches to only closely related hosts.<br>
+			<img src="distance_editor.png"></li>(command line option -S <i>switch_distance</i>)
+	</ul>
+	There are also two command-line only options: -m sets the mutation rate, and -s sets selection strength. These are parameters for tuning the genetic algorithm, but our experience has shown them to have little effect, so it is recommended that you leave them at their default values.
+</p>
+<p> Once you are done configuring Jane, you should click the <b>Go</b> button. Jane will then run through the genetic algorithm. Those solutions will appear in the list at the bottom of the screen<br>
+<img src="jane_solutions.png"><br>
+Each of these solutions is a relative timing of the vertices in the
+host tree. It is likely that many of them will contain similar optimal
+solutions.
+
+<p> Double-click on one of the solutions to bring up a solution viewer.<br>
+	<img src="solution_viewer.png">
+</p>
+<p> Within the solution viewer, there are four types of events<br>
+	<table>
+		<tr>
+			<td>Cospeciation</td><td><img src="cospeciation.png"></td>
+		</tr> 
+
+		<tr>
+			<td>Duplication</td><td><img src="duplication.png"></td>
+		</tr>
+		<tr>
+			<td>Host Switch</td><td><img src="host_switch.png"></td>
+		</tr>
+		<tr>
+			<td>Loss</td><td><img src="loss.png"></td>
+		</tr>
+	</table>
+</p>
+
+<p>
+			Note:  On Windows and Linux machines, the
+			small "hole" in the circle for a copseciation
+			node is very small and may be hard to see on
+			some displays.
+			However, note that a cospeciation always has
+			two vertical segments emanating from it,
+			which clearly distinguishes it from a
+			duplication which always has one vertical and
+			one horizontal emanating segment.
+</P>
+
+<p>Notice that each type of event corresponding to a vertex in the
+  parasite tree is marked with a colored circle. These circles
+  indicate the existence of other possible locations for the
+  association. A green circle means there is a location of lower cost 
+where the parasite vertex could be mapped. A yellow circle means that
+  there is a location of equal cost, and red  circle means that any other locations that may exist are of higher cost. When dragging an association, segments of the host tree will light up colors corresponding to the cost of moving the association to that edge or vertex.<br>
+	<img src="mid_drag.png">
+</p>
+If you drop the circle on a compatible edge or vertex in the host
+tree, that parasite vertex and its descendants will move to reflect
+the new location.  Notice also that the cost of this solution is
+displayed at the top of the window.
+
+<p> If a timing is of interest, you can save it (but not any changes made to the parasite tree within that timing) by going to <b>File &gt; Save Timing</b> inside the solution viewer window. Then, any time that tree is loaded in the main window, you can go to <b>File &gt; Load Timing</b>, open the timing, and it will be added back into the list of solutions at the bottom of the window. Command-line users can save the best timing found by using the -o switch with the name of a file to store the timing in.
+</p>
+<p>It's worth noting that the timing files are written in a human-readable format, so they can be modified if you want to explore a specific timing.</p>
+
+<h2> Invoking Jane from the Command-Line</h2>
+
+<p>
+Jane can be invoked from the command-line rather than by launching the
+graphical user interface as follows:
+<br><br>
+<tt>
+java -cp Jane.jar Jane treefile
+</tt>
+<br><br>
+where <tt>treefile</tt> is the file name to be used.  A full listing
+of the command-line options can be found as follows:
+<br><br>
+<tt>
+jave -cp Jane.jar Jane -help
+</tt>
+<br>
+<br>
+Finally, for very large tree files and timing files, 
+Jane's interactive viewer may be
+too slow or may exceed the memory of the computer.  Therefore, a
+version of Jane with a more efficient
+non-interactive viewer is available by invoking:
+<br>
+<br>
+<tt>
+java -cp Jane.jar SimpleViewer <treeFile> <timingFile>
+</tt><br><br>
+This version has all of the command-line options of Jane.  In
+addition, there is also a <tt>-o</tt> switch that  outputs an image (in png
+format) of the solution.  
+<br><br>
+
+<a href="index.html">Back to Jane homepage</a>
+
+</body>
+</html>

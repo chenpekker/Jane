@@ -1,0 +1,85 @@
+\documentclass{article}
+
+\usepackage{fixltx2e}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\setcounter{secnumdepth}{4}
+
+\begin{document}
+
+With the addition of failure to diverge events and the ability of Jane to handle time zone information, the file 01\_DP\_approach.pdf is out of date. The following modifications should be made.
+
+\section{Notations}
+Add the following:
+\begin{itemize}
+\item Let $\text{cost}_{\textsc{FTD}}$ be the cost of a failure to diverge event.
+
+\item Let $TZ: V_{h} \cup T \to \mathbb{N}$ be the function that takes a host node or time and returns its time zone such that the statement ``$v_{h}$ occurs at time $t$'' implies $TZ(v_{h}) = TZ(t)$. Let $TZ:V_{p} \to [\mathbb{N}, \mathbb{N}]$ be the function that takes a parasite node and returns its time zone interval. If no time zone information is given then $TZ(t) = 1$ for all $t \in T$ and $TZ(v_{p}) = [1,1]$ for all $v_{p} \in V_{p}$. If a parasite node has only one time zone then its interval will consist of one integer. 
+
+\item Let \textsc{NeedsFtd}$: V_{p} \times V_{h} \to \{\top, \bot\}$ be the Boolean operator that determines whether the parasite tip $v_{p_{tip}} \in V_{p}$ infects a host in both subtrees $v_{h_{1}}$ and $v_{h_{2}}$ of $v_{h} \in V_{h}$. 
+
+\end{itemize}
+
+\section{Algorithm 1}
+\subsection{Calculation of $B(e_{p}, e_{h}, t)$}
+\subsubsection{Calculation of $B(e_{p}, e_{h}, t)$ for $t = n_{h}$}
+\begin{itemize}
+\item Replace ``If $v_{p}$ and $v_{h}$ are associated tips'' with ``If $v_{p}$ and $v_{h}$ are associated tips and $TZ(v_{h}) \in TZ(v_{p})$''
+\end{itemize}
+\subsubsection{Case 1}
+\begin{itemize}
+\item Replace ``$v_{h}$  occurs at time $t$'' with ``$v_{h}$ occurs at time $t$ and there are no descendants $v_{p_{tip}}$ of $v_{p}$ such that \textsc{NeedsFtd}$(v_{p_{tip}}, v_{h})$''
+
+\item Replace ``If $v_{p}$ is not a tip'' by ``If $v_{p}$ is not a tip and $TZ(t) \in TZ(v_{p})$''
+
+\item Replace ``If $e_{p}$ is not a dummy root'' by ``If $e_{p}$ is not a dummy root and no multihost parasites exist''
+
+\end{itemize}
+
+\subsubsection{Case 2}
+\begin{itemize}
+\item Re-index to Case 4
+\end{itemize}
+
+\subsubsection{Case 3}
+\begin{itemize}
+\item Re-index to Case 5
+ \end{itemize}
+
+\subsubsection{Case 2 (new)}
+\begin{itemize}
+\item Add a new Case 2 with condition ``$v_{h}$ occurs at time $t$ and there are exactly one descendant $v_{p_{tip}}$ of $v_{p}$ such that \textsc{NeedsFtd}$(v_{p_{tip}}, v_{h})$''
+\item Add the following text ``If there exists some parasite tip $v_{p_{tip_{2}}} \neq v_{p_{tip}}$ descending from $v_{p}$ and there exists some host $v_{h_{2}}$ occurring at a time before $v_{h}$ such that  \textsc{NeedsFtd}$(v_{p_{tip_{2}}}, v_{h_{2}}$) then $B(e_{p}, e_{h}, t) = \infty$. Otherwise 
+\begin{align*}
+B(e_{p}, e_{h}, t) = \min\{&A(e_{p_{tip}}, e_{h_{1}}, t) + A(e_{p}, e_{h_{2}}, t),\\
+&A(e_{p_{tip}}, e_{h_{2}}, t) + A(e_{p}, e_{h_{1}}, t)\} + \text{cost}_{\textsc{FTD}}.
+\end{align*}
+The purpose of this condition can be explained as follows: If a descendant $v_{p_{tip_{2}}}$ of $v_{p}$ has already failed to diverge at some earlier instance in time, $e_{p}$ inherently must have the same identity as $v_{p_{tip_{2}}}$. For us to then have $v_{p_{tip}}$ fail to diverge would imply that $e_{p}$'s identity is that of $v_{p_{tip}}$, a contradiction and thus we disallow the failure to diverge event.''
+\end{itemize}
+
+\subsubsection{Case 3 (new)}
+\begin{itemize}
+\item Add a new Case 2 with condition ``$v_{h}$ occurs at time $t$ and more than one descendant $v_{p_{tip}}$ of $v_{p}$ satisfies \textsc{NeedsFtd}$(v_{p_{tip}}, v_{h})$''
+\item Add the following text ``In this case two distinct parasites must fail to diverge along the same parasite edge. This is impossible so we let $B(e_{p}, e_{h}, t) = \infty$''
+\end{itemize}
+
+\subsection{Calculation of $A(e_{p}, e_{h}, t)$}
+\subsubsection{Case 1}
+\paragraph{When computing DUP}
+\begin{itemize}
+\item Replace ``If $v_{p}$ is not a tip'' with ``If $v_{p}$ is not a tip and $TZ(t) = TZ(v_{p})$''
+\end{itemize}
+
+\paragraph{When computing HS}
+\begin{itemize}
+\item Replace ``If $v_{p}$ is not a tip'' with ``If $v_{p}$ is not a tip and $TZ(t) = TZ(v_{p})$''
+\end{itemize}
+
+\subsection{Running time}
+\begin{itemize}
+\item After ``which can take as high as $O(n)$ running time.'' add ``Moreover, we must check that the host switch is not prevented due to prior failure to diverge events. The document `Restricting Host Switches' gives an explanation for how this is done and provides an algorithm for checking the validity of host switches in constant time.''
+\end{itemize}
+
+\section{Remainder of the document}
+The remainder of the document mainly discusses different techniques for optimizing Jane in special cases. There are a few instances where the description is out of date because of time zones or failure to diverge events but I have not mentioned them as they are largely repetitions of modifications already noted in this addendum. 
+\end{document}

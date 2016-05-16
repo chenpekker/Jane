@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This build script can be improved a lot, especially in terms of removing
+duplication of jvm arguments-->
+
+<project name="Jane-Opt" default="clean-package-all" basedir=".">
+
+<import file="build.xml"/>
+
+<taskdef resource="proguard/ant/task.properties" classpath="build-tools/proguard.jar" />
+
+<taskdef name="jarbundler" classname="net.sourceforge.jarbundler.JarBundler"
+    classpath="build-tools/jarbundler.jar" />
+    
+<taskdef name="launch4j" classname="net.sf.launch4j.ant.Launch4jTask"
+    classpath="build-tools/launch4j/launch4j.jar:build-tools/launch4j/lib/xstream.jar" />
+
+<property name="pkg.exedir" value="${pkg.dir}/executables"/>
+<property name="pkg.distdir" value="${pkg.dir}/distributables"/>
+
+<!--because launch4j is stupid, you need to change this down there too if you edit this-->
+<!--you'll also need to edit the scripts in the scripts folder-->
+<property name="all.vmoptions" value="-Xss512k -Xms50m -Xmx10G -XX:+UseParallelGC -XX:+UseParallelOldGC -XX:+AggressiveOpts -XX:+UseFastAccessorMethods"/>
+
+<property name="osx.vmoptions" value="${all.vmoptions} -server -Xdock:name=Jane"/>
+
+<!-- ProGuard would do this automatically, but there are so many classes it runs out of heap space-->
+<target name="remove-unused-fastutil-classes" depends="jar">
+    <mkdir dir="${dist.dir}/tmp"/>
+    <exec executable="java" failifexecutionfails="true">
+        <arg value="-jar"/>
+        <arg value="build-tools/autojar.jar"/>
+        <arg value="-o"/>
+        <arg value="${dist.dir}/tmp/tmp.jar"/>
+        <arg value="-d"/>
+        <arg value="-c"/>
+        <arg value="${dist.dir}/lib/*${path.separator}${dist.dir}/${application.title}.jar"/>
+        <arg value="edu/hmc/jane/CLI.class"/>
+        <arg value="edu/hmc/jane/gui/Design.class"/>
+    </exec>
+
+    <zip destfile="${dist.dir}/lib/fastutil_small.jar">
+        <zipfileset src="${dist.dir}/tmp/tmp.jar" includes="it/**"/>
+    </zip>
+
+    <delete file="${dist.dir}/lib/tmp.jar"/>
+    <delete>
+        <fileset file="${dist.dir}/lib/fastutil-*.jar"/>
+    </delete>
+</target>
+
+<target name="proguard-optimize" depends="jar,remove-unused-fastutil-classes">
+    <property name="proguard.jar" value="${dist.dir}/${application.title}-Optimized.jar"/>
+
+    <condition property="java-lib.path"
+        value="${java.home}/../Classes/classes.jar"
+        else="${java.home}/lib/rt.jar">
+
+        <equals arg1="${os.name}" arg2="Mac OS X"/>
+    </condition>
+
+   <proguard optimizationpasses="10" allowaccessmodification="true" mergeinterfacesaggressively="true">
+
+    <!-- Specify the input jars, output jars, and library jars. -->
+
+    <injar  file="${dist.jar}" />
+    <outjar file="${proguard.jar}" />
+
+
+    <libraryjar file="${java-lib.path}" />
+    <libraryjar file="${dist.dir}/lib/" />
+
+    <!-- We use reflection to call setImageIcons for backwards compatibility w/
+    1.5, so we need to make sure we keep setImageIcons in case it is overriden.
+    Right now, it isn't so this doesn't matter.-->
+    <keepclassmembers>
+        <method name="setImageIcons"/>
+    </keepclassmembers>
+
+
+    <!-- Keep any class with a main method. -->
+
+    <keepclasseswithmembers access="public">
+      <method access    ="public static"
+              type      ="void"
+              name      ="main"
+              parameters="java.lang.String[]" />
+    </keepclasseswithmembers>
+
+
+    <!-- Preserve all annotations. -->
+
+    <keepattribute name="*Annotation*" />
+
+    <!-- Preserve all native method names and the names of their classes. -->
+
+    <keepclasseswithmembernames>
+      <method access="native" />
+    </keepclasseswithmembernames>
+
+    <!-- Preserve the methods that are required in all enumeration classes. -->
+
+    <keepclassmembers extends="java.lang.Enum">
+      <method access="public static"
+              type="**[]"
+              name="values"
+              parameters="" />
+      <method access="public static"
+              type="**"
+              name="valueOf"
+              parameters="java.lang.String" />
+    </keepclassmembers>
+
+    <!-- Explicitly preserve all serialization members. The Serializable
+         interface is only a marker interface, so it wouldn't save them.
+         You can comment this out if your library doesn't use serialization.
+         If your code contains serializable classes that have to be backward
+         compatible, please refer to the manual. -->
+
+    <keepclassmembers implements="java.io.Serializable">
+      <field  access    ="static final"
+              type      ="long"
+              name      ="serialVersionUID" />
+      <field  access    ="static final"
+              type      ="java.io.ObjectStreamField[]"
+              name      ="serialPersistentFields" />
+      <method access    ="private"
+              type      ="void"
+              name      ="writeObject"
+              parameters="java.io.ObjectOutputStream" />
+      <method access    ="private"
+              type      ="void"
+              name      ="readObject"
+              parameters="java.io.ObjectInputStream" />
+      <method type      ="java.lang.Object"
+              name      ="writeReplace"
+              parameters="" />
+      <method type      ="java.lang.Object"
+              name      ="readResolve"
+              parameters="" />
+    </keepclassmembers>
+
+  </proguard>
+</target>
+
+
+<target name="prep-package-dir">
+    <mkdir dir="${pkg.dir}"/>
+    <mkdir dir="${pkg.exedir}"/>
+    <mkdir dir="${pkg.distdir}"/>
+</target>
+
+
+
+
+
+<target name="standalone-jar" depends="proguard-optimize,prep-package-dir">
+    <jar destfile="${pkg.exedir}/${application.title}.jar">
+        <zipgroupfileset file="${proguard.jar}" />
+        <zipgroupfileset dir="${dist.dir}/lib" includes="*.jar"/>
+
+        <manifest>
+            <attribute name="Main-Class" value="${main.class}"/>
+        </manifest>
+    </jar>
+</target>
+
+
+
+
+
+<target name="mac-app-bundle" depends="standalone-jar">
+    <property name="osx.icon" value="${build.dir}/classes/images/mac-icon.icns"/>
+
+    <jarbundler dir="${pkg.exedir}"
+                name="${application.title}"
+                shortname="${application.title}"
+                mainclass="${main.class}"
+                jar="${pkg.exedir}/${application.title}.jar"
+                icon="${osx.icon}"
+                jvmversion="1.5.0_00+"
+                jvmarchs="x64_86 x86"
+                lsArchitecturePriority="x64_86 x86"
+                version="${application.version}"
+                vmoptions="${osx.vmoptions}"
+                stubfile="build-tools/JavaApplicationStub">
+
+                <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+            
+        </jarbundler>
+</target>
+
+
+
+
+
+
+<target name="windows-executables" depends="standalone-jar">
+<!--gui-->
+<launch4j>
+<config headerType="gui"
+        outfile="${pkg.exedir}/Jane.exe"
+        icon="${basedir}/images/icon-medium.ico"
+        jarpath="${pkg.exedir}/${application.title}.jar"
+        stayAlive="true">
+
+  <classPath mainClass="${main.class}">
+      <cp>:</cp>
+  </classPath>
+  <jre minVersion="1.5.0_00" jdkPreference="preferJdk">
+      <opt>-Xss512k -Xms50m -Xmx10G -XX:+UseParallelGC -XX:+UseParallelOldGC -XX:+AggressiveOpts -XX:+UseFastAccessorMethods</opt>
+  </jre>
+</config>
+</launch4j>
+
+<!--console-->
+<launch4j>
+<config headerType="console"
+        outfile="${pkg.exedir}/jane-cli.exe"
+        icon="${basedir}/images/icon-medium.ico"
+        jarpath="${pkg.exedir}/${application.title}.jar"
+        stayAlive="true">
+
+  <classPath mainClass="edu.hmc.jane.CLI">
+      <cp>:</cp>
+  </classPath>
+  <jre minVersion="1.5.0_00" jdkPreference="preferJdk">
+      <opt>-Xss512k -Xms50m -Xmx10G -XX:+UseParallelGC -XX:+UseParallelOldGC -XX:+AggressiveOpts -XX:+UseFastAccessorMethods</opt>
+  </jre>
+</config>
+</launch4j>
+</target>
+
+
+
+<target name="package-win" depends="windows-executables">
+    <delete file="${pkg.distdir}/windows.zip"/>
+    <zip destfile="${pkg.distdir}/windows.zip">
+        <fileset dir="${pkg.exedir}" includes="*.exe"/>
+        <fileset file="LICENSE.txt"/>
+        <fileset file="ABOUT.txt"/>
+    </zip>
+</target>
+
+
+<target name="package-mac" depends="mac-app-bundle">
+    <delete file="${pkg.distdir}/mac.tar.gz"/>
+    <zip destfile="${pkg.distdir}/mac.tar.gz">
+        <fileset dir="${pkg.exedir}" includes="*.app/**/">
+            <exclude if="**/*.jar"/>
+            <exclude if="**/JavaApplicationStub"/>
+        </fileset>
+        <tarfileset filemode="755" dir="${pkg.exedir}" includes="*.app/**/JavaApplicationStub"/>
+        <tarfileset filemode="755" dir="${pkg.exedir}" includes="*.app/**/*.jar"/>
+        <tarfileset filemode="755" dir="scripts/mac/" />
+        <fileset file="LICENSE.txt"/>
+        <fileset file="ABOUT.txt"/>
+    </zip>
+</target>
+
+
+
+<target name="package-linux" depends="standalone-jar">
+    <delete file="${pkg.distdir}/linux.tar.gz"/>
+    <tar destfile="${pkg.distdir}/linux.tar.gz" compression="gzip">
+        <tarfileset filemode="755" prefix="lib" dir="${pkg.exedir}" includes="*.jar"/>
+        <tarfileset filemode="755" dir="scripts/linux" excludes="**/jc.sh"/>
+        <tarfileset filemode="755" prefix="lib" file="scripts/linux/jc.sh"/>
+        <fileset file="LICENSE.txt"/>
+        <fileset file="ABOUT.txt"/>
+    </tar>
+</target>
+
+
+
+<target name="package-platform-independent" depends="standalone-jar">
+    <delete file="${pkg.distdir}/platform-independent.tar.gz"/>
+    <tar destfile="${pkg.distdir}/platform-independent.tar.gz" compression="gzip">
+        <tarfileset filemode="755" dir="${pkg.exedir}" includes="*.jar"/>
+        <fileset file="LICENSE.txt"/>
+        <fileset file="ABOUT.txt"/>
+    </tar>
+</target>
+
+
+
+<target name="package-website" depends="package-win,package-mac,package-linux,package-platform-independent">
+    <delete file="${pkg.dir}/website.zip"/>
+    <zip destfile="${pkg.dir}/website.zip">
+        <fileset dir="website"/>
+        <zipfileset prefix="downloads" dir="${pkg.distdir}"/>
+    </zip>
+</target>
+
+
+
+<target name="package-all" depends="package-win,package-mac,package-linux,package-platform-independent,package-website"/>
+
+<target name="clean-package-all" depends="clean,package-all"/>
+</project>

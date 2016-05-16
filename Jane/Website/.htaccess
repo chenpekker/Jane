@@ -1,0 +1,3 @@
+Options +Indexes +ExecCGI
+AddHandler cgi-script .py
+AddType 'octet/stream; charset=UTF-8' tree

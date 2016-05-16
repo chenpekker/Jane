@@ -1,0 +1,8 @@
+Proguard is at version 4.8
+JarBundler is at version 2.2.0
+Launch4j is at version 3.0.1
+Feel free to upgrade these as new versions are released.
+If you get the chance, you should replace Launch4j, as it is old and apparently
+unmaintained. Also, if they do end up releasing a new version, you need to
+combine the mac and windows file structure in order to get it to work on both
+platforms.

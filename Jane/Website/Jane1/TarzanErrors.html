@@ -1,0 +1,48 @@
+<html>
+<head>
+	<title>Unreported Timing Incompatabilities in Tarzan</title>
+</head>
+<body bgcolor = "#EFFFEF">
+<P>
+Tarzan is an important software package for the cophylogeny reconstruction
+problem.  It is very fast and generally finds very good solutions.
+Since Tarzan and Jane generally produce different solutions, the
+practioner may wish to use both tools simultaneously.
+</P>
+
+<P>
+It is important to note that 
+Tarzan sometimes finds solutions that contain
+timing incompatabilties that render its solutions incorrect.  Here we 
+demonstrate one such case.
+
+<img src="Picture 8.png">
+<p>This is a tree on which Tarzan's solutions contain timing
+  incompatibilities. Download the <a href="Example.tree"> tree file </a>.
+
+<p> Use the following set of costs:<br>
+<img src="Picture 5.png">
+<p> Select the first cost-minimal reconstruction<br>
+<img src="Picture 9.png">
+<p> Here is the solution<br>
+	<img src="Picture 6.png">
+<p> These three associations should appear in the solution<br>
+(186,T.canarensis,2)<br>
+(188,G. tenera,2)<br>
+(202,12,1)<br>
+186, 188, 202 are a direct chain of parent-child vertices.
+<p> Here is that series of associations mapped onto the host tree as
+  host switches.<br>
+<img src="problem_switch.png">
+<p>This host switch causes a parasite's descendant to land on the
+  ancestor of the host on which it is mapped. This is clearly
+  incorrect.
+</P>
+
+<p> All of the 100 solutions reported by Tarzan for this problem
+  instance are incorrect due to such timing incompatibilities.
+</P>
+<br><br>
+<a href="index.html">Back to Jane homepage</a> 
+</body>
+</html>
