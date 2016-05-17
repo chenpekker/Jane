@@ -114,7 +114,7 @@ public class NexusFileReader extends TreeFileReader {
 
         return s.substring(0, s.indexOf(";"));
     }
-
+//Check here
     Block nextBlock() throws FileFormatException, java.io.IOException {
         String s = nextLine();
         if (s == null) {
@@ -139,7 +139,7 @@ public class NexusFileReader extends TreeFileReader {
 
         return b;
     }
-
+//Check Here
     void readBlock(Block b) throws FileFormatException {
         if ("host".equals(b.title)) {
             if (b.contents.size() > 1) {
@@ -315,7 +315,7 @@ public class NexusFileReader extends TreeFileReader {
 
         return new ProblemInstance(hostTree, parasiteTree, treeRegions, phi, timeZones);
     }
-
+//What a block is
     class Block {
 
         String title;
