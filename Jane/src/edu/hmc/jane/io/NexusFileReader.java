@@ -321,7 +321,7 @@ public class NexusFileReader extends TreeFileReader {
         String title;
         LinkedList<String> contents;
     }
-
+//Probably will have to look at this as well
     class TreeParser {
 
         int index;   //Index in the String tree that is curretly being looked at
