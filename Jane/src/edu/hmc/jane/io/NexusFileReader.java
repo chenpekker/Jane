@@ -95,7 +95,7 @@ public class NexusFileReader extends TreeFileReader {
     }
 
     String nextLine() throws java.io.IOException {
-        StringBuilder curLine = new StringBuilder(annoyingExtraData);
+        StringBuilder curLine = new StringBuilder("");
         while (curLine.indexOf(";") == -1) {
             String s = fin.readLine();
             if (s != null) {
@@ -110,7 +110,7 @@ public class NexusFileReader extends TreeFileReader {
 
         String s = curLine.toString();
 
-        annoyingExtraData = s.substring(s.indexOf(";") + 1).trim();
+        annoyingExtraData = s.substring(s.indexOf(";") + 1);
 
         return s.substring(0, s.indexOf(";"));
     }
