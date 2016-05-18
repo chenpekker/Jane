@@ -18,7 +18,7 @@ public class NexFileFilter extends FileFilter {
             return true;
         }
         String s = f.getName();
-
+        
         return s.endsWith(".nex")||s.endsWith(".NEX");
     }
 
