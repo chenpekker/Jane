@@ -110,7 +110,6 @@ public class NexusFileReader extends TreeFileReader {
         }
 
         String s = curLine.toString();
-
         annoyingExtraData = s.substring(s.indexOf(";") + 1);
 
         return s.substring(0, s.indexOf(";"));
@@ -132,9 +131,19 @@ public class NexusFileReader extends TreeFileReader {
 
         String str;
         for (str = nextLine(); str != null && !(str.toLowerCase().startsWith("endblock") || str.toLowerCase().startsWith("end")); str = nextLine()) {
-            if (str.toLowerCase().endsWith("endblock")) {  // checks if a semicolon is missing at the end of the contents line
-                throw new FileFormatException("Missing a semi colon at the end of the contents line");
+            // checks if a semicolon is missing at the end of the contents line
+            if (str.toLowerCase().endsWith("endblock")) {
+                throw new FileFormatException("Missing a semicolon at the end of the contents line");
         }
+            //Fix for a type of newick tree where there is a length at the end of the tree
+            if (str.contains(":")){
+                int id1 = str.lastIndexOf(")");
+                int id2 = str.lastIndexOf(":");
+                if (id2-1 == id1){
+                    str = str.substring(0,id2);
+                }
+            }
+            System.out.println(str);
             b.contents.addLast(str);
         }
         // add extra for when the matching parasite and host lines do not end with a ; but the endblock line still exits
