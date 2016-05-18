@@ -154,9 +154,7 @@ public class NexusFileReader extends TreeFileReader {
             if (b.contents.size() == 0) {
                 throw new FileFormatException("No data inside host block");
             }
-       //     if ((b.contents.indexOf(";") != -1) || (b.title.endsWith(";") != true) ) {
-       //         throw new FileFormatException("Missing a semi colon at the end of a line in the host block");
-       //     }
+       
             
                 
             String s = b.contents.get(0);
@@ -178,9 +176,7 @@ public class NexusFileReader extends TreeFileReader {
             if (!loadGui && b.contents.size() == 0) {
                 throw new FileFormatException("No data inside parasite block");
             }
-         //   if ((b.contents.indexOf(";") != -1) || (b.title.indexOf(";") != -1) )  {
-         //       throw new FileFormatException("Missing a semi colon at the end of a line in the parasite block");
-        //    }
+        
             String s = b.contents.get(0);
             
             freeIndex = 0;
