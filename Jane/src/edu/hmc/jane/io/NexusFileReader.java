@@ -131,8 +131,9 @@ public class NexusFileReader extends TreeFileReader {
 
         String str;
         for (str = nextLine(); str != null && !(str.toLowerCase().startsWith("endblock") || str.toLowerCase().startsWith("end")); str = nextLine()) {
+
             // checks if a semicolon is missing at the end of the contents line
-            if (str.toLowerCase().endsWith("endblock")) {
+            if (str.toLowerCase().endsWith("endblock") || str.toLowerCase().endsWith("end")) {  // checks if a semicolon is missing at the end of the contents line
                 throw new FileFormatException("Missing a semicolon at the end of the contents line");
         }
             //Fix for a type of newick tree where there is a length at the end of the tree...could be improved
@@ -170,6 +171,9 @@ public class NexusFileReader extends TreeFileReader {
     }
 //Check Here
     void readBlock(Block b) throws FileFormatException {
+        if ("taxa".equals(b.title)) {
+            System.err.println("Input file is in nexus TAXA format, Jane accepts nexus Tree format");
+        }
         if ("host".equals(b.title)) {
             if (b.contents.size() > 1) {
                 System.err.println("Unexpected multiple lines inside host block.");
@@ -177,9 +181,7 @@ public class NexusFileReader extends TreeFileReader {
             if (b.contents.size() == 0) {
                 throw new FileFormatException("No data inside host block");
             }
-       
-            
-                
+        
             String s = b.contents.get(0);
             freeIndex = 0;
             host = new HashMap<Integer, Vector<Integer>>();
@@ -191,6 +193,7 @@ public class NexusFileReader extends TreeFileReader {
             hNames = new String[hostNames.size()];
             for (int i = 0; i < hostNames.size(); i++) {
                 hNames[i] = hostNames.get(i).intern();
+                
             }
         } else if ("parasite".equals(b.title)) {
             if (b.contents.size() > 1) {

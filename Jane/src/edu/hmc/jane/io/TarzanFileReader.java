@@ -323,13 +323,13 @@ public class TarzanFileReader extends TreeFileReader {
         }
         return s;
     }
-
     void seekString(String s) throws FileFormatException, java.io.IOException {
         if (!readToToken(s)) {
-            throw new FileFormatException("Missing token " + s + " in input file. Please choose a valid tarzan tree file");
+            throw new FileFormatException("Missing token " + s + " in input file. Please choose a valid tarzan tree file that's compatible with Jane");
         }
     }
-
+    
+// given when inputed a taxa file for some reason 
     public ProblemInstance readProblem() throws FileFormatException, java.io.IOException {
         seekString("HOSTTREE");
         Map<Integer, Vector<Integer>> host = readTree(HOST);

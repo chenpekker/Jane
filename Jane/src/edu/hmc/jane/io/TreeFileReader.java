@@ -39,6 +39,5 @@ public abstract class TreeFileReader {
         this.filename = filename;
         fin = new BufferedReader(new InputStreamReader( new FileInputStream(filename)));
     }   
-        
     public abstract ProblemInstance readProblem() throws FileFormatException, java.io.IOException;
 }
