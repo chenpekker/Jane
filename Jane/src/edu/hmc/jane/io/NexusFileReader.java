@@ -135,7 +135,7 @@ public class NexusFileReader extends TreeFileReader {
             if (str.toLowerCase().endsWith("endblock")) {
                 throw new FileFormatException("Missing a semicolon at the end of the contents line");
         }
-            //Fix for a type of newick tree where there is a length at the end of the tree
+            //Fix for a type of newick tree where there is a length at the end of the tree...could be improved
             if (str.contains(":")){
                 int id1 = str.lastIndexOf(")");
                 int id2 = str.lastIndexOf(":");
@@ -143,7 +143,21 @@ public class NexusFileReader extends TreeFileReader {
                     str = str.substring(0,id2);
                 }
             }
-            System.out.println(str);
+            //Test for if a Tree is malformed in sense where it doesnt have equal amounts of open and closed parenthesis
+            int count1 = 0;
+            int count2 = 0;
+            for(int i = 0; i < str.length(); i++){
+                if (str.charAt(i) == '('){
+                    count1++;
+                }
+                if (str.charAt(i) == ')'){
+                    count2++;
+                }
+            }
+            if (count1 != count2){
+                throw new FileFormatException("A tree does not have equal amounts of open and closed parenthesis");
+            }
+                    
             b.contents.addLast(str);
         }
         // add extra for when the matching parasite and host lines do not end with a ; but the endblock line still exits
