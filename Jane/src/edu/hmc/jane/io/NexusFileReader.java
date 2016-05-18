@@ -94,6 +94,7 @@ public class NexusFileReader extends TreeFileReader {
         return isNexus;
     }
 
+    // what does this method do 
     String nextLine() throws java.io.IOException {
         StringBuilder curLine = new StringBuilder("");
         while (curLine.indexOf(";") == -1) {
@@ -131,9 +132,14 @@ public class NexusFileReader extends TreeFileReader {
 
         String str;
         for (str = nextLine(); str != null && !(str.toLowerCase().startsWith("endblock") || str.toLowerCase().startsWith("end")); str = nextLine()) {
+            if (str.toLowerCase().endsWith("endblock")) {  // checks if a semicolon is missing at the end of the contents line
+                throw new FileFormatException("Missing a semi colon at the end of the contents line");
+        }
             b.contents.addLast(str);
         }
+        // add extra for when the matching parasite and host lines do not end with a ; but the endblock line still exits
         if (str == null) {
+            
             throw new FileFormatException("Block ended without closing");
         }
 
@@ -148,6 +154,11 @@ public class NexusFileReader extends TreeFileReader {
             if (b.contents.size() == 0) {
                 throw new FileFormatException("No data inside host block");
             }
+       //     if ((b.contents.indexOf(";") != -1) || (b.title.endsWith(";") != true) ) {
+       //         throw new FileFormatException("Missing a semi colon at the end of a line in the host block");
+       //     }
+            
+                
             String s = b.contents.get(0);
             freeIndex = 0;
             host = new HashMap<Integer, Vector<Integer>>();
@@ -167,6 +178,9 @@ public class NexusFileReader extends TreeFileReader {
             if (!loadGui && b.contents.size() == 0) {
                 throw new FileFormatException("No data inside parasite block");
             }
+         //   if ((b.contents.indexOf(";") != -1) || (b.title.indexOf(";") != -1) )  {
+         //       throw new FileFormatException("Missing a semi colon at the end of a line in the parasite block");
+        //    }
             String s = b.contents.get(0);
             
             freeIndex = 0;
@@ -193,6 +207,7 @@ public class NexusFileReader extends TreeFileReader {
         } else {
             System.err.println("Unrecognized block " + b.title);
         }
+        
     }
 
     Phi parsePhi(String s, int size) throws FileFormatException {
