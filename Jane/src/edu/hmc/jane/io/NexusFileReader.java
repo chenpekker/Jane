@@ -142,15 +142,7 @@ public class NexusFileReader extends TreeFileReader {
             // checks if a semicolon is missing at the end of the contents line
             if (str.toLowerCase().endsWith("endblock") || str.toLowerCase().endsWith("end")) {  // checks if a semicolon is missing at the end of the contents line
                 throw new FileFormatException("Missing a semicolon at the end of the contents line");
-        }
-            //Fix for a type of newick tree where there is a length at the end of the tree...could be improved
-            if (str.contains(":")){
-                int id1 = str.lastIndexOf(")");
-                int id2 = str.lastIndexOf(":");
-                if (id2-1 == id1){
-                    str = str.substring(0,id2);
-                }
-            }
+        }   
             //Test for if a Tree is malformed in sense where it doesnt have equal amounts of open and closed parenthesis
             int count1 = 0;
             int count2 = 0;
@@ -165,37 +157,39 @@ public class NexusFileReader extends TreeFileReader {
             if (count1 != count2){
                 throw new FileFormatException("A tree does not have equal amounts of open and closed parenthesis");
             }
-            //Fix for newick format with parents (however, doesnt work if it is put between the last ) and the ;
-            if (!str.toLowerCase().startsWith("range")){
-            String newS = "";
-            while (!")".equals(str)){
-                    int index = str.indexOf(')');
-                    newS += str.substring(0, index + 1);
-                    str = str.substring(index+1);
-                    if(str.charAt(0) != ',' || str.charAt(0) != ')' || str.charAt(0) != ';'){
-                        int ID1 = str.indexOf(',');
-                        int ID2 = str.indexOf(')');
-                        int ID3 = str.indexOf(';');
-                        if(ID1 < 0){
-                            ID1 = 10000000;
-                        }
-                        if(ID2 < 0){
-                            ID2 = 10000000;
-                        }
-                        if(ID3 < 0){
-                            ID3 = 10000000;
-                        }
-                        int mini = Math.min(ID1, Math.min(ID2, ID3));
-                        str = str.substring(mini);                     
-                    }
-                    System.out.println(newS);
-                    System.out.println(str);
-                }
-                str = newS + ')';
-            }   
             
+            //Fix for newick format with parents and lengths at the end of the tree
+            if (str.contains(")")){
+                if(!str.toLowerCase().startsWith("range")){
+                    int last = str.lastIndexOf(')');
+                    str = str.substring(0, last+1);
+                    String newS = "";
+                    while (!")".equals(str)){
+                        int index = str.indexOf(')');
+                        newS += str.substring(0, index + 1);
+                        str = str.substring(index+1);
+                        if(str.charAt(0) != ',' || str.charAt(0) != ')'){
+                            int ID1 = str.indexOf(',');
+                            int ID2 = str.indexOf(')');
+                            int ID3 = str.indexOf(';');
+                            if(ID1 < 0){
+                                ID1 = 10000000;
+                            }
+                            if(ID2 < 0){
+                                ID2 = 10000000;
+                            }
+                            if(ID3 < 0){
+                                ID3 = 10000000;
+                            }
+                            int mini = Math.min(ID1, Math.min(ID2, ID3));
+                            str = str.substring(mini);                     
+                        }
+                    }
+                    str = newS + ')';
+                }            
+            }
             System.out.println(str);        
-            b.contents.addLast(str);
+            b.contents.addLast(str);            
         }
         // add extra for when the matching parasite and host lines do not end with a ; but the endblock line still exits
         if (str == null) {
