@@ -89,7 +89,7 @@ public class NexusFileReader extends TreeFileReader {
         if (s != null && s.toLowerCase().startsWith("#nexus")) {
             s = check.readLine();
             if (s.toLowerCase().startsWith("begin taxa") || s.toLowerCase().startsWith("begin data")) {
-                    throw new java.io.IOException("Input is either a DATA or TAXA Nexus file type, please convert to Newick format. For help see: www.cs.hmc.edu/~hadas/jane/fileformats.html");
+                throw new java.io.IOException("Input is either a DATA or TAXA Nexus file type, please convert to Newick format. For help see: www.cs.hmc.edu/~hadas/jane/fileformats.html");
             }
         }
         while (s != null && !s.toLowerCase().startsWith("begin distribution")) {
@@ -207,9 +207,6 @@ public class NexusFileReader extends TreeFileReader {
     }
 
     void readBlock(Block b) throws FileFormatException {
-        if ("taxa".equals(b.title)) {
-            System.err.println("Input file is in nexus TAXA format, Jane accepts nexus Tree format");
-        }
         if ("host".equals(b.title)) {
             if (b.contents.size() > 1) {
                 System.err.println("Unexpected multiple lines inside host block.");
@@ -279,7 +276,7 @@ public class NexusFileReader extends TreeFileReader {
             for (String pair : pairs) {
                 String[] map = pair.split(":");
                 if (map.length != 2) {
-                    throw new FileFormatException("Missing colon between a parasite and a host");
+                    throw new FileFormatException("Missing a colon between a parasite and a host or comma after the host");
                 }
                 Integer p = backwardsLookup(parasiteNames, map[0].trim());
                 Integer h = backwardsLookup(hostNames, map[1].trim());
