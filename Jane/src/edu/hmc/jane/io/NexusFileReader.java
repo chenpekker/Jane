@@ -165,41 +165,37 @@ public class NexusFileReader extends TreeFileReader {
             }
             
             //Fix for newick format with parents and lengths at the end of the tree
-            if (str.contains(")")){
-                if(!str.toLowerCase().startsWith("range")){
-                    int last = str.lastIndexOf(')');
-                    str = str.substring(0, last+1);
-                    String newS = "";
-                    while (!")".equals(str)){
-                        int index = str.indexOf(')');
-                        newS += str.substring(0, index + 1);
-                        str = str.substring(index+1);
-                        if(str.charAt(0) != ',' || str.charAt(0) != ')'){
-                            int ID1 = str.indexOf(',');
-                            int ID2 = str.indexOf(')');
-                            int ID3 = str.indexOf(';');
-                            if(ID1 < 0){
-                                ID1 = 10000000;
-                            }
-                            if(ID2 < 0){
-                                ID2 = 10000000;
-                            }
-                            if(ID3 < 0){
-                                ID3 = 10000000;
-                            }
-                            int mini = Math.min(ID1, Math.min(ID2, ID3));
-                            str = str.substring(mini);                     
+            if ("host".equals(b.title) || "parasite".equals(b.title)){
+                int last = str.lastIndexOf(')');
+                str = str.substring(0, last+1);
+                String newS = "";
+                while (!")".equals(str)){
+                    int index = str.indexOf(')');
+                    newS += str.substring(0, index + 1);
+                    str = str.substring(index+1);
+                    if(str.charAt(0) != ',' || str.charAt(0) != ')'){
+                        int ID1 = str.indexOf(',');
+                        int ID2 = str.indexOf(')');
+                        int ID3 = str.indexOf(';');
+                        if(ID1 < 0){
+                            ID1 = 10000000;
                         }
+                        if(ID2 < 0){
+                                ID2 = 10000000;
+                        }
+                        if(ID3 < 0){
+                            ID3 = 10000000;
+                        }
+                        int mini = Math.min(ID1, Math.min(ID2, ID3));
+                        str = str.substring(mini);                     
                     }
-                    str = newS + ')';
-                }            
-            }
-            System.out.println(str);        
+                }
+                str = newS + ')';
+            }                    
             b.contents.addLast(str);            
         }
         // add extra for when the matching parasite and host lines do not end with a ; but the endblock line still exits
         if (str == null) {
-            
             throw new FileFormatException("Block ended without closing");
         }
 
