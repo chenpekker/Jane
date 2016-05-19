@@ -267,7 +267,7 @@ public class NexusFileReader extends TreeFileReader {
     Phi parsePhi(String s, int size) throws FileFormatException {
         Phi phi = new Phi(size);
         if (!s.toLowerCase().startsWith("range")) {
-            throw new FileFormatException("Missing keyword range inside distribution data.");
+            throw new FileFormatException("Missing the keyword 'range' inside the distribution data block");
         }
         s = s.substring("range".length()).trim();
         if (!loadGui || (loadGui && s.length() != 0)) { 
