@@ -82,7 +82,7 @@ public class NexusFileReader extends TreeFileReader {
         }
         BufferedReader check = new BufferedReader(new InputStreamReader(new FileInputStream(filename)));
         String s = check.readLine();
-       
+
         while (s != null && !s.toLowerCase().startsWith("#nexus")) {
             s = check.readLine();
         }
@@ -90,6 +90,9 @@ public class NexusFileReader extends TreeFileReader {
             s = check.readLine();
             if (s.toLowerCase().startsWith("begin taxa") || s.toLowerCase().startsWith("begin data")) {
                 throw new java.io.IOException("Input is either a DATA or TAXA Nexus file type, please convert to Newick format. For help see: www.cs.hmc.edu/~hadas/jane/fileformats.html");
+            }
+            if (!s.toLowerCase().contains("host;") && s.toLowerCase().startsWith("begin host")) {
+                throw new java.io.IOException("Missing a semicolon after 'begin host'");
             }
         }
         while (s != null && !s.toLowerCase().startsWith("begin distribution")) {
