@@ -92,16 +92,16 @@ public class NexusFileReader extends TreeFileReader {
                 throw new java.io.IOException("Input is either a DATA or TAXA Nexus file type, please convert to Newick format. For help see: www.cs.hmc.edu/~hadas/jane/fileformats.html");
             }
             if (!s.toLowerCase().contains("host;") && s.toLowerCase().startsWith("begin host")) {
-                throw new java.io.IOException("Missing a semicolon after 'begin host'");
+                throw new java.io.IOException("Missing a semicolon directly after 'begin host'");
             }
         }
         while (s != null && !s.toLowerCase().startsWith("begin distribution")) {
             if (s.toLowerCase().startsWith("begin parasite") && !s.toLowerCase().contains("parasite;")) {
-                throw new java.io.IOException("Missing a semicolon after 'begin parasite'");
+                throw new java.io.IOException("Missing a semicolon directly after 'begin parasite'");
             }
             s = check.readLine();
             if (s.toLowerCase().startsWith("begin distribution") && !s.toLowerCase().contains("distribution;")) {
-                throw new java.io.IOException("Missing a semicolon after 'begin distribution'");
+                throw new java.io.IOException("Missing a semicolon directly after 'begin distribution'");
             }
         }
         knownNexus = true;
@@ -150,7 +150,7 @@ public class NexusFileReader extends TreeFileReader {
 
             // checks if a semicolon is missing at the end of the contents line
             if (str.toLowerCase().endsWith("endblock") || str.toLowerCase().endsWith("end")) {  // checks if a semicolon is missing at the end of the contents line
-                throw new FileFormatException("Missing a semicolon at the end of the contents line");
+                throw new FileFormatException("Missing a semicolon directly after the contents line");
         }   
             //Test for if a Tree is malformed in sense where it doesnt have equal amounts of open and closed parenthesis
             int count1 = 0;
