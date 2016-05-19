@@ -172,7 +172,7 @@ public class NexusFileReader extends TreeFileReader {
                 int last = str.lastIndexOf(')');
                 str = str.substring(0, last+1);
                 String newS = "";
-                while (!"".equals(str)){
+                while (true){
                     int index = str.indexOf(')');
                     newS += str.substring(0, index + 1);
                     str = str.substring(index+1);
@@ -194,14 +194,9 @@ public class NexusFileReader extends TreeFileReader {
                         }
                         int mini = Math.min(ID1, Math.min(ID2, ID3));
                         str = str.substring(mini);
-                        System.out.println(newS);
-                        System.out.println(str);
                     }
-                    System.out.println(newS);
-                    System.out.println(str);
                 }                
                 str = newS;
-                System.out.println(str);
             }                    
             b.contents.addLast(str);            
         }
