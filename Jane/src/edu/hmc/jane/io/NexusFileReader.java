@@ -161,7 +161,7 @@ public class NexusFileReader extends TreeFileReader {
                 }
             }
             if (count1 != count2){
-                throw new FileFormatException("A tree does not have equal amounts of open and closed parenthesis");
+                throw new FileFormatException("A tree does not have equal numbers of open and closed parentheses");
             }
             
             //Fix for newick format with parents and lengths at the end of the tree
