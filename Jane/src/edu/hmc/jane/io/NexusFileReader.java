@@ -96,18 +96,18 @@ public class NexusFileReader extends TreeFileReader {
             }
             // test if there is a semicolon after the "begin host" line, if there isn't, displays error message
             if (!s.toLowerCase().contains("host;") && s.toLowerCase().startsWith("begin host")) {
-                throw new java.io.IOException("Missing a semicolon after 'begin host'");
+                throw new java.io.IOException("Missing a semicolon directly after 'begin host'");
             }
         }
         while (s != null && !s.toLowerCase().startsWith("begin distribution")) {
             // test if there is a semicolon after the "begin parasite" line, if there isn't, displays error message
             if (s.toLowerCase().startsWith("begin parasite") && !s.toLowerCase().contains("parasite;")) {
-                throw new java.io.IOException("Missing a semicolon after 'begin parasite'");
+                throw new java.io.IOException("Missing a semicolon directly after 'begin parasite'");
             }
             s = check.readLine();
             // test if there is a semicolon after the "begin distribution" line, if there isn't, displays error message
             if (s.toLowerCase().startsWith("begin distribution") && !s.toLowerCase().contains("distribution;")) {
-                throw new java.io.IOException("Missing a semicolon after 'begin distribution'");
+                throw new java.io.IOException("Missing a semicolon directly after 'begin distribution'");
             }
         }
         knownNexus = true;
@@ -154,11 +154,13 @@ public class NexusFileReader extends TreeFileReader {
 
         String str;
         for (str = nextLine(); str != null && !(str.toLowerCase().startsWith("endblock") || str.toLowerCase().startsWith("end")); str = nextLine()) {
+
             // checks if a semicolon is missing at the end of the contents line of any block 
             if (str.toLowerCase().endsWith("endblock") || str.toLowerCase().endsWith("end")) { 
                 throw new FileFormatException("Missing a semicolon at the end of the contents line");
-        }   
-            //Test if a Tree is malformed-- if it doesnt have equal numbers of open and closed parentheses
+            }
+
+//Test if a Tree is malformed-- if it doesnt have equal numbers of open and closed parentheses
             int count1 = 0;
             int count2 = 0;
             for(int i = 0; i < str.length(); i++){
@@ -178,7 +180,7 @@ public class NexusFileReader extends TreeFileReader {
                 int last = str.lastIndexOf(')');
                 str = str.substring(0, last+1);
                 String newS = "";
-                while (!"".equals(str)){
+                while (true){
                     int index = str.indexOf(')');
                     newS += str.substring(0, index + 1);
                     str = str.substring(index+1);
@@ -200,14 +202,9 @@ public class NexusFileReader extends TreeFileReader {
                         }
                         int mini = Math.min(ID1, Math.min(ID2, ID3));
                         str = str.substring(mini);
-                        System.out.println(newS);
-                        System.out.println(str);
                     }
-                    System.out.println(newS);
-                    System.out.println(str);
                 }                
                 str = newS;
-                System.out.println(str);
             }                    
             b.contents.addLast(str);            
         }
