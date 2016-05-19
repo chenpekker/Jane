@@ -86,10 +86,12 @@ public class NexusFileReader extends TreeFileReader {
         while (s != null && !s.toLowerCase().startsWith("#nexus")) {
             s = check.readLine();
         }
-        s = check.readLine();
-        if (s.toLowerCase().startsWith("begin taxa") || s.toLowerCase().startsWith("begin data")) {
-                throw new java.io.IOException("Input is either a DATA or TAXA Nexus file type, please convert to Newick format. For help see: www.cs.hmc.edu/~hadas/jane/fileformats.html");
+        if (s != null && s.toLowerCase().startsWith("#nexus")) {
+            s = check.readLine();
+            if (s.toLowerCase().startsWith("begin taxa") || s.toLowerCase().startsWith("begin data")) {
+                    throw new java.io.IOException("Input is either a DATA or TAXA Nexus file type, please convert to Newick format. For help see: www.cs.hmc.edu/~hadas/jane/fileformats.html");
             }
+        }
         while (s != null && !s.toLowerCase().startsWith("begin distribution")) {
             s = check.readLine();
         }
