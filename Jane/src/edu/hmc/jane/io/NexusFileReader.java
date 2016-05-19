@@ -82,12 +82,20 @@ public class NexusFileReader extends TreeFileReader {
         }
         BufferedReader check = new BufferedReader(new InputStreamReader(new FileInputStream(filename)));
         String s = check.readLine();
-        
+       
+        System.out.println("intial " + s);
         while (s != null && !s.toLowerCase().startsWith("#nexus")) {
             s = check.readLine();
+            System.out.println("check " + s);
         }
+        s = check.readLine();
+        System.out.println("indicator " + s);
+        if (s.toLowerCase().startsWith("begin taxa") || s.toLowerCase().startsWith("begin data")) {
+                throw new java.io.IOException("Input is either a DATA or TAXA Nexus file type, please convert to Newick format. For help see: www.cs.hmc.edu/~hadas/jane/fileformats.html");
+            }
         while (s != null && !s.toLowerCase().startsWith("begin distribution")) {
             s = check.readLine();
+            System.out.println(s);
         }
         knownNexus = true;
         isNexus = s != null;
