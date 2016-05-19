@@ -112,7 +112,7 @@ public class NexusFileReader extends TreeFileReader {
 
 
     String nextLine() throws java.io.IOException {
-        StringBuilder curLine = new StringBuilder("");
+        StringBuilder curLine = new StringBuilder(annoyingExtraData);
         while (curLine.indexOf(";") == -1) {
             String s = fin.readLine();
             if (s != null) {
@@ -126,7 +126,7 @@ public class NexusFileReader extends TreeFileReader {
         }
 
         String s = curLine.toString();
-        annoyingExtraData = s.substring(s.indexOf(";") + 1);
+        annoyingExtraData = s.substring(s.indexOf(";") + 1).trim();
 
         return s.substring(0, s.indexOf(";"));
     }
@@ -152,9 +152,11 @@ public class NexusFileReader extends TreeFileReader {
             if (str.toLowerCase().endsWith("endblock") || str.toLowerCase().endsWith("end")) {  // checks if a semicolon is missing at the end of the contents line
                 throw new FileFormatException("Missing a semicolon directly after the contents line");
         }   
-            //Test for if a Tree is malformed in sense where it doesnt have equal amounts of open and closed parenthesis
+            //Test for if a Tree is malformed in sense where it doesnt have equal amounts of open and closed parenthesis.
+            //Sets up two counts
             int count1 = 0;
             int count2 = 0;
+            //Runs a for loop to count the instances of ( and ) characters
             for(int i = 0; i < str.length(); i++){
                 if (str.charAt(i) == '('){
                     count1++;
@@ -163,41 +165,55 @@ public class NexusFileReader extends TreeFileReader {
                     count2++;
                 }
             }
+            //if these are not equal, throw the exception
             if (count1 != count2){
                 throw new FileFormatException("A tree does not have equal numbers of open and closed parentheses");
             }
             
-            //Fix for newick format with parents and lengths at the end of the tree
+            //Fix for newick format with parents and lengths at the end of the tree. Begins by testing whether the block is a host or 
+            //a parasite, since these are the only blocks with trees.
             if ("host".equals(b.title) || "parasite".equals(b.title)){
+                //removes everything from after the last parenthesis
                 int last = str.lastIndexOf(')');
                 str = str.substring(0, last+1);
                 String newS = "";
+                //goes into a while loop for the str
                 while (true){
+                    //finds the first index of a close parenthesis (since this is when a parent would be placed
                     int index = str.indexOf(')');
+                    //appends the previous info in str to newS (including the parenthesis)
                     newS += str.substring(0, index + 1);
+                    //str gets sliced from the next character after the parenthesis to the end
                     str = str.substring(index+1);
+                    //tests if str is now empty, and if it is, it will break from the loop
                     if("".equals(str)){
                         break;
                     }
+                    //Test to make sure the next char is not a , or a ), since this would indicate that the next information is a parent
+                    //(which we do not want)
                     if(str.charAt(0) != ',' || str.charAt(0) != ')'){
+                        //gets the index of the the first instance of a , or ), since this would indicate the parent is finished being 
+                        //labled
                         int ID1 = str.indexOf(',');
                         int ID2 = str.indexOf(')');
-                        int ID3 = str.indexOf(';');
+                        //tests if ID1 or ID2 is negative, since indexOf() produces -1 if there is no instance of the character. We then
+                        //set this equal to a large constant
                         if(ID1 < 0){
                             ID1 = 10000000;
                         }
                         if(ID2 < 0){
                                 ID2 = 10000000;
                         }
-                        if(ID3 < 0){
-                            ID3 = 10000000;
-                        }
-                        int mini = Math.min(ID1, Math.min(ID2, ID3));
+                        //gets the minimum value of ID1, ID2
+                        int mini = Math.min(ID1, ID2);
+                        //splices str starting from the value above until the end of str
                         str = str.substring(mini);
                     }
-                }                
+                }
+                //sets str to be equal to newS (which will be the final tree
                 str = newS;
-            }                    
+            }//end
+            
             b.contents.addLast(str);            
         }
         // add extra for when the matching parasite and host lines do not end with a ; but the endblock line still exits
