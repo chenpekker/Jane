@@ -75,7 +75,9 @@ public class NexusFileReader extends TreeFileReader {
         hasParaPolytomy = false;
         loadGui = treeGui;
     }
-
+    
+    // tests to see if the file is a nexus file, returns a boolean
+    // has additional testing too 
     public boolean isNexus() throws java.io.IOException {
         if (knownNexus) {
             return isNexus;
@@ -88,18 +90,22 @@ public class NexusFileReader extends TreeFileReader {
         }
         if (s != null && s.toLowerCase().startsWith("#nexus")) {
             s = check.readLine();
+            // test if the file type is data or taxa (both are types of nexus files), if it isn't, displays error message
             if (s.toLowerCase().startsWith("begin taxa") || s.toLowerCase().startsWith("begin data")) {
                 throw new java.io.IOException("Input is either a DATA or TAXA Nexus file type, please convert to Newick format. For help see: www.cs.hmc.edu/~hadas/jane/fileformats.html");
             }
+            // test if there is a semicolon after the "begin host" line, if there isn't, displays error message
             if (!s.toLowerCase().contains("host;") && s.toLowerCase().startsWith("begin host")) {
                 throw new java.io.IOException("Missing a semicolon after 'begin host'");
             }
         }
         while (s != null && !s.toLowerCase().startsWith("begin distribution")) {
+            // test if there is a semicolon after the "begin parasite" line, if there isn't, displays error message
             if (s.toLowerCase().startsWith("begin parasite") && !s.toLowerCase().contains("parasite;")) {
                 throw new java.io.IOException("Missing a semicolon after 'begin parasite'");
             }
             s = check.readLine();
+            // test if there is a semicolon after the "begin distribution" line, if there isn't, displays error message
             if (s.toLowerCase().startsWith("begin distribution") && !s.toLowerCase().contains("distribution;")) {
                 throw new java.io.IOException("Missing a semicolon after 'begin distribution'");
             }
@@ -110,7 +116,7 @@ public class NexusFileReader extends TreeFileReader {
         return isNexus;
     }
 
-
+    // moves the string to the next line, does additional stuff
     String nextLine() throws java.io.IOException {
         StringBuilder curLine = new StringBuilder("");
         while (curLine.indexOf(";") == -1) {
@@ -136,6 +142,7 @@ public class NexusFileReader extends TreeFileReader {
         if (s == null) {
             return null;
         }
+        
         s = s.toLowerCase();
         if (!s.startsWith("begin")) {
             throw new FileFormatException("Unexpected data between blocks in the input file.");
@@ -147,12 +154,11 @@ public class NexusFileReader extends TreeFileReader {
 
         String str;
         for (str = nextLine(); str != null && !(str.toLowerCase().startsWith("endblock") || str.toLowerCase().startsWith("end")); str = nextLine()) {
-
-            // checks if a semicolon is missing at the end of the contents line
-            if (str.toLowerCase().endsWith("endblock") || str.toLowerCase().endsWith("end")) {  // checks if a semicolon is missing at the end of the contents line
+            // checks if a semicolon is missing at the end of the contents line of any block 
+            if (str.toLowerCase().endsWith("endblock") || str.toLowerCase().endsWith("end")) { 
                 throw new FileFormatException("Missing a semicolon at the end of the contents line");
         }   
-            //Test for if a Tree is malformed in sense where it doesnt have equal amounts of open and closed parenthesis
+            //Test if a Tree is malformed-- if it doesnt have equal numbers of open and closed parentheses
             int count1 = 0;
             int count2 = 0;
             for(int i = 0; i < str.length(); i++){
@@ -167,7 +173,7 @@ public class NexusFileReader extends TreeFileReader {
                 throw new FileFormatException("A tree does not have equal numbers of open and closed parentheses");
             }
             
-            //Fix for newick format with parents and lengths at the end of the tree
+            //Fix for newick format with parents and lengths at the end of the tree (contents line)
             if ("host".equals(b.title) || "parasite".equals(b.title)){
                 int last = str.lastIndexOf(')');
                 str = str.substring(0, last+1);
@@ -205,7 +211,7 @@ public class NexusFileReader extends TreeFileReader {
             }                    
             b.contents.addLast(str);            
         }
-        // add extra for when the matching parasite and host lines do not end with a ; but the endblock line still exits
+        // if the block does not end with a "endblock;" string, display error
         if (str == null) {
             throw new FileFormatException("Block ended without closing");
         }
@@ -274,10 +280,14 @@ public class NexusFileReader extends TreeFileReader {
 
     Phi parsePhi(String s, int size) throws FileFormatException {
         Phi phi = new Phi(size);
+        
+        // tests to see if line "range" exists, if not, displays error
         if (!s.toLowerCase().startsWith("range")) {
             throw new FileFormatException("Missing the keyword 'range' inside the distribution data block");
         }
         s = s.substring("range".length()).trim();
+        
+        // checks for both of these errors: Missing a colon between a parasite and a host or comma after the host
         if (!loadGui || (loadGui && s.length() != 0)) { 
             String[] pairs = s.split(",");
             for (String pair : pairs) {
