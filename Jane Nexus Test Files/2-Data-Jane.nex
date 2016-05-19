@@ -1,0 +1,15 @@
+#nexus 
+begin host; 
+	tree host = ((El,(Or,((Ph,Pf),Eb))),(((((Pp,Pd),(Psp,Ps)),Np),(Pb,((Sl,(Sa,(Tt,(Sc,Dd)))),(Pc,((Gme,Gm),Gg)),(Lb,(Lo,Ce)),Sb))),(Mn,(Bb,Ba)))); 
+endblock; 
+
+begin parasite; 
+	tree parasite = ((St,Sp),((((Co,(Or,Of)),(Nd,Ng)),Ls),Ba)); 
+endblock; 
+
+begin distribution; 
+	Range 
+		Ng: Pd, Ng: Ce, Ng: Dd, Ng: Gm, Ng: Gme, Ng: Lo, Ng: Lb, Ng: Pc, Ng: Sc, Ng: Tt, Nd: Psp, Nd: Pd, Nd: Dd, Nd: Tt, Or: Dd, Or: Sa, Or: Sc, Or: Sl, Of: El, Of: Or, Of: Pf, Of: Ph, Of: Eb, Co: Pp, Co: Pd, Co: Dd, Co: Tt, Ba: Sc, Ba: Tt, Ls: Mn, Ls: Bb, Ls: Ba, St: Ps, St: Psp, St: Np, St: Ce, St: Dd, St: Gg, St: Sl, St: Sb, St: Tt, Sp: Pb; 
+endblock;
+
+

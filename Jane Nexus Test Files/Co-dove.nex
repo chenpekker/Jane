@@ -1,0 +1,65 @@
+#NEXUS
+begin taxa;
+	dimensions ntax=52;
+	taxlabels
+	Clpre
+	Urcam
+	Mecec
+	Memel
+	Cocru
+	Copic
+	Coinc
+	Copas
+	Comin
+	Cobuc
+	Gepla
+	Gehum
+	Gecun
+	Oclop
+	Geplu
+	Gesmi
+	Gescr
+	Phele
+	Phhis
+	Phcha
+	Pealb
+	Peruf
+	Tutym
+	Tubre
+	Chind
+	Chste
+	Phleu
+	Trwaa
+	Loant
+	Duruf
+	Ptriv
+	Gemon
+	Leplu
+	Lejam
+	Lever
+	Zeasi
+	Zemac
+	Zeaur
+	Zegal
+	Rerei
+	Maruf
+	Cofas
+	Cospe
+	Cosub
+	Coplu
+	Copal
+	Coliv
+	Cogui
+	Stsem
+	Stdct
+	Stvin
+	Stcap
+;
+end;
+
+begin trees;
+	tree Imported_tree_0 = [&R] ((Clpre,(Urcam,((Mecec,Memel),((Cocru,Copic),(Coinc,(Copas,(Comin,Cobuc))))))),(((Gepla,(Gehum,Gecun)),(Oclop,((Geplu,(Gesmi,Gescr)),(Phele,(Phhis,(Phcha,(Pealb,Peruf))))))),((((Tutym,Tubre),(Chind,Chste)),(Phleu,(Trwaa,(Loant,(Duruf,Ptriv))))),((Gemon,((Leplu,(Lejam,Lever)),(Zeasi,(Zemac,(Zeaur,Zegal))))),((Rerei,Maruf),((Cofas,(Cospe,(Cosub,Coplu))),((Copal,(Coliv,Cogui)),(Stsem,(Stdct,(Stvin,Stcap))))))))));
+end;
+
+
+
