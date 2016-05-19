@@ -100,6 +100,9 @@ public class NexusFileReader extends TreeFileReader {
                 throw new java.io.IOException("Missing a semicolon after 'begin parasite'");
             }
             s = check.readLine();
+            if (s.toLowerCase().startsWith("begin distribution") && !s.toLowerCase().contains("distribution;")) {
+                throw new java.io.IOException("Missing a semicolon after 'begin distribution'");
+            }
         }
         knownNexus = true;
         isNexus = s != null;
