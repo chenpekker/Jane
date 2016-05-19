@@ -103,7 +103,7 @@ public class NexusFileReader extends TreeFileReader {
         return isNexus;
     }
 
-    // what does this method do 
+
     String nextLine() throws java.io.IOException {
         StringBuilder curLine = new StringBuilder("");
         while (curLine.indexOf(";") == -1) {
@@ -123,7 +123,7 @@ public class NexusFileReader extends TreeFileReader {
 
         return s.substring(0, s.indexOf(";"));
     }
-//Check here
+
     Block nextBlock() throws FileFormatException, java.io.IOException {
         String s = nextLine();
         if (s == null) {
@@ -167,7 +167,36 @@ public class NexusFileReader extends TreeFileReader {
             if (count1 != count2){
                 throw new FileFormatException("A tree does not have equal amounts of open and closed parenthesis");
             }
-                    
+            //Fix for newick format with parents (however, doesnt work if it is put between the last ) and the ;
+            if (!str.toLowerCase().startsWith("range")){
+            String newS = "";
+            while (!")".equals(str)){
+                    int index = str.indexOf(')');
+                    newS += str.substring(0, index + 1);
+                    str = str.substring(index+1);
+                    if(str.charAt(0) != ',' || str.charAt(0) != ')' || str.charAt(0) != ';'){
+                        int ID1 = str.indexOf(',');
+                        int ID2 = str.indexOf(')');
+                        int ID3 = str.indexOf(';');
+                        if(ID1 < 0){
+                            ID1 = 10000000;
+                        }
+                        if(ID2 < 0){
+                            ID2 = 10000000;
+                        }
+                        if(ID3 < 0){
+                            ID3 = 10000000;
+                        }
+                        int mini = Math.min(ID1, Math.min(ID2, ID3));
+                        str = str.substring(mini);                     
+                    }
+                    System.out.println(newS);
+                    System.out.println(str);
+                }
+                str = newS + ')';
+            }   
+            
+            System.out.println(str);        
             b.contents.addLast(str);
         }
         // add extra for when the matching parasite and host lines do not end with a ; but the endblock line still exits
@@ -178,7 +207,7 @@ public class NexusFileReader extends TreeFileReader {
 
         return b;
     }
-//Check Here
+
     void readBlock(Block b) throws FileFormatException {
         if ("taxa".equals(b.title)) {
             System.err.println("Input file is in nexus TAXA format, Jane accepts nexus Tree format");
@@ -361,13 +390,13 @@ public class NexusFileReader extends TreeFileReader {
 
         return new ProblemInstance(hostTree, parasiteTree, treeRegions, phi, timeZones);
     }
-//What a block is
+
     class Block {
 
         String title;
         LinkedList<String> contents;
     }
-//Probably will have to look at this as well
+
     class TreeParser {
 
         int index;   //Index in the String tree that is curretly being looked at
