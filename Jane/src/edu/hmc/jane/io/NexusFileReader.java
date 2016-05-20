@@ -76,8 +76,7 @@ public class NexusFileReader extends TreeFileReader {
         loadGui = treeGui;
     }
     
-    // tests to see if the file is a nexus file, returns a boolean
-    // has additional testing too 
+    
     public boolean isNexus() throws java.io.IOException {
         if (knownNexus) {
             return isNexus;
@@ -90,22 +89,24 @@ public class NexusFileReader extends TreeFileReader {
         }
         if (s != null && s.toLowerCase().startsWith("#nexus")) {
             s = check.readLine();
-            // test if the file type is data or taxa (both are types of nexus files), if it isn't, displays error message
-            if (s.toLowerCase().startsWith("begin taxa") || s.toLowerCase().startsWith("begin data")) {
+            // checks if it's a data or taxa file
+            boolean isData = s.toLowerCase().startsWith("begin data");
+            boolean isTaxa = s.toLowerCase().startsWith("begin taxa");
+            if (isData || isTaxa) {
                 throw new java.io.IOException("Input is either a DATA or TAXA Nexus file type, please convert to Newick format. For help see: www.cs.hmc.edu/~hadas/jane/fileformats.html");
             }
-            // test if there is a semicolon after the "begin host" line, if there isn't, displays error message
+            // checking for properly formatted begin host line
             if (!s.toLowerCase().contains("host;") && s.toLowerCase().startsWith("begin host")) {
                 throw new java.io.IOException("Missing a semicolon directly after 'begin host'");
             }
         }
         while (s != null && !s.toLowerCase().startsWith("begin distribution")) {
-            // test if there is a semicolon after the "begin parasite" line, if there isn't, displays error message
+            // checking for properly formatted begin parasite line
             if (s.toLowerCase().startsWith("begin parasite") && !s.toLowerCase().contains("parasite;")) {
                 throw new java.io.IOException("Missing a semicolon directly after 'begin parasite'");
             }
             s = check.readLine();
-            // test if there is a semicolon after the "begin distribution" line, if there isn't, displays error message
+            // checking for properly formatted begin distribution line
             if (s.toLowerCase().startsWith("begin distribution") && !s.toLowerCase().contains("distribution;")) {
                 throw new java.io.IOException("Missing a semicolon directly after 'begin distribution'");
             }
@@ -116,7 +117,6 @@ public class NexusFileReader extends TreeFileReader {
         return isNexus;
     }
 
-    // moves the string to the next line, does additional stuff
     String nextLine() throws java.io.IOException {
         StringBuilder curLine = new StringBuilder(annoyingExtraData);
         while (curLine.indexOf(";") == -1) {
@@ -156,7 +156,7 @@ public class NexusFileReader extends TreeFileReader {
         for (str = nextLine(); str != null && !(str.toLowerCase().startsWith("endblock") || str.toLowerCase().startsWith("end")); str = nextLine()) {
 
             // checks if a semicolon is missing at the end of the contents line
-            if (str.toLowerCase().endsWith("endblock") || str.toLowerCase().endsWith("end")) {  // checks if a semicolon is missing at the end of the contents line
+            if (str.toLowerCase().endsWith("endblock") || str.toLowerCase().endsWith("end")) {  
                 throw new FileFormatException("Missing a semicolon directly after the contents line");
         }   
             //Test if a Tree is malformed-- if it doesnt have equal numbers of open and closed parentheses
