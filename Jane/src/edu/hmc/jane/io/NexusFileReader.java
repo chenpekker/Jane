@@ -160,20 +160,19 @@ public class NexusFileReader extends TreeFileReader {
                 throw new FileFormatException("Missing a semicolon directly after the contents line");
         }   
             //Test if a Tree is malformed-- if it doesnt have equal numbers of open and closed parentheses
-            //Sets up two counts
-            int count1 = 0;
-            int count2 = 0;
+            int openParenCount = 0;
+            int closeParenCount = 0;
             //Runs a for loop to count the instances of ( and ) characters
             for(int i = 0; i < str.length(); i++){
                 if (str.charAt(i) == '('){
-                    count1++;
+                    openParenCount++;
                 }
                 if (str.charAt(i) == ')'){
-                    count2++;
+                    closeParenCount++;
                 }
             }
             //if these are not equal, throw the exception
-            if (count1 != count2){
+            if (openParenCount != closeParenCount){
                 throw new FileFormatException("A tree does not have equal numbers of open and closed parentheses");
             }
             
@@ -185,7 +184,6 @@ public class NexusFileReader extends TreeFileReader {
                 int last = str.lastIndexOf(')');
                 str = str.substring(0, last+1);
                 String newS = "";
-                //goes into a while loop for the str
                 while (true){
                     //finds the first index of a close parenthesis (since this is when a parent would be placed
                     int index = str.indexOf(')');
