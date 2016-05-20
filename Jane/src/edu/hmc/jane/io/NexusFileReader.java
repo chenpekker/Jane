@@ -160,21 +160,13 @@ public class NexusFileReader extends TreeFileReader {
                 throw new FileFormatException("Missing a semicolon directly after the contents line");
         }   
             //Test if a Tree is malformed-- if it doesnt have equal numbers of open and closed parentheses
-            int openParenCount = 0;
-            int closeParenCount = 0;
-            //Runs a for loop to count the instances of ( and ) characters
-            for(int i = 0; i < str.length(); i++){
-                if (str.charAt(i) == '('){
-                    openParenCount++;
-                }
-                if (str.charAt(i) == ')'){
-                    closeParenCount++;
-                }
-            }
+            int openParenCount = str.length() - str.replace("(", "").length();
+            int closeParenCount = str.length() - str.replace(")", "").length();
             //if these are not equal, throw the exception
             if (openParenCount != closeParenCount){
                 throw new FileFormatException("A tree does not have equal numbers of open and closed parentheses");
             }
+            
             
             //Fix for newick format with parents and lengths at the end of the tree. Begins by testing whether the block is a host or 
             //a parasite, since these are the only blocks with trees.
@@ -184,39 +176,39 @@ public class NexusFileReader extends TreeFileReader {
                 int last = str.lastIndexOf(')');
                 str = str.substring(0, last+1);
                 String newS = "";
-                while (true){
+                while (!str.isEmpty()){
                     //finds the first index of a close parenthesis (since this is when a parent would be placed
-                    int index = str.indexOf(')');
+                    int closeParenIndex = str.indexOf(')');
                     //appends the previous info in str to newS (including the parenthesis)
-                    newS += str.substring(0, index + 1);
+                    newS += str.substring(0, closeParenIndex + 1);
                     //str gets sliced from the next character after the parenthesis to the end
-                    str = str.substring(index+1);
+                    str = str.substring(closeParenIndex+1);
                     //tests if str is now empty, and if it is, it will break from the loop
                     if("".equals(str)){
                         break;
                     }
                     //Test to make sure the next char is not a , or a ), since this would indicate that the next information is a parent
-                    //(which we do not want)
+                    //which would provide a malformed data structure error
                     if(str.charAt(0) != ',' || str.charAt(0) != ')'){
                         //gets the index of the the first instance of a , or ), since this would indicate the parent is finished being 
                         //labled
-                        int ID1 = str.indexOf(',');
-                        int ID2 = str.indexOf(')');
+                        int indexComma = str.indexOf(',');
+                        int indexCloseParen = str.indexOf(')');
                         //tests if ID1 or ID2 is negative, since indexOf() produces -1 if there is no instance of the character. We then
                         //set this equal to a large constant
-                        if(ID1 < 0){
-                            ID1 = 10000000;
+                        if (indexComma < 0){
+                            indexComma = Integer.MAX_VALUE;
                         }
-                        if(ID2 < 0){
-                                ID2 = 10000000;
+                        if(indexCloseParen < 0){
+                            indexCloseParen = Integer.MAX_VALUE;
                         }
                         //gets the minimum value of ID1, ID2
-                        int mini = Math.min(ID1, ID2);
+                        int mini = Math.min(indexComma, indexCloseParen);
                         //splices str starting from the value above until the end of str
                         str = str.substring(mini);
                     }
                 }
-                //sets str to be equal to newS (which will be the final tree
+                //sets str to be equal to newS (which will be the final tree)
                 str = newS;
             }//end
             
