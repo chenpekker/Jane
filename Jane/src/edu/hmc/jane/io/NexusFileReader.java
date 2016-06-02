@@ -31,6 +31,7 @@ package edu.hmc.jane.io;
 /**
  *
  * @Modified by Ki Wan Gkoo
+ * @Modified by Gabriel Quiroz and Chen Pekker
  */
 
 /*
