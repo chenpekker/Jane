@@ -109,7 +109,7 @@ public class NewNexusFileReader extends TreeFileReader {
 
         return s.substring(0, s.indexOf(";"));
     }
-//Find out what a Block is?
+
     Block nextBlock() throws FileFormatException, java.io.IOException {
         String s = nextLine();
         if (s == null) {
@@ -143,7 +143,7 @@ public class NewNexusFileReader extends TreeFileReader {
 
         return b;
     }
-//Check Here
+
     void readBlock(Block b) throws FileFormatException {
         if ("trees".equals(b.title)) {
             if (b.contents.size() != 3) {
