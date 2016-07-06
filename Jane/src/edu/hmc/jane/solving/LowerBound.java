@@ -10,7 +10,7 @@ import edu.hmc.jane.Phi;
 
 /**
  *
- * @author cssummer16
+ * @author Matt Dohlen, Chen Pekker, Gabe Quiroz
  */
 
 public class LowerBound {
