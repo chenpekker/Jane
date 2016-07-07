@@ -53,7 +53,7 @@ public abstract class Solver implements Runnable , Comparable<Solver> {
         and costs and returns the cost of the optimal solution
          */
         cost = dpTable.solve();
-        return cost;
+        return cost; //CHECK HERE
     }
     
     public int compareTo(Solver other) {

@@ -26,16 +26,27 @@ public class LowerBound {
     /*
     Definitly dont know what type root edge name is so we should check on that
     */
-    public int[] preorder(Tree tree, Tree rootEdgeName){
+    
+    
+    public int[] DPprep(Tree tree, Tree root, Tree node, Tree postOrder){ //pretty sure we wont need this entierly
+    /*  Takes a tree as input and returns
+        a list of the edges in that tree in preorder (high edges to low edges) */
+       
+        // base case
+      
         return new int[0];
     }
     
-    public int[] postorder(Tree tree, Tree rootEdgeName){
-        return new int[0];
-    }
+    
     
     public int[][] DP(Tree hostTree, Tree parasiteTree, Phi phi, int D, int T, int L){
-        return new int[0][0];
+    /* Takes a hostTree, parasiteTree, tip mapping function phi, and
+        duplication cost (D), transfer cost (T), and loss cost (L) and
+        returns the DP table C. Cospeciation is assumed to cost 0. */
+  //  ArrayList<Integer> Vp = new ArrayList[hostTree.size];
+  //  Vp = hostTree.preOrder;
+    
+    return new int[0][0];
     }
     
     //The DP in python has functions findBest and findPath, but they are not used anywhere in the DP, but they may be usefull to write the code
