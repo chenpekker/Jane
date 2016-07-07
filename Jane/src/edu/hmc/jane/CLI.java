@@ -57,7 +57,7 @@ public class CLI {
     static double m = 0.6;
     static double selectStr = .8;
     static String filename = null;
-    static boolean tarzan = false;
+    static boolean tarzan = true;
     static boolean sequentialPolytomy = true;
     static boolean midPolytomyEvents = false;
     static int switchDist = -1;
@@ -71,7 +71,7 @@ public class CLI {
     static String picFilename = null;
 
     static void usage() {
-        System.err.println("usage: jane-cli [-help] [-V] [-C] [-c {Cospeciation,Duplication,Switch,Loss,DivergeFailure}] [-m mutation_rate] [-p population_size] [-i generations] [-s selection_strength] [-S max_switch_distance] [-PS allow non-sequential polytomy resolutions] [-PM allow mid-polytomy events] [-o outputFile] [-silent] file");
+        System.err.println("usage: jane-cli [-help] [-V] [-c {Cospeciation,Duplication,Switch,Loss,DivergeFailure}] [-m mutation_rate] [-p population_size] [-i generations] [-s selection_strength] [-S max_switch_distance] [-PS allow non-sequential polytomy resolutions] [-PM allow mid-polytomy events] [-o outputFile] [-silent] file");
         System.exit(1);
     }
 
@@ -163,12 +163,7 @@ public class CLI {
             } else if ("-V".equals(args[index])) {
                 index++;
                 Jane.VERBOSE = true;
-            } else if ("-C".equals(args[index]) || "-T".equals(args[index])) {
-                // -T is no longer an officially recognized option but is provided
-                // for backwards compatibility with earlier versions of Jane.
-                index++;
-                tarzan=true;
-            } else if ("-PS".equals(args[index])) {
+            }else if ("-PS".equals(args[index])) {
                 index++;
                 sequentialPolytomy=false;
             } else if ("-PM".equals(args[index])) {
@@ -365,7 +360,6 @@ public class CLI {
                 "Where [-options] include:\n" +
                 "\t-help\t\tPrint this help message\n" +
                 "\t-V\t\tTurns on verbose output\n" +
-                "\t-C\t\tCauses Jane to evaluate costs using a node-based cost model rather than the default edge-based cost model\n" +
                 "\t-c <cosp dup switch loss ftd>\n" +
                 "\t\t\tThis defines the cost vector to use i.e. -c 0 1 2 3 4 \n" +
                 "\t\t\twould cause cospeciations to cost 0, duplications to cost 1, host switches to cost 2, losses/sorting to cost 3, and failures to diverge to cost 4\n" +
