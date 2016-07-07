@@ -31,6 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  * @Modified by Ki Wan Gkoo
+ * @Modified by Gabriel Quiroz
  */
 
 import edu.hmc.jane.solving.Heuristic;
@@ -47,10 +48,12 @@ import java.io.PrintStream;
 import java.util.*;
 
 public class CLI {
+    //removed -C flag as option and set Tarzan cost metric as default
     static final int TIP_RANDOMIZATION = 1;
     static final int TREE_RANDOMIZATION = 2;
-    
-    static int costs[] = {0, 1, 1, 2, 1, 0};
+    //Changed cost presets to 0 for cospeciation, 1 for duplications, 2 for host switches, 1 for losses/sorting, and
+    //1 for failiure to diverge
+    static int costs[] = {0, 1, 2, 1, 1, 0};
     static CostTuple tuple;
     static int numIter = 30;
     static int popSize = 30;
@@ -237,7 +240,6 @@ public class CLI {
                 break;
             }
         }
-
         if (index == args.length - 1) {
             filename = args[index];
         } else if (index >= args.length) {
@@ -249,7 +251,7 @@ public class CLI {
         }
 
         tuple = new CostTuple(costs[CostModel.COSPECIATION], costs[CostModel.DUPLICATION], costs[CostModel.LOSS], costs[CostModel.HOST_SWITCH], costs[CostModel.FAILURE_TO_DIVERGE], costs[CostModel.INFESTATION], tarzan);
-
+        
         return;
     }
 
