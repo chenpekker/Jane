@@ -502,6 +502,7 @@ public class Tree {
         precomputePostOrderTraversal();
     }
 
+    // check if a node is a leaf/tip
     public boolean isTip(int n) {
         assert (n < node.length && n >= 0);
         return (node[n].Rchild == -1 && node[n].Lchild == -1);

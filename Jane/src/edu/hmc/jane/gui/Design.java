@@ -326,7 +326,6 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         compress_checkBox = new javax.swing.JCheckBox();
         compress_status_label = new javax.swing.JLabel();
@@ -638,27 +637,20 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
 
         jLabel1.setText("Lower Bound:");
 
-        jCheckBox1.setText("Find Theoretic Lower Bound");
-        jCheckBox1.setPreferredSize(new java.awt.Dimension(203, 16));
-
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jCheckBox1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(45, 45, 45)
                 .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 258, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jCheckBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel1))
+                .add(jLabel1)
                 .addContainerGap())
         );
 
@@ -720,7 +712,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                                 .add(solve_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(solve_panelLayout.createSequentialGroup()
                                         .add(jLabel2)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 407, Short.MAX_VALUE))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 493, Short.MAX_VALUE))
                                     .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap())))
         );
@@ -3385,7 +3377,6 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
     private javax.swing.JComboBox infestation_jComboBox_stats;
     private javax.swing.JLabel infestation_label_solve;
     private javax.swing.JLabel infestation_label_stats;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

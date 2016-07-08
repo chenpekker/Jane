@@ -5,6 +5,7 @@
  */
 package edu.hmc.jane.solving;
 
+import java.util.*;
 import edu.hmc.jane.Tree;
 import edu.hmc.jane.Phi;
 
@@ -15,31 +16,112 @@ import edu.hmc.jane.Phi;
 
 public class LowerBound {
     
-    public long Infinity = Long.MAX_VALUE;
-    public Tree HostTree;
-    public Tree ParaTree;
-    public Phi Phi;
-    public static int dval;
-    public static int lval;
-    public static int tval;
+    public static int inf = 88888888;
     
-    public int[] DPprep(Tree tree, Tree root, Tree node, Tree postOrder){ //pretty sure we wont need this entierly
-    /*  Takes a tree as input and returns
-        a list of the edges in that tree in preorder (high edges to low edges) */
-       
-        // base case
-      
-        return new int[0];
-    }
-    
-    public int[][] DP(Tree hostTree, Tree parasiteTree, Phi phi, int D, int T, int L){
+    public int DP(Tree hostTree, Tree parasiteTree, Phi phi, int D, int T, int L){
     /* Takes a hostTree, parasiteTree, tip mapping function phi, and
         duplication cost (D), transfer cost (T), and loss cost (L) and
         returns the DP table C. Cospeciation is assumed to cost 0. */
-  //  ArrayList<Integer> Vp = new ArrayList[hostTree.size];
-  //  Vp = hostTree.preOrder;
-    
-    return new int[0][0];
+        int hostSize = hostTree.size;
+        int parasiteSize = parasiteTree.size;
+        ArrayList<Integer> vhPre = new ArrayList<Integer>(hostSize);
+        vhPre = hostTree.preOrder;
+        int[] vhPost = new int[hostSize];
+        vhPost = hostTree.postOrder;
+        int[] vpPost = new int[parasiteSize];
+        vpPost = parasiteTree.postOrder;
+        
+        HashMap vhMapPost = new HashMap(hostSize + (hostSize / 4));
+        HashMap vpMapPost = new HashMap(parasiteSize + (parasiteSize / 4));
+        
+        for(int i = 0; i < hostSize; i++)
+        {
+            vhMapPost.put(vhPost[i], i);
+        }
+        for(int i = 0; i < parasiteSize; i++)
+        {
+            vpMapPost.put(vpPost[i], i);
+        }
+        
+        int[][] A = new int[parasiteSize][hostSize];
+        int[][] C = new int[parasiteSize][hostSize];
+        int[][] O = new int[parasiteSize][hostSize];
+        int[][] BestSwitch = new int[parasiteSize][hostSize];
+        int[][] Dictionary = new int[parasiteSize][hostSize];
+        int[][] Minimums = new int[parasiteSize][hostSize];
+        int[][] Obest = new int[parasiteSize][hostSize];
+        
+        for(int i = 0; i < parasiteSize; i++)
+        {
+            int vp = vpPost[i];
+            int vpLeft = parasiteTree.leftChild(vp);
+            int vpRight = parasiteTree.rightChild(vp);
+            for(int j = 0; j < hostSize; j++)
+            {
+                int vh = vhPost[j];
+                int vhLeft = hostTree.leftChild(vh);
+                int vhRight = hostTree.rightChild(vh);
+                if(hostTree.isTip(vh))
+                {
+                    if(parasiteTree.isTip(vp) && phi.containsAssociation(vh, vp))
+                        A[i][j] = 0;
+                    else
+                        A[i][j] = inf;
+                }
+                else
+                {
+                    int Co = inf;
+                    if(!parasiteTree.isTip(vp))
+                        Co = Math.min(C[(int)vpMapPost.get(vpLeft)][(int)vhMapPost.get(vhLeft)] +
+                                      C[(int)vpMapPost.get(vpRight)][(int)vhMapPost.get(vhRight)],
+                                      C[(int)vpMapPost.get(vpLeft)][(int)vhMapPost.get(vhRight)] +
+                                      C[(int)vpMapPost.get(vpRight)][(int)vhMapPost.get(vhLeft)]);
+                    int Loss = L + Math.min(C[i][(int)vhMapPost.get(vhLeft)], 
+                                            C[i][(int)vhMapPost.get(vhRight)]);
+                    A[i][j] = Math.min(Co, Loss);
+                }
+                int Dup = inf;
+                int Switch = inf;
+                if(!parasiteTree.isTip(vp))
+                {
+                    Dup = D + C[(int)vpMapPost.get(vpLeft)][j] + C[(int)vpMapPost.get(vpRight)][j];
+                    Switch = T + Math.min(C[(int)vpMapPost.get(vpLeft)][j] + BestSwitch[(int)vpMapPost.get(vpRight)][j],
+                                          C[(int)vpMapPost.get(vpRight)][j] + BestSwitch[(int)vpMapPost.get(vpLeft)][j]);
+                    C[i][j] = Math.min(A[i][j], Math.min(Dup, Switch));
+                }
+                if(hostTree.isTip(vh))
+                    O[i][j] = C[i][j];
+                else
+                    O[i][j] = Math.min(C[i][j], 
+                            Math.min(O[i][(int)vhMapPost.get(vhLeft)], O[i][(int)vhMapPost.get(vhRight)]));
+            }
+            BestSwitch[i][(int)vhMapPost.get(vhPre.get(0))] = inf;
+            for(int j = 0; j < hostSize; j++)
+            {
+                int vh = vhPre.get(j);
+                int vhLeft = hostTree.leftChild(vh);
+                int vhRight = hostTree.rightChild(vh);
+                if(vhLeft != -1 && vhRight != -1)
+                {
+                    BestSwitch[i][(int)vhMapPost.get(vhLeft)] = Math.min(BestSwitch[i][(int)vhMapPost.get(vh)],
+                                                                    O[i][(int)vhMapPost.get(vhRight)]);
+                    BestSwitch[i][(int)vhMapPost.get(vhRight)] = Math.min(BestSwitch[i][(int)vhMapPost.get(vh)],
+                                                                    O[i][(int)vhMapPost.get(vhLeft)]);
+                }
+            }
+        }
+        int total = 0;
+        for(int i = 0; i < parasiteSize; i++)
+        {
+            int min = inf;
+            for(int j = 0; j < hostSize; j++)
+            {
+                if(C[i][j] < min)
+                    min = C[i][j];
+            }
+            total += min;
+        }
+        return total;
     }
     
     //The DP in python has functions findBest and findPath, but they are not used anywhere in the DP, but they may be usefull to write the code
