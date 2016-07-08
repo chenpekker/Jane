@@ -58,7 +58,6 @@ public class EditCosts extends javax.swing.JDialog {
                                                          1, 1, 1, 1, 1, 1,
                                                          0, 0, 0, 0, 0, 0,
                                                          0};
-    public static final boolean DEFAULT_COST_MODEL_STATE = true;
 
     public int[] costs = new int[31];
     private boolean allow_editing;
@@ -148,7 +147,6 @@ public class EditCosts extends javax.swing.JDialog {
             spinnerfield[i+18].setValue(costs[i]);
         for(int i = 0; i < 18; ++i)
             spinnerfield[i].setValue(costs[i+12]);
-        use_vertex_based_cost_model_button.setSelected(DEFAULT_COST_MODEL_STATE);
         allow_editing = true;
         
         // Making parts related to infestation invisible.
@@ -183,8 +181,6 @@ public class EditCosts extends javax.swing.JDialog {
         cancel_button = new javax.swing.JButton();
         ok_button = new javax.swing.JButton();
         default_button = new javax.swing.JButton();
-        use_edge_based_cost_model_button = new javax.swing.JRadioButton();
-        use_vertex_based_cost_model_button = new javax.swing.JRadioButton();
         tabs = new javax.swing.JTabbedPane();
         SetCosts_jPanel = new javax.swing.JPanel();
         duplication_label_setcosts = new javax.swing.JLabel();
@@ -269,12 +265,6 @@ public class EditCosts extends javax.swing.JDialog {
             }
         });
 
-        buttonGroup1.add(use_edge_based_cost_model_button);
-        use_edge_based_cost_model_button.setText("Use Edge Based Cost Model");
-
-        buttonGroup1.add(use_vertex_based_cost_model_button);
-        use_vertex_based_cost_model_button.setText("Use Vertex Based Cost Model");
-
         tabs.setMinimumSize(new java.awt.Dimension(0, 0));
         tabs.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -294,18 +284,18 @@ public class EditCosts extends javax.swing.JDialog {
 
         cospeciation_label_setcosts.setText("Cospeciation");
 
-        cospeciation_jSpinner_SetCosts.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), null, null, Integer.valueOf(1)));
+        cospeciation_jSpinner_SetCosts.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
         cospeciation_jSpinner_SetCosts.setValue(0);
 
-        duplication_host_switch_jSpinner_SetCosts.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(2), null, null, Integer.valueOf(1)));
+        duplication_host_switch_jSpinner_SetCosts.setModel(new javax.swing.SpinnerNumberModel(2, null, null, 1));
 
-        duplication_jSpinner_SetCosts.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), null, null, Integer.valueOf(1)));
+        duplication_jSpinner_SetCosts.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
 
-        failure_to_diverge_jSpinner_SetCosts.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), null, null, Integer.valueOf(1)));
+        failure_to_diverge_jSpinner_SetCosts.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
 
-        loss_jSpinner_SetCosts.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), null, null, Integer.valueOf(1)));
+        loss_jSpinner_SetCosts.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
 
-        infestation_jSpinner_SetCosts.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), null, null, Integer.valueOf(1)));
+        infestation_jSpinner_SetCosts.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
 
         org.jdesktop.layout.GroupLayout SetCosts_jPanelLayout = new org.jdesktop.layout.GroupLayout(SetCosts_jPanel);
         SetCosts_jPanel.setLayout(SetCosts_jPanelLayout);
@@ -411,70 +401,70 @@ public class EditCosts extends javax.swing.JDialog {
             }
         });
 
-        duplication_number_of_steps_jSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        duplication_number_of_steps_jSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         duplication_number_of_steps_jSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 duplication_number_of_steps_jSpinnerStateChanged(evt);
             }
         });
 
-        cospeciation_number_of_steps_jSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        cospeciation_number_of_steps_jSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         cospeciation_number_of_steps_jSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 cospeciation_number_of_steps_jSpinnerStateChanged(evt);
             }
         });
 
-        duplication_host_switch_number_of_steps_jSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        duplication_host_switch_number_of_steps_jSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         duplication_host_switch_number_of_steps_jSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 duplication_host_switch_number_of_steps_jSpinnerStateChanged(evt);
             }
         });
 
-        loss_number_of_steps_jSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        loss_number_of_steps_jSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         loss_number_of_steps_jSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 loss_number_of_steps_jSpinnerStateChanged(evt);
             }
         });
 
-        failure_to_diverge_number_of_steps_jSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        failure_to_diverge_number_of_steps_jSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         failure_to_diverge_number_of_steps_jSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 failure_to_diverge_number_of_steps_jSpinnerStateChanged(evt);
             }
         });
 
-        cospeciation_step_jSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), null, null, Integer.valueOf(1)));
+        cospeciation_step_jSpinner.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
         cospeciation_step_jSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 cospeciation_step_jSpinnerStateChanged(evt);
             }
         });
 
-        duplication_step_jSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), null, null, Integer.valueOf(1)));
+        duplication_step_jSpinner.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
         duplication_step_jSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 duplication_step_jSpinnerStateChanged(evt);
             }
         });
 
-        loss_step_jSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), null, null, Integer.valueOf(1)));
+        loss_step_jSpinner.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
         loss_step_jSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 loss_step_jSpinnerStateChanged(evt);
             }
         });
 
-        duplication_host_switch_step_jSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), null, null, Integer.valueOf(1)));
+        duplication_host_switch_step_jSpinner.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
         duplication_host_switch_step_jSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 duplication_host_switch_step_jSpinnerStateChanged(evt);
             }
         });
 
-        failure_to_diverge_step_jSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), null, null, Integer.valueOf(1)));
+        failure_to_diverge_step_jSpinner.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
         failure_to_diverge_step_jSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 failure_to_diverge_step_jSpinnerStateChanged(evt);
@@ -491,7 +481,7 @@ public class EditCosts extends javax.swing.JDialog {
             }
         });
 
-        infestation_step_jSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), null, null, Integer.valueOf(1)));
+        infestation_step_jSpinner.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
         infestation_step_jSpinner.setMinimumSize(new java.awt.Dimension(0, 0));
         infestation_step_jSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -730,9 +720,11 @@ public class EditCosts extends javax.swing.JDialog {
         region_costs_table.setRowSelectionAllowed(false);
         region_costs_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(region_costs_table);
-        region_costs_table.getColumnModel().getColumn(0).setResizable(false);
-        region_costs_table.getColumnModel().getColumn(1).setResizable(false);
-        region_costs_table.getColumnModel().getColumn(2).setResizable(false);
+        if (region_costs_table.getColumnModel().getColumnCount() > 0) {
+            region_costs_table.getColumnModel().getColumn(0).setResizable(false);
+            region_costs_table.getColumnModel().getColumn(1).setResizable(false);
+            region_costs_table.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         org.jdesktop.layout.GroupLayout region_costs_jPanelLayout = new org.jdesktop.layout.GroupLayout(region_costs_jPanel);
         region_costs_jPanel.setLayout(region_costs_jPanelLayout);
@@ -758,7 +750,7 @@ public class EditCosts extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(tabs, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(tabs, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -771,13 +763,7 @@ public class EditCosts extends javax.swing.JDialog {
                         .addContainerGap())
                     .add(layout.createSequentialGroup()
                         .add(region_costs_jPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(0, 199, Short.MAX_VALUE)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(use_edge_based_cost_model_button)
-                            .add(use_vertex_based_cost_model_button))
-                        .add(164, 164, 164))))
+                        .addContainerGap())))
         );
 
         layout.linkSize(new java.awt.Component[] {cancel_button, default_button}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -789,11 +775,7 @@ public class EditCosts extends javax.swing.JDialog {
                 .add(tabs, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(region_costs_jPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(use_vertex_based_cost_model_button)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(use_edge_based_cost_model_button)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(cancel_button, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(ok_button, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -867,7 +849,6 @@ public class EditCosts extends javax.swing.JDialog {
         for(int i = 0; i < 18; ++i)
             spinnerfield[i].setValue(costs[i+12]);
 
-        use_vertex_based_cost_model_button.setSelected(tuple.isTarzan());
         tabs.setSelectedIndex(0);
         this.setVisible(false);
     }//GEN-LAST:event_cancel_buttonActionPerformed
@@ -878,7 +859,6 @@ public class EditCosts extends javax.swing.JDialog {
                 spinnerfield[i+18].setValue(DEFAULT_COSTS[i]);
             for(int i = 0; i < 18; ++i)
                 spinnerfield[i].setValue(DEFAULT_COSTS[i+12]);
-            use_vertex_based_cost_model_button.setSelected(DEFAULT_COST_MODEL_STATE);
         }
     }//GEN-LAST:event_default_buttonActionPerformed
 
@@ -1034,8 +1014,6 @@ public class EditCosts extends javax.swing.JDialog {
             spinnerfield[11].setEnabled(false);
             spinnerfield[17].setEnabled(false);
         }
-        use_vertex_based_cost_model_button.setEnabled(val);
-        use_edge_based_cost_model_button.setEnabled(val);
         default_button.setEnabled(val);
         cancel_button.setEnabled(val);
         tabs.setEnabled(val);
@@ -1128,7 +1106,5 @@ public class EditCosts extends javax.swing.JDialog {
     private javax.swing.JLabel step_label;
     private javax.swing.JTabbedPane tabs;
     private javax.swing.JLabel to_label;
-    private javax.swing.JRadioButton use_edge_based_cost_model_button;
-    private javax.swing.JRadioButton use_vertex_based_cost_model_button;
     // End of variables declaration//GEN-END:variables
 }
