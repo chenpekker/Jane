@@ -23,11 +23,6 @@ public class LowerBound {
     public static int lval;
     public static int tval;
     
-    /*
-    Definitly dont know what type root edge name is so we should check on that
-    */
-    
-    
     public int[] DPprep(Tree tree, Tree root, Tree node, Tree postOrder){ //pretty sure we wont need this entierly
     /*  Takes a tree as input and returns
         a list of the edges in that tree in preorder (high edges to low edges) */
@@ -36,8 +31,6 @@ public class LowerBound {
       
         return new int[0];
     }
-    
-    
     
     public int[][] DP(Tree hostTree, Tree parasiteTree, Phi phi, int D, int T, int L){
     /* Takes a hostTree, parasiteTree, tip mapping function phi, and
