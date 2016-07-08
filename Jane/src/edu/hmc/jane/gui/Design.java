@@ -590,6 +590,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                 .addContainerGap()
                 .add(cospeciation_label_solve)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+<<<<<<< Updated upstream
                 .add(cospeciation_jComboBox_solve, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(duplication_label_solve)
@@ -611,6 +612,29 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                 .add(infestation_label_solve)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(infestation_jComboBox_solve, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+=======
+                .add(cospeciation_jComboBox_solve, 0, 88, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(duplication_label_solve)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(duplication_jComboBox_solve, 0, 88, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(duplication_host_switch_label_solve)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(duplication_host_switch_jComboBox_solve, 0, 88, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(loss_label_solve)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(loss_jComboBox_solve, 0, 88, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(failure_to_diverge_label_solve)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(failure_to_diverge_jComboBox_solve, 0, 88, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(infestation_label_solve)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(infestation_jComboBox_solve, 0, 88, Short.MAX_VALUE)
+>>>>>>> Stashed changes
                 .addContainerGap())
         );
         browse_cost_values_panel_solveLayout.setVerticalGroup(
@@ -651,8 +675,12 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
 =======
                 .addContainerGap()
                 .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 258, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+<<<<<<< Updated upstream
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 >>>>>>> origin/master
+=======
+                .addContainerGap(257, Short.MAX_VALUE))
+>>>>>>> Stashed changes
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -714,14 +742,14 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                             .add(browse_cost_values_panel_solve, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(solve_panelLayout.createSequentialGroup()
                                 .add(solve_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(solutions_label))
+                                    .add(solve_panelLayout.createSequentialGroup()
+                                        .add(solutions_label)
+                                        .add(0, 494, Short.MAX_VALUE))
+                                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(solve_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(solve_panelLayout.createSequentialGroup()
-                                        .add(jLabel2)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 493, Short.MAX_VALUE))
-                                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .add(jLabel2)
+                                    .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap())))
         );
         solve_panelLayout.setVerticalGroup(
