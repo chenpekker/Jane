@@ -499,29 +499,6 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="cospeciation_label_solve" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-<<<<<<< Updated upstream
-                          <Component id="cospeciation_jComboBox_solve" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="duplication_label_solve" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="duplication_jComboBox_solve" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="duplication_host_switch_label_solve" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="duplication_host_switch_jComboBox_solve" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="loss_label_solve" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="loss_jComboBox_solve" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="failure_to_diverge_label_solve" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="failure_to_diverge_jComboBox_solve" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="infestation_label_solve" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="infestation_jComboBox_solve" max="32767" attributes="0"/>
-=======
                           <Component id="cospeciation_jComboBox_solve" pref="88" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="duplication_label_solve" min="-2" max="-2" attributes="0"/>
@@ -543,7 +520,6 @@
                           <Component id="infestation_label_solve" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="infestation_jComboBox_solve" pref="88" max="32767" attributes="0"/>
->>>>>>> Stashed changes
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -707,7 +683,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Theoretic Lower bound"/>
+                <Property name="text" type="java.lang.String" value="Theoretical Lower bound"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel1">
@@ -723,21 +699,9 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-<<<<<<< HEAD
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                          <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jLabel1" min="-2" pref="282" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-=======
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" pref="258" max="-2" attributes="0"/>
-<<<<<<< Updated upstream
-                          <EmptySpace max="32767" attributes="0"/>
->>>>>>> origin/master
-=======
                           <EmptySpace pref="257" max="32767" attributes="0"/>
->>>>>>> Stashed changes
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -774,7 +738,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="compress_checkBox" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="105" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="compress_status_label" min="-2" pref="186" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
