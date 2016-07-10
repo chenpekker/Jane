@@ -6,6 +6,7 @@ import com.apple.eawt.Application;
 import edu.hmc.jane.*;
 import edu.hmc.jane.io.*;
 import edu.hmc.jane.solving.*;
+import edu.hmc.jane.solving.LowerBound.*;
 import edu.hmc.jane.util.DaemonThreadFactory;
 import java.awt.Component;
 import java.awt.Image;
@@ -2140,11 +2141,12 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
     }//GEN-LAST:event_launch_tree_builder_menu_itemActionPerformed
 
     private void compress_checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compress_checkBoxActionPerformed
+        
         if (!currentSolutions.isEmpty() && !solutionModel.eventSolvers.isEmpty()) {    
             solutionModel.expanded = -1;
             if (compress_checkBox.isSelected()) {
                 solutionModel.compress = true;
-                solution_table.getColumnModel().getColumn(0).setHeaderValue("# of Solutions (ID)");
+                solution_table.getColumnModel().getColumn(0).setHeaderValue("# of Solutions (ID)"); 
             } else {
                 solutionModel.compress = false;
                 solution_table.getColumnModel().getColumn(0).setHeaderValue("ID");
@@ -2678,8 +2680,10 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
     }
     
     private static ExecutorService exec = Executors.newFixedThreadPool(Jane.getNumThreads(), DaemonThreadFactory.get());
-
+    
+    int lowerBoundCost = 0;
     void runSolve() {
+        
         if (!running) {
             setRunStatus(true);
             computed = false;
@@ -2784,7 +2788,8 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                             
                             // Calculate Heruistic using CostModel and ProblemInstance
                             genetic[0][0][0][0][0][0] = new Heuristic(prob.hostTree, prob.parasiteTree, prob.hostRegions, prob.phi, prob.timeZones, c[0][0][0][0][0][0]);
-                            
+                            lowerBoundCost = LowerBound.DP(prob.hostTree, prob.parasiteTree, prob.phi, getCosts(1), getCosts(2), getCosts(3));
+                            jLabel1.setText("Lower Bound: " + lowerBoundCost);
                             // Caculate Generation using genetic.runEvolution
                             if (!distance.getHostSwitchAllow() && !distance.getInfestationAllow()) {
                                 if (!prob.hostTree.hasPolytomy && !prob.parasiteTree.hasPolytomy) {
@@ -2837,6 +2842,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                                             for (int ee = 0; ee < failure_to_diverge_jComboBox_solve.getItemCount(); ee++) {
                                                 for (int ff = 0; ff < infestation_jComboBox_solve.getItemCount(); ff++) {
                                                     genetic[aa][bb][cc][dd][ee][ff] = new Heuristic(prob.hostTree, prob.parasiteTree, prob.hostRegions, prob.phi, prob.timeZones, c[aa][bb][cc][dd][ee][ff]);
+                                                    
                                                 }
                                             }
                                         }

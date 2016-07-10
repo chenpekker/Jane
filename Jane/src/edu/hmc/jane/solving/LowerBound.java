@@ -18,7 +18,7 @@ public class LowerBound {
     
     public static int inf = 88888888;
     
-    public int DP(Tree hostTree, Tree parasiteTree, Phi phi, int D, int T, int L){
+    public static int DP(Tree hostTree, Tree parasiteTree, Phi phi, int D, int T, int L){
     /* Takes a hostTree, parasiteTree, tip mapping function phi, and
         duplication cost (D), transfer cost (T), and loss cost (L) and
         returns the DP table C. Cospeciation is assumed to cost 0. */
@@ -34,13 +34,13 @@ public class LowerBound {
         HashMap vhMapPost = new HashMap(hostSize + (hostSize / 4));
         HashMap vpMapPost = new HashMap(parasiteSize + (parasiteSize / 4));
         
-        for(int i = 0; i < hostSize; i++)
+        for(int i = 0; i < hostSize; i++)  
         {
-            vhMapPost.put(vhPost[i], i);
+            vhMapPost.put(vhPost[i], i); //stores the hosttree post order values with their indices
         }
         for(int i = 0; i < parasiteSize; i++)
         {
-            vpMapPost.put(vpPost[i], i);
+            vpMapPost.put(vpPost[i], i); //stores the parasitetree post order values with their indices
         }
         
         int[][] A = new int[parasiteSize][hostSize];
@@ -61,17 +61,18 @@ public class LowerBound {
                 int vh = vhPost[j];
                 int vhLeft = hostTree.leftChild(vh);
                 int vhRight = hostTree.rightChild(vh);
-                if(hostTree.isTip(vh))
+                if(hostTree.isTip(vh)) //if vh is a tip
                 {
                     if(parasiteTree.isTip(vp) && phi.containsAssociation(vh, vp))
                         A[i][j] = 0;
-                    else
+                    else 
                         A[i][j] = inf;
                 }
-                else
+                else //if  vh is not a tip
                 {
                     int Co = inf;
-                    if(!parasiteTree.isTip(vp))
+                    if(!parasiteTree.isTip(vp)) // if vp is also not a tip
+                        // compute Co
                         Co = Math.min(C[(int)vpMapPost.get(vpLeft)][(int)vhMapPost.get(vhLeft)] +
                                       C[(int)vpMapPost.get(vpRight)][(int)vhMapPost.get(vhRight)],
                                       C[(int)vpMapPost.get(vpLeft)][(int)vhMapPost.get(vhRight)] +
