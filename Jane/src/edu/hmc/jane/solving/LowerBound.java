@@ -77,25 +77,31 @@ public class LowerBound {
                                       C[(int)vpMapPost.get(vpRight)][(int)vhMapPost.get(vhRight)],
                                       C[(int)vpMapPost.get(vpLeft)][(int)vhMapPost.get(vhRight)] +
                                       C[(int)vpMapPost.get(vpRight)][(int)vhMapPost.get(vhLeft)]);
+                    // compute Loss
                     int Loss = L + Math.min(C[i][(int)vhMapPost.get(vhLeft)], 
                                             C[i][(int)vhMapPost.get(vhRight)]);
                     A[i][j] = Math.min(Co, Loss);
                 }
                 int Dup = inf;
                 int Switch = inf;
-                if(!parasiteTree.isTip(vp))
+                if(!parasiteTree.isTip(vp)) //if vp is not a tip
                 {
+                    // compute Dup
                     Dup = D + C[(int)vpMapPost.get(vpLeft)][j] + C[(int)vpMapPost.get(vpRight)][j];
+                    //compute Switch (transfer)
                     Switch = T + Math.min(C[(int)vpMapPost.get(vpLeft)][j] + BestSwitch[(int)vpMapPost.get(vpRight)][j],
                                           C[(int)vpMapPost.get(vpRight)][j] + BestSwitch[(int)vpMapPost.get(vpLeft)][j]);
                     C[i][j] = Math.min(A[i][j], Math.min(Dup, Switch));
                 }
-                if(hostTree.isTip(vh))
+                if(hostTree.isTip(vh)) //if vh is a tip
+                    
                     O[i][j] = C[i][j];
                 else
+                    // compute O
                     O[i][j] = Math.min(C[i][j], 
                             Math.min(O[i][(int)vhMapPost.get(vhLeft)], O[i][(int)vhMapPost.get(vhRight)]));
             }
+            // compute BestSwitch values
             BestSwitch[i][(int)vhMapPost.get(vhPre.get(0))] = inf;
             for(int j = 0; j < hostSize; j++)
             {
