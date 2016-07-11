@@ -7,6 +7,7 @@ package edu.hmc.jane.solving;
 import java.util.*;
 import edu.hmc.jane.Tree;
 import edu.hmc.jane.Phi;
+import edu.hmc.jane.CostTuple;
 
 /**
  *
@@ -17,10 +18,14 @@ public class LowerBound {
     
     public static int inf = 88888888;
     
-    public static int DP(Tree hostTree, Tree parasiteTree, Phi phi, int D, int T, int L){
+    public static int DP(Tree hostTree, Tree parasiteTree, Phi phi, CostTuple costs){
     /* Takes a hostTree, parasiteTree, tip mapping function phi, and
-        duplication cost (D), transfer cost (T), and loss cost (L) and
-        returns the DP table C. Cospeciation is assumed to cost 0. */
+        a cost tuple and returns the DP table C. */
+        int costCo = costs.getCospeciationCost();
+        int costDup = costs.getDuplicationCost();
+        int costLoss = costs.getLossCost();
+        int costSwitch = costs.getHostSwitchCost();
+        
         int hostSize = hostTree.size;
         int parasiteSize = parasiteTree.size;
         ArrayList<Integer> vhPre = new ArrayList<Integer>(hostSize);
@@ -69,12 +74,13 @@ public class LowerBound {
                     int Co = inf;
                     if(!parasiteTree.isTip(vp)) // if vp is also not a tip
                         // compute Co
-                        Co = Math.min(C[(int)vpMapPost.get(vpLeft)][(int)vhMapPost.get(vhLeft)] +
+                        Co = costCo +
+                             Math.min(C[(int)vpMapPost.get(vpLeft)][(int)vhMapPost.get(vhLeft)] +
                                       C[(int)vpMapPost.get(vpRight)][(int)vhMapPost.get(vhRight)],
                                       C[(int)vpMapPost.get(vpLeft)][(int)vhMapPost.get(vhRight)] +
                                       C[(int)vpMapPost.get(vpRight)][(int)vhMapPost.get(vhLeft)]);
                     // compute Loss
-                    int Loss = L + Math.min(C[i][(int)vhMapPost.get(vhLeft)], 
+                    int Loss = costLoss + Math.min(C[i][(int)vhMapPost.get(vhLeft)], 
                                             C[i][(int)vhMapPost.get(vhRight)]);
                     A[i][j] = Math.min(Co, Loss);
                 }
@@ -83,9 +89,9 @@ public class LowerBound {
                 if(!parasiteTree.isTip(vp)) //if vp is not a tip
                 {
                     // compute Dup
-                    Dup = D + C[(int)vpMapPost.get(vpLeft)][j] + C[(int)vpMapPost.get(vpRight)][j];
+                    Dup = costDup + C[(int)vpMapPost.get(vpLeft)][j] + C[(int)vpMapPost.get(vpRight)][j];
                     //compute Switch (transfer)
-                    Switch = T + Math.min(C[(int)vpMapPost.get(vpLeft)][j] + BestSwitch[(int)vpMapPost.get(vpRight)][j],
+                    Switch = costSwitch + Math.min(C[(int)vpMapPost.get(vpLeft)][j] + BestSwitch[(int)vpMapPost.get(vpRight)][j],
                                           C[(int)vpMapPost.get(vpRight)][j] + BestSwitch[(int)vpMapPost.get(vpLeft)][j]);
                 }
                 C[i][j] = Math.min(A[i][j], Math.min(Dup, Switch));
@@ -121,5 +127,4 @@ public class LowerBound {
         return minSolution;
     }
     
-    //The DP in python has functions findBest and findPath, but they are not used anywhere in the DP, but they may be usefull to write the code
-            }
+}
