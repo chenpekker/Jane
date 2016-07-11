@@ -324,9 +324,9 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
         loss_label_solve = new javax.swing.JLabel();
         failure_to_diverge_label_solve = new javax.swing.JLabel();
         infestation_label_solve = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lowerBound_titleLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lowerBound_label = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         compress_checkBox = new javax.swing.JCheckBox();
         compress_status_label = new javax.swing.JLabel();
@@ -631,12 +631,12 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                 .add(infestation_label_solve))
         );
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Theoretical Lower bound");
+        lowerBound_titleLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lowerBound_titleLabel.setText("Theoretical Lower bound");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setText("Lower Bound:");
+        lowerBound_label.setText("Lower Bound:");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -644,14 +644,14 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 258, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(257, Short.MAX_VALUE))
+                .add(lowerBound_label, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 493, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel1)
+                .add(lowerBound_label)
                 .addContainerGap())
         );
 
@@ -713,7 +713,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                                     .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(solve_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel2)
+                                    .add(lowerBound_titleLabel)
                                     .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap())))
         );
@@ -727,7 +727,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                 .add(9, 9, 9)
                 .add(solve_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(solutions_label)
-                    .add(jLabel2))
+                    .add(lowerBound_titleLabel))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(solve_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2788,8 +2788,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                             
                             // Calculate Heruistic using CostModel and ProblemInstance
                             genetic[0][0][0][0][0][0] = new Heuristic(prob.hostTree, prob.parasiteTree, prob.hostRegions, prob.phi, prob.timeZones, c[0][0][0][0][0][0]);
-                            lowerBoundCost = LowerBound.DP(prob.hostTree, prob.parasiteTree, prob.phi, getCosts(1), getCosts(2), getCosts(3));
-                            jLabel1.setText("Lower Bound: " + lowerBoundCost);
+                            
                             // Caculate Generation using genetic.runEvolution
                             if (!distance.getHostSwitchAllow() && !distance.getInfestationAllow()) {
                                 if (!prob.hostTree.hasPolytomy && !prob.parasiteTree.hasPolytomy) {
@@ -2891,6 +2890,16 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                             for (EventSolver sln : solvers) {
                                 addSolutionIfUnique(sln);
                             }
+                        }
+                        
+                        if(!prob.hostTree.hasPolytomy || !prob.parasiteTree.hasPolytomy)
+                        {
+                            lowerBoundCost = LowerBound.DP(prob.hostTree, prob.parasiteTree, prob.phi, getCosts(1), getCosts(2), getCosts(3));
+                            lowerBound_label.setText("Lower Bound: " + lowerBoundCost);
+                        }
+                        else
+                        {
+                            lowerBound_label.setText("Lower Bound: Cannot be found for trees with polytomies");
                         }
                         
                         // Update solution_table and compute solutions if user wants
@@ -3115,6 +3124,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
         computed = false;
         supportPop.clearPop();
         solutionModel.compressedSupport = null;
+        lowerBound_label.setText("Lower Bound:");
         
     }
 
@@ -3389,8 +3399,6 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
     private javax.swing.JLabel infestation_label_solve;
     private javax.swing.JLabel infestation_label_stats;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -3400,6 +3408,8 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
     private javax.swing.JComboBox loss_jComboBox_stats;
     private javax.swing.JLabel loss_label_solve;
     private javax.swing.JLabel loss_label_stats;
+    private javax.swing.JLabel lowerBound_label;
+    private javax.swing.JLabel lowerBound_titleLabel;
     private javax.swing.JMenuBar menu_bar;
     private javax.swing.JLabel number_of_generations_label_solve;
     private javax.swing.JLabel number_of_generations_label_stats;
