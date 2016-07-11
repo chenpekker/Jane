@@ -46,9 +46,6 @@ public class LowerBound {
         int[][] C = new int[parasiteSize][hostSize];
         int[][] O = new int[parasiteSize][hostSize];
         int[][] BestSwitch = new int[parasiteSize][hostSize];
-        int[][] Dictionary = new int[parasiteSize][hostSize];
-        int[][] Minimums = new int[parasiteSize][hostSize];
-        int[][] Obest = new int[parasiteSize][hostSize];
         
         for(int i = 0; i < parasiteSize; i++)
         {
