@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This is a new file that contains a Java implimentation of the DP (Tarzan) program
+ * and shows the lower bound in the GUI 
  */
 package edu.hmc.jane.solving;
 
@@ -26,13 +25,10 @@ public class LowerBound {
         int parasiteSize = parasiteTree.size;
         ArrayList<Integer> vhPre = new ArrayList<Integer>(hostSize);
         vhPre = hostTree.preOrder;
-        System.out.println(vhPre);
         int[] vhPost = new int[hostSize];
         vhPost = hostTree.postOrder;
-        System.out.println(Arrays.toString(vhPost));
         int[] vpPost = new int[parasiteSize];
         vpPost = parasiteTree.postOrder;
-        System.out.println(Arrays.toString(vpPost));
         
         HashMap vhMapPost = new HashMap(hostSize + (hostSize / 4));
         HashMap vpMapPost = new HashMap(parasiteSize + (parasiteSize / 4));
