@@ -91,8 +91,8 @@ public class LowerBound {
                     //compute Switch (transfer)
                     Switch = T + Math.min(C[(int)vpMapPost.get(vpLeft)][j] + BestSwitch[(int)vpMapPost.get(vpRight)][j],
                                           C[(int)vpMapPost.get(vpRight)][j] + BestSwitch[(int)vpMapPost.get(vpLeft)][j]);
-                    C[i][j] = Math.min(A[i][j], Math.min(Dup, Switch));
                 }
+                C[i][j] = Math.min(A[i][j], Math.min(Dup, Switch));
                 if(hostTree.isTip(vh)) //if vh is a tip
                     
                     O[i][j] = C[i][j];
