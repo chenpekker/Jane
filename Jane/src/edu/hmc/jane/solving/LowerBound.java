@@ -117,18 +117,12 @@ public class LowerBound {
                 }
             }
         }
-        int total = 0;
-        for(int i = 0; i < parasiteSize; i++)
-        {
-            int min = inf;
-            for(int j = 0; j < hostSize; j++)
-            {
-                if(C[i][j] < min)
-                    min = C[i][j];
-            }
-            total += min;
-        }
-        return total;
+        int minSolution = inf;
+        int rootIndex = (int)vpMapPost.get(parasiteTree.root);
+        for(int i = 0; i < hostSize; i++)
+            if(C[rootIndex][i] < minSolution)
+                minSolution = C[rootIndex][i];
+        return minSolution;
     }
     
     //The DP in python has functions findBest and findPath, but they are not used anywhere in the DP, but they may be usefull to write the code
