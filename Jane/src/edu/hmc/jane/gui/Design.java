@@ -714,7 +714,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(solve_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jLabel2)
-                                    .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap())))
         );
         solve_panelLayout.setVerticalGroup(
