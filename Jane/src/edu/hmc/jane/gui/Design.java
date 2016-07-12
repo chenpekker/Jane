@@ -2894,8 +2894,13 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                         
                         if(!prob.hostTree.hasPolytomy || !prob.parasiteTree.hasPolytomy)
                         {
+<<<<<<< HEAD
                             lowerBoundCost = LowerBound.DP(prob.hostTree, prob.parasiteTree, prob.phi, getCosts(1), getCosts(2), getCosts(3));
                             lowerBound_label.setText(Integer.toBinaryString(lowerBoundCost));
+=======
+                            lowerBoundCost = LowerBound.DP(prob.hostTree, prob.parasiteTree, prob.phi, getCosts());
+                            lowerBound_label.setText("Lower Bound: " + lowerBoundCost);
+>>>>>>> origin/master
                         }
                         else
                         {
