@@ -2900,7 +2900,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                         }
                         else
                         {
-                            lowerBound_label.setText("Lower Bound: Cannot be found for trees with polytomies");
+                            lowerBound_label.setText("N/A for trees with polytomies");
                         }
                         
                         // Update solution_table and compute solutions if user wants
@@ -3125,7 +3125,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
         computed = false;
         supportPop.clearPop();
         solutionModel.compressedSupport = null;
-        lowerBound_label.setText("Lower Bound:");
+        lowerBound_label.setText("N/A");
         
     }
 
