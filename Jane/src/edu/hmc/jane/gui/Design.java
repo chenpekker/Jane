@@ -636,7 +636,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lowerBound_label.setText("Lower Bound:");
+        lowerBound_label.setText("N/A");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -644,14 +644,14 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(lowerBound_label, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 493, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(lowerBound_label, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 326, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(lowerBound_label)
+                .add(lowerBound_label, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -676,7 +676,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                 .add(compress_checkBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(compress_status_label, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .add(65, 65, 65))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -705,16 +705,16 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                             .add(genetic_solve_panel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(jScrollPane1)
                             .add(browse_cost_values_panel_solve, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(solve_panelLayout.createSequentialGroup()
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, solve_panelLayout.createSequentialGroup()
                                 .add(solve_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(solve_panelLayout.createSequentialGroup()
                                         .add(solutions_label)
-                                        .add(0, 494, Short.MAX_VALUE))
+                                        .add(0, 789, Short.MAX_VALUE))
                                     .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(solve_panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(lowerBound_titleLabel)
-                                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 230, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap())))
         );
         solve_panelLayout.setVerticalGroup(
@@ -2895,7 +2895,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                         if(!prob.hostTree.hasPolytomy || !prob.parasiteTree.hasPolytomy)
                         {
                             lowerBoundCost = LowerBound.DP(prob.hostTree, prob.parasiteTree, prob.phi, getCosts(1), getCosts(2), getCosts(3));
-                            lowerBound_label.setText("Lower Bound: " + lowerBoundCost);
+                            lowerBound_label.setText(Integer.toBinaryString(lowerBoundCost));
                         }
                         else
                         {
