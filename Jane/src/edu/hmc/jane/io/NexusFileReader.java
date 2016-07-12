@@ -100,7 +100,9 @@ public class NexusFileReader extends TreeFileReader {
             if (!s.toLowerCase().contains("host;") && s.toLowerCase().startsWith("begin host")) {
                 throw new java.io.IOException("Missing a semicolon directly after 'begin host'");
             }
+         
         }
+        
         while (s != null && !s.toLowerCase().startsWith("begin distribution")) {
             // checking for properly formatted begin parasite line
             if (s.toLowerCase().startsWith("begin parasite") && !s.toLowerCase().contains("parasite;")) {
@@ -160,7 +162,7 @@ public class NexusFileReader extends TreeFileReader {
             if (str.toLowerCase().endsWith("endblock") || str.toLowerCase().endsWith("end")) {  
                 throw new FileFormatException("Missing a semicolon directly after the contents line");
         }   
-            //Test if a Tree is malformed-- if it doesnt have equal numbers of open and closed parentheses
+            //Test if a Tree doesn't have an equal numbers of open and closed parentheses
             int openParenCount = str.length() - str.replace("(", "").length();
             int closeParenCount = str.length() - str.replace(")", "").length();
             //if these are not equal, throw the exception
@@ -173,6 +175,8 @@ public class NexusFileReader extends TreeFileReader {
             //a parasite, since these are the only blocks with trees.
 
             if ("host".equals(b.title) || "parasite".equals(b.title)){
+                
+                
                 //removes everything from after the last parenthesis
                 int last = str.lastIndexOf(')');
                 str = str.substring(0, last+1);
@@ -237,13 +241,29 @@ public class NexusFileReader extends TreeFileReader {
             host = new HashMap<Integer, Vector<Integer>>();
             hostNames = new HashMap<Integer, String>();
             hostOrigIDToName = new HashMap<Integer, Integer>();
+            
+            if (s != null && (s.toLowerCase().startsWith("tree host") || s.toLowerCase().startsWith("tree parasite"))) {
+                for (int i=0; i < s.length(); i++) {
+                    if (s.charAt(i) == '(') {
+                        int j = 0;
+                        String sSubStr = s.substring(i);
+                        if (!sSubStr.contains(")")) {
+                            throw new FileFormatException("Malformed tree, missing a ')' in the host tree.");
+                        }
+                        j = sSubStr.indexOf(')');
+                        if (!sSubStr.substring(1, j).contains(",") && !sSubStr.substring(1, j).contains("(")) {
+                            throw new FileFormatException("Malformed tree, there exists a node with only one child in the host tree.");
+                        }
+                    }
+                }
+            }
+            
             TreeParser t = new TreeParser(s.substring(s.indexOf('(')).trim(), host, hostNames, hostRanks, hostOrigIDToName);
             t.parseTree();
             hasHostPolytomy = t.hasPolytomy;
             hNames = new String[hostNames.size()];
             for (int i = 0; i < hostNames.size(); i++) {
-                hNames[i] = hostNames.get(i).intern();
-                
+                hNames[i] = hostNames.get(i).intern();  
             }
         } else if ("parasite".equals(b.title)) {
             if (b.contents.size() > 1) {
@@ -255,10 +275,27 @@ public class NexusFileReader extends TreeFileReader {
         
             String s = b.contents.get(0);
             
+            if (s != null && (s.toLowerCase().startsWith("tree host") || s.toLowerCase().startsWith("tree parasite"))) {
+                for (int i=0; i < s.length(); i++) {
+                    if (s.charAt(i) == '(') {
+                        int j = 0;
+                        String sSubStr = s.substring(i);
+                        if (!sSubStr.contains(")")) {
+                            throw new FileFormatException("Malformed tree, missing a ')' in the parasite tree.");
+                        }
+                        j = sSubStr.indexOf(')');
+                        if (!sSubStr.substring(1, j).contains(",") && !sSubStr.substring(1, j).contains("(")) {
+                            throw new FileFormatException("Malformed tree, there exists a node with only one child in the parasite tree.");
+                        }
+                    }
+                }
+            }
+            
             freeIndex = 0;
             parasite = new HashMap<Integer, Vector<Integer>>();
             parasiteNames = new HashMap<Integer, String>();
             parasiteOrigIDToName = new HashMap<Integer, Integer>();
+            
             TreeParser t = new TreeParser(s.substring(s.indexOf('(')).trim(), parasite, parasiteNames, parasiteRanks, parasiteOrigIDToName);
             t.parseTree();
             hasParaPolytomy = t.hasPolytomy;
