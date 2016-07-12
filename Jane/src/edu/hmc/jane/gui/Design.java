@@ -8,6 +8,7 @@ import edu.hmc.jane.io.*;
 import edu.hmc.jane.solving.*;
 import edu.hmc.jane.solving.LowerBound.*;
 import edu.hmc.jane.util.DaemonThreadFactory;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -2896,6 +2897,11 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                         {
                             lowerBoundCost = LowerBound.DP(prob.hostTree, prob.parasiteTree, prob.phi, getCosts());
                             lowerBound_label.setText("Lower Bound: " + lowerBoundCost);
+                            if(currentSolutions != null && currentSolutions.size() > 0)
+                            {
+                                if(currentSolutions.get(0).cost == lowerBoundCost)
+                                    lowerBound_label.setForeground(new Color(0,102,0));
+                            }
                         }
                         else
                         {
@@ -3125,6 +3131,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
         supportPop.clearPop();
         solutionModel.compressedSupport = null;
         lowerBound_label.setText("Lower Bound:");
+        lowerBound_label.setForeground(Color.BLACK);
         
     }
 
