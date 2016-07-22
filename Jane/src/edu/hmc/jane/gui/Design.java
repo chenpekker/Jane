@@ -2895,7 +2895,7 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                             }
                         }
                         
-                        if(!prob.hostTree.hasPolytomy && !prob.parasiteTree.hasPolytomy)
+                        if((!prob.hostTree.hasPolytomy && !prob.parasiteTree.hasPolytomy) && (getCosts(30) == 0))
                         {
                             lowerBoundCost = LowerBound.DP(prob.hostTree, prob.parasiteTree, prob.phi, getCosts());
                             lowerBound_label.setText(Integer.toString(lowerBoundCost));
@@ -2904,6 +2904,9 @@ public class Design extends javax.swing.JFrame implements Thread.UncaughtExcepti
                                 if(currentSolutions.get(0).cost == lowerBoundCost)
                                     lowerBound_panel.setBackground(new Color(145,219,149));
                             }
+                        }
+                        else if(getCosts(30) != 0){
+                            lowerBound_label.setText("N/A for Range Costs");
                         }
                         else
                         {
